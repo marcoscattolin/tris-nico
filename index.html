@@ -1045,7 +1045,16 @@ const Tris = (() => {
     }
   }
 
-  return { init: () => init(true), refreshText };
+  function resetScores() {
+    score.you = 0;
+    score.ai = 0;
+    score.draws = 0;
+    document.getElementById('score-you').textContent = 0;
+    document.getElementById('score-ai').textContent = 0;
+    document.getElementById('score-draws').textContent = 0;
+  }
+
+  return { init: () => init(true), refreshText, resetScores };
 })();
 
 // =========================================================================
@@ -1194,6 +1203,13 @@ const Impiccato = (() => {
     }
   }
 
+  function resetStats() {
+    stats.wins = 0;
+    stats.losses = 0;
+    winsEl.textContent = 0;
+    lossesEl.textContent = 0;
+  }
+
   document.addEventListener('keydown', (e) => {
     if (document.getElementById('game-impiccato').classList.contains('hidden')) return;
     const ch = e.key.toUpperCase();
@@ -1203,7 +1219,7 @@ const Impiccato = (() => {
 
   btnNew.addEventListener('click', () => init());
 
-  return { init, refreshText };
+  return { init, refreshText, resetStats };
 })();
 
 // =========================================================================
@@ -1246,7 +1262,9 @@ const langSelect = document.getElementById('lang-select');
 langSelect.value = currentLang;
 langSelect.addEventListener('change', (e) => {
   applyLanguage(e.target.value);
-  // riavvia l'impiccato perché alfabeto e parole cambiano
+  // azzera i punteggi e riavvia l'impiccato (cambiano alfabeto e parole)
+  Tris.resetScores();
+  Impiccato.resetStats();
   Impiccato.init();
 });
 
