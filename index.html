@@ -733,6 +733,10 @@ const Impiccato = (() => {
       btn.textContent = letter;
       btn.dataset.letter = letter;
       btn.addEventListener('click', () => onGuess(letter));
+      if (guessed.has(letter)) {
+        btn.disabled = true;
+        btn.classList.add(currentWord.includes(letter) ? 'correct' : 'wrong');
+      }
       keyboardEl.appendChild(btn);
     }
   }
@@ -792,7 +796,7 @@ const Impiccato = (() => {
       autoRestartTimer = null;
     }
     currentWord = pickWord();
-    guessed = new Set();
+    guessed = new Set([currentWord[0], currentWord[currentWord.length - 1]]);
     errors = 0;
     gameOver = false;
     changeBackground();
@@ -801,6 +805,7 @@ const Impiccato = (() => {
     renderWord();
     renderKeyboard();
     renderHangman();
+    if ([...currentWord].every(ch => guessed.has(ch))) endGame(true);
   }
 
   document.addEventListener('keydown', (e) => {
