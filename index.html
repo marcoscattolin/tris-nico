@@ -259,6 +259,7 @@
   let lastBgIndex = -1;
 
   let board, currentPlayer, humanMark, aiMark, gameOver, humanStarts;
+  let autoRestartTimer = null;
   const score = { you: 0, ai: 0, draws: 0 };
 
   function changeBackground() {
@@ -278,6 +279,10 @@
   const btnReset = document.getElementById('btn-reset');
 
   function init(humanFirst) {
+    if (autoRestartTimer !== null) {
+      clearTimeout(autoRestartTimer);
+      autoRestartTimer = null;
+    }
     humanStarts = humanFirst;
     board = Array(9).fill('');
     gameOver = false;
@@ -341,6 +346,10 @@
     document.getElementById('score-you').textContent = score.you;
     document.getElementById('score-ai').textContent = score.ai;
     document.getElementById('score-draws').textContent = score.draws;
+    autoRestartTimer = setTimeout(() => {
+      autoRestartTimer = null;
+      init(humanStarts);
+    }, 3000);
   }
 
   function onCellClick(e) {
