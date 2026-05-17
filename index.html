@@ -5,15 +5,18 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 <title>Giochi</title>
 <link rel="stylesheet" href="styles/base.css" />
+<script async src="shared/cmp.js"></script>
 <script src="shared/analytics.js"></script>
 </head>
 <body>
   <div id="app-header"></div>
   <div class="subtitle" data-i18n="menu.pickAGame">Scegli un gioco</div>
   <div class="game-grid" id="game-grid"></div>
+  <div id="app-footer"></div>
   <script type="module">
     import { applyLanguage, currentLang, T, onLanguageChange } from './shared/i18n.js';
     import { renderHeader } from './shared/header.js';
+    import { renderFooter } from './shared/footer.js';
     import { changeBackground } from './shared/backgrounds.js';
     import { GAMES } from './shared/registry.js';
 
@@ -31,7 +34,8 @@
       }
     }
 
-    renderHeader({});
+    renderHeader({ showLangSelect: true });
+    renderFooter();
     renderCards();
     onLanguageChange(renderCards);
     applyLanguage(currentLang);

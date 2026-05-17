@@ -6,6 +6,7 @@
 <title>Gioco del 15</title>
 <link rel="stylesheet" href="../../styles/base.css" />
 <link rel="stylesheet" href="p15.css" />
+<script async src="../../shared/cmp.js"></script>
 <script src="../../shared/analytics.js"></script>
 </head>
 <body>
@@ -35,11 +36,14 @@
     </div>
     <footer id="p15-footer"></footer>
   </div>
+  <div id="app-footer"></div>
   <script type="module">
     import { applyLanguage, currentLang } from '../../shared/i18n.js';
     import { renderHeader } from '../../shared/header.js';
+    import { renderFooter } from '../../shared/footer.js';
     import game from './p15.js';
     renderHeader({ backHref: '../../' });
+    renderFooter();
     game.init();
     applyLanguage(currentLang);
   </script>

@@ -20,15 +20,21 @@ The user communicates in Italian; reply in Italian. UI defaults are in Italian b
 │   ├── memory/{index.html, memory.js, memory.css}
 │   ├── t2048/{index.html, t2048.js, t2048.css}
 │   └── p15/{index.html, p15.js, p15.css}
+├── legal/
+│   └── privacy/{index.html, privacy.css}   # Bilingual Privacy + Cookie Policy
 ├── shared/
 │   ├── i18n.js                 # currentLang, T(), applyLanguage(), onLanguageChange()
 │   ├── lang/{it.js, en.js}     # one translation bundle per language
 │   ├── words.js                # ALPHABETS + WORDS (used by Impiccato, Anagrammi)
 │   ├── backgrounds.js          # 12 gradient backgrounds + changeBackground()
-│   ├── header.js               # renderHeader({ backHref }) — injects title/lang-select/back-link
+│   ├── header.js               # renderHeader({ backHref, showLangSelect }) — injects title/lang-select/back-link
+│   ├── footer.js               # renderFooter() — injects Privacy link + "Manage cookies" + ©
+│   ├── analytics.js            # GA4 loader with Consent Mode v2 default 'denied'
+│   ├── cmp.js                  # Google Funding Choices CMP loader (publisher pub-1324858277403968)
 │   └── registry.js             # GAMES = [{ id, slug, i18nTab, emoji }, …]
 ├── styles/
-│   └── base.css                # CSS vars, body, header, grid, panel/controls/status/stat-item, landing cards
+│   └── base.css                # CSS vars, body, header, grid, panel/controls/status/stat-item, landing cards, footer
+├── ads.txt                     # Google AdSense publisher verification
 ├── .nojekyll
 ├── CLAUDE.md
 └── README.md
@@ -44,6 +50,8 @@ The user communicates in Italian; reply in Italian. UI defaults are in Italian b
   - Use `data-i18n="path.to.key"` on a static element to have its text written automatically when `applyLanguage` runs. Dynamic text (function-template strings) is set imperatively by the game's `refreshText()`.
 - **Game module contract**: each `games/<slug>/<game>.js` `export default`s `{ init, refreshText, resetStats }` (Tris also exports `resetScores`). The page's bootstrap (inline `<script type="module">` at end of the game's HTML) calls `renderHeader(...)`, `game.init()`, then `applyLanguage(currentLang)`. The game module subscribes to `onLanguageChange` internally to refresh its text (and re-pick words for Impiccato/Anagrammi).
 - **localStorage keys** (unchanged across the refactor): `lang`, `anagram-best-<lang>`, `memory-best`, `t2048-best`, `p15-best`.
+- **Consent & analytics**: every page loads `shared/cmp.js` (Google Funding Choices CMP) and `shared/analytics.js` (GA4 with Consent Mode v2). `analytics.js` defines `gtag` and sets all 4 consent flags (`ad_storage`, `ad_user_data`, `ad_personalization`, `analytics_storage`) to `'denied'` *before* `gtag/js` loads, so GA only fires after the user grants consent through the Funding Choices banner. The CMP integrates natively with Consent Mode — no manual `consent update` call is required.
+- **Footer**: every page renders `<div id="app-footer"></div>` populated by `renderFooter()` from `shared/footer.js`. It exposes a Privacy/Cookies link (to `/legal/privacy/`) and a "Manage cookie preferences" button that triggers `window.googlefc.showRevocationMessage()`.
 
 ## Game-specific notes
 
@@ -56,7 +64,7 @@ The user communicates in Italian; reply in Italian. UI defaults are in Italian b
 
 ## Adding a new game
 
-1. Create `games/<slug>/{index.html, <game>.js, <game>.css}`. Copy an existing game's bootstrap script as a template.
+1. Create `games/<slug>/{index.html, <game>.js, <game>.css}`. Copy an existing game's bootstrap script as a template — it must include `<script async src="../../shared/cmp.js"></script>`, `<script src="../../shared/analytics.js"></script>` in `<head>`, `<div id="app-footer"></div>` before `</body>`, and the bootstrap `<script type="module">` calling `renderHeader({ backHref: '../../' })`, `renderFooter()`, `game.init()`, `applyLanguage(currentLang)`.
 2. The JS module must `export default { init, refreshText, resetStats }`.
 3. Add a translation bundle key per language under `shared/lang/it.js` and `shared/lang/en.js` (e.g. `newgame: { subtitle, btnNew, … }`). Add a label under `tabs.newgame` in both.
 4. Append `{ id: 'newgame', slug: 'newgame', i18nTab: 'newgame', emoji: '…' }` to `shared/registry.js`.

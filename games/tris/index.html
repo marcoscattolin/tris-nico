@@ -6,6 +6,7 @@
 <title>Tris</title>
 <link rel="stylesheet" href="../../styles/base.css" />
 <link rel="stylesheet" href="tris.css" />
+<script async src="../../shared/cmp.js"></script>
 <script src="../../shared/analytics.js"></script>
 </head>
 <body>
@@ -47,11 +48,14 @@
     </div>
     <footer id="tris-footer"></footer>
   </div>
+  <div id="app-footer"></div>
   <script type="module">
     import { applyLanguage, currentLang } from '../../shared/i18n.js';
     import { renderHeader } from '../../shared/header.js';
+    import { renderFooter } from '../../shared/footer.js';
     import game from './tris.js';
     renderHeader({ backHref: '../../' });
+    renderFooter();
     game.init();
     applyLanguage(currentLang);
   </script>
