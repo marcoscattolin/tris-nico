@@ -10,7 +10,6 @@ let attempts;
 let current;
 let gameOver;
 let stats;
-let autoRestartTimer = null;
 
 let subtitleEl, statusEl, boardEl, solutionEl, paletteEl;
 let btnCheck, btnClear, btnNew;
@@ -182,7 +181,6 @@ function win() {
   statusEl.textContent = T().mastermind.won(attempts.length);
   statusEl.className = 'status win';
   renderBoard();
-  scheduleAutoRestart();
 }
 
 function lose() {
@@ -194,12 +192,6 @@ function lose() {
   statusEl.className = 'status lose';
   showSolution();
   renderBoard();
-  scheduleAutoRestart();
-}
-
-function scheduleAutoRestart() {
-  if (autoRestartTimer !== null) clearTimeout(autoRestartTimer);
-  autoRestartTimer = setTimeout(() => { autoRestartTimer = null; startRound(); }, 2200);
 }
 
 function loadStats() {
@@ -222,7 +214,6 @@ function refreshStats() {
 }
 
 function startRound() {
-  if (autoRestartTimer !== null) { clearTimeout(autoRestartTimer); autoRestartTimer = null; }
   secret = randomSecret();
   attempts = [];
   current = new Array(N_SLOTS).fill(null);
