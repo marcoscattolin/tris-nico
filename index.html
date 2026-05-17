@@ -54,6 +54,33 @@
     text-align: center;
   }
 
+  .lang-menu {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    margin-bottom: 14px;
+    background: rgba(0,0,0,0.25);
+    padding: 8px 14px;
+    border-radius: 12px;
+  }
+
+  .lang-menu label {
+    font-size: 13px;
+    color: var(--muted);
+  }
+
+  .lang-menu select {
+    background: var(--cell);
+    color: var(--text);
+    border: none;
+    border-radius: 8px;
+    padding: 6px 10px;
+    font-size: 14px;
+    font-family: inherit;
+    font-weight: 500;
+    cursor: pointer;
+  }
+
   .game-menu {
     display: flex;
     gap: 8px;
@@ -259,8 +286,9 @@
   .letter-slot.space { border-bottom-color: transparent; }
 
   .keyboard {
-    display: grid;
-    grid-template-columns: repeat(7, 1fr);
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
     gap: 5px;
     margin-bottom: 16px;
   }
@@ -271,6 +299,7 @@
     border: none;
     border-radius: 8px;
     padding: 10px 0;
+    width: 42px;
     font-size: 15px;
     font-weight: 700;
     cursor: pointer;
@@ -321,15 +350,28 @@
 </style>
 </head>
 <body>
-  <h1>Giochi</h1>
+  <h1 id="title">Giochi</h1>
+  <div class="lang-menu">
+    <label for="lang-select" id="lang-label">Lingua</label>
+    <select id="lang-select">
+      <option value="it">Italiano</option>
+      <option value="en-gb">English (British)</option>
+      <option value="en-us">English (American)</option>
+      <option value="de">Deutsch</option>
+      <option value="es">Español</option>
+      <option value="zh">中文 (pinyin)</option>
+      <option value="hi">हिन्दी (Roman)</option>
+      <option value="la">Latina</option>
+    </select>
+  </div>
   <div class="game-menu">
-    <button class="game-tab active" data-game="tris">Tris</button>
-    <button class="game-tab" data-game="impiccato">Impiccato</button>
+    <button class="game-tab active" data-game="tris" data-i18n="tabs.tris">Tris</button>
+    <button class="game-tab" data-game="impiccato" data-i18n="tabs.imp">Impiccato</button>
   </div>
 
   <!-- ============= TRIS ============= -->
   <div id="game-tris" class="game-view">
-    <div class="subtitle">Strategia Newell &amp; Simon — l'IA non perde mai</div>
+    <div class="subtitle" id="tris-subtitle">Strategia Newell &amp; Simon — l'IA non perde mai</div>
 
     <div class="panel">
       <div class="controls">
@@ -354,26 +396,26 @@
 
       <div class="scoreboard">
         <div class="score-item you">
-          <div class="label">Tu</div>
+          <div class="label" id="lbl-score-you">Tu</div>
           <div class="value" id="score-you">0</div>
         </div>
         <div class="score-item draws">
-          <div class="label">Patte</div>
+          <div class="label" id="lbl-score-draws">Patte</div>
           <div class="value" id="score-draws">0</div>
         </div>
         <div class="score-item ai">
-          <div class="label">IA</div>
+          <div class="label" id="lbl-score-ai">IA</div>
           <div class="value" id="score-ai">0</div>
         </div>
       </div>
     </div>
 
-    <footer>Il meglio che puoi fare è pareggiare. Provaci.</footer>
+    <footer id="tris-footer">Il meglio che puoi fare è pareggiare. Provaci.</footer>
   </div>
 
   <!-- ============= IMPICCATO ============= -->
   <div id="game-impiccato" class="game-view hidden">
-    <div class="subtitle">Indovina la parola italiana prima di farti impiccare</div>
+    <div class="subtitle" id="imp-subtitle">Indovina la parola italiana prima di farti impiccare</div>
 
     <div class="panel">
       <div class="controls">
@@ -404,24 +446,351 @@
 
       <div class="hangman-stats">
         <div class="stat-item wins">
-          <div class="label">Vittorie</div>
+          <div class="label" id="lbl-hm-wins">Vittorie</div>
           <div class="value" id="hm-wins">0</div>
         </div>
         <div class="stat-item errors">
-          <div class="label">Errori</div>
+          <div class="label" id="lbl-hm-errors">Errori</div>
           <div class="value" id="hm-errors">0/9</div>
         </div>
         <div class="stat-item losses">
-          <div class="label">Sconfitte</div>
+          <div class="label" id="lbl-hm-losses">Sconfitte</div>
           <div class="value" id="hm-losses">0</div>
         </div>
       </div>
     </div>
 
-    <footer>21 lettere italiane. 9 errori e sei spacciato.</footer>
+    <footer id="imp-footer">21 lettere italiane. 9 errori e sei spacciato.</footer>
   </div>
 
 <script>
+// =========================================================================
+// i18n — traduzioni, parole e alfabeti per ogni lingua
+// =========================================================================
+const I18N = {
+  it: {
+    title: 'Giochi',
+    langLabel: 'Lingua',
+    tabs: { tris: 'Tris', imp: 'Impiccato' },
+    tris: {
+      subtitle: "Strategia Newell & Simon — l'IA non perde mai",
+      btnHumanFirst: 'Inizio io',
+      btnAiFirst: "Inizia l'IA",
+      btnReset: 'Nuova partita',
+      yourTurn: m => `Tocca a te (${m})`,
+      aiThinking: "L'IA pensa…",
+      draw: 'Patta.',
+      youWon: 'Hai vinto! Davvero?',
+      aiWon: "Ha vinto l'IA.",
+      scoreYou: 'Tu', scoreDraws: 'Patte', scoreAi: 'IA',
+      footer: 'Il meglio che puoi fare è pareggiare. Provaci.'
+    },
+    imp: {
+      subtitle: 'Indovina la parola prima di farti impiccare',
+      btnNew: 'Nuova parola',
+      guess: 'Indovina una lettera',
+      won: w => `Bravo! La parola era ${w}.`,
+      lost: w => `Impiccato. La parola era ${w}.`,
+      statWins: 'Vittorie', statErrors: 'Errori', statLosses: 'Sconfitte',
+      footer: a => `${a} lettere. 9 errori e sei spacciato.`
+    }
+  },
+  'en-gb': {
+    title: 'Games',
+    langLabel: 'Language',
+    tabs: { tris: 'Noughts & Crosses', imp: 'Hangman' },
+    tris: {
+      subtitle: 'Newell & Simon strategy — the AI never loses',
+      btnHumanFirst: 'I start',
+      btnAiFirst: 'AI starts',
+      btnReset: 'New game',
+      yourTurn: m => `Your turn (${m})`,
+      aiThinking: 'AI is thinking…',
+      draw: 'Draw.',
+      youWon: 'You won! Really?',
+      aiWon: 'The AI won.',
+      scoreYou: 'You', scoreDraws: 'Draws', scoreAi: 'AI',
+      footer: 'The best you can do is draw. Have a go.'
+    },
+    imp: {
+      subtitle: 'Guess the word before getting hanged',
+      btnNew: 'New word',
+      guess: 'Guess a letter',
+      won: w => `Well done! The word was ${w}.`,
+      lost: w => `Hanged. The word was ${w}.`,
+      statWins: 'Wins', statErrors: 'Errors', statLosses: 'Losses',
+      footer: a => `${a} letters. 9 errors and you're done.`
+    }
+  },
+  'en-us': {
+    title: 'Games',
+    langLabel: 'Language',
+    tabs: { tris: 'Tic-Tac-Toe', imp: 'Hangman' },
+    tris: {
+      subtitle: 'Newell & Simon strategy — the AI never loses',
+      btnHumanFirst: 'I start',
+      btnAiFirst: 'AI starts',
+      btnReset: 'New game',
+      yourTurn: m => `Your turn (${m})`,
+      aiThinking: 'AI is thinking…',
+      draw: 'Draw.',
+      youWon: 'You won! Really?',
+      aiWon: 'The AI won.',
+      scoreYou: 'You', scoreDraws: 'Draws', scoreAi: 'AI',
+      footer: 'The best you can do is draw. Give it a shot.'
+    },
+    imp: {
+      subtitle: 'Guess the word before getting hanged',
+      btnNew: 'New word',
+      guess: 'Guess a letter',
+      won: w => `Nice! The word was ${w}.`,
+      lost: w => `Hanged. The word was ${w}.`,
+      statWins: 'Wins', statErrors: 'Errors', statLosses: 'Losses',
+      footer: a => `${a} letters. 9 errors and you're done.`
+    }
+  },
+  de: {
+    title: 'Spiele',
+    langLabel: 'Sprache',
+    tabs: { tris: 'Tic-Tac-Toe', imp: 'Galgenmännchen' },
+    tris: {
+      subtitle: 'Newell-Simon-Strategie — die KI verliert nie',
+      btnHumanFirst: 'Ich beginne',
+      btnAiFirst: 'KI beginnt',
+      btnReset: 'Neues Spiel',
+      yourTurn: m => `Du bist dran (${m})`,
+      aiThinking: 'Die KI denkt nach…',
+      draw: 'Unentschieden.',
+      youWon: 'Du hast gewonnen! Wirklich?',
+      aiWon: 'Die KI hat gewonnen.',
+      scoreYou: 'Du', scoreDraws: 'Remis', scoreAi: 'KI',
+      footer: 'Mehr als ein Unentschieden ist nicht drin.'
+    },
+    imp: {
+      subtitle: 'Errate das Wort, bevor du gehängt wirst',
+      btnNew: 'Neues Wort',
+      guess: 'Errate einen Buchstaben',
+      won: w => `Bravo! Das Wort war ${w}.`,
+      lost: w => `Gehängt. Das Wort war ${w}.`,
+      statWins: 'Siege', statErrors: 'Fehler', statLosses: 'Niederlagen',
+      footer: a => `${a} Buchstaben. 9 Fehler und Schluss.`
+    }
+  },
+  es: {
+    title: 'Juegos',
+    langLabel: 'Idioma',
+    tabs: { tris: 'Tres en raya', imp: 'Ahorcado' },
+    tris: {
+      subtitle: 'Estrategia de Newell y Simon — la IA nunca pierde',
+      btnHumanFirst: 'Empiezo yo',
+      btnAiFirst: 'Empieza la IA',
+      btnReset: 'Nueva partida',
+      yourTurn: m => `Te toca (${m})`,
+      aiThinking: 'La IA está pensando…',
+      draw: 'Empate.',
+      youWon: '¡Ganaste! ¿De verdad?',
+      aiWon: 'Ganó la IA.',
+      scoreYou: 'Tú', scoreDraws: 'Empates', scoreAi: 'IA',
+      footer: 'Lo mejor que puedes hacer es empatar.'
+    },
+    imp: {
+      subtitle: 'Adivina la palabra antes de ser ahorcado',
+      btnNew: 'Nueva palabra',
+      guess: 'Adivina una letra',
+      won: w => `¡Bien hecho! La palabra era ${w}.`,
+      lost: w => `Ahorcado. La palabra era ${w}.`,
+      statWins: 'Victorias', statErrors: 'Errores', statLosses: 'Derrotas',
+      footer: a => `${a} letras. 9 errores y acabas colgado.`
+    }
+  },
+  zh: {
+    title: '游戏',
+    langLabel: '语言',
+    tabs: { tris: '井字棋', imp: '猜词游戏' },
+    tris: {
+      subtitle: 'Newell 和 Simon 策略 — AI 永不败北',
+      btnHumanFirst: '我先来',
+      btnAiFirst: 'AI 先来',
+      btnReset: '新游戏',
+      yourTurn: m => `轮到你了（${m}）`,
+      aiThinking: 'AI 正在思考…',
+      draw: '平局。',
+      youWon: '你赢了！真的吗？',
+      aiWon: 'AI 赢了。',
+      scoreYou: '你', scoreDraws: '平局', scoreAi: 'AI',
+      footer: '最好的结果只是平局。'
+    },
+    imp: {
+      subtitle: '猜出拼音单词，避免被绞死',
+      btnNew: '新词',
+      guess: '猜一个字母',
+      won: w => `好！这个词是 ${w}。`,
+      lost: w => `被绞死了。这个词是 ${w}。`,
+      statWins: '胜利', statErrors: '错误', statLosses: '失败',
+      footer: a => `${a} 个拼音字母。9 次错误就完了。`
+    }
+  },
+  hi: {
+    title: 'खेल',
+    langLabel: 'भाषा',
+    tabs: { tris: 'टिक टैक टो', imp: 'फांसी का खेल' },
+    tris: {
+      subtitle: 'न्यूएल और साइमन की रणनीति — AI कभी नहीं हारता',
+      btnHumanFirst: 'मैं पहले',
+      btnAiFirst: 'AI पहले',
+      btnReset: 'नया खेल',
+      yourTurn: m => `आपकी बारी (${m})`,
+      aiThinking: 'AI सोच रहा है…',
+      draw: 'बराबर।',
+      youWon: 'आप जीते! सच में?',
+      aiWon: 'AI जीता।',
+      scoreYou: 'आप', scoreDraws: 'बराबर', scoreAi: 'AI',
+      footer: 'सबसे अच्छा परिणाम बराबरी है।'
+    },
+    imp: {
+      subtitle: 'रोमन में हिन्दी शब्द का अनुमान लगाएँ',
+      btnNew: 'नया शब्द',
+      guess: 'एक अक्षर का अनुमान लगाएँ',
+      won: w => `शाबाश! शब्द था ${w}।`,
+      lost: w => `फांसी पर। शब्द था ${w}।`,
+      statWins: 'जीत', statErrors: 'गलतियाँ', statLosses: 'हार',
+      footer: a => `${a} रोमन अक्षर। 9 गलतियाँ और खत्म।`
+    }
+  },
+  la: {
+    title: 'Ludi',
+    langLabel: 'Lingua',
+    tabs: { tris: 'Triplices', imp: 'Suspensus' },
+    tris: {
+      subtitle: 'Ratio Newell-Simon — machina numquam vincitur',
+      btnHumanFirst: 'Ego incipio',
+      btnAiFirst: 'Machina incipit',
+      btnReset: 'Novus ludus',
+      yourTurn: m => `Tua vicis (${m})`,
+      aiThinking: 'Machina cogitat…',
+      draw: 'Aequalitas.',
+      youWon: 'Vicisti! Verene?',
+      aiWon: 'Machina vicit.',
+      scoreYou: 'Tu', scoreDraws: 'Aequa', scoreAi: 'Machina',
+      footer: 'Aequalitas optimum est. Conare.'
+    },
+    imp: {
+      subtitle: 'Verbum Latinum divina priusquam suspendaris',
+      btnNew: 'Novum verbum',
+      guess: 'Litteram divina',
+      won: w => `Macte! Verbum erat ${w}.`,
+      lost: w => `Suspensus. Verbum erat ${w}.`,
+      statWins: 'Victoriae', statErrors: 'Errata', statLosses: 'Cladi',
+      footer: a => `${a} litterae. 9 errata et perditus es.`
+    }
+  }
+};
+
+const ALPHABETS = {
+  it: 'ABCDEFGHILMNOPQRSTUVZ',
+  'en-gb': 'ABCDEFGHIJKLMNOPQRSTUVWXYZ',
+  'en-us': 'ABCDEFGHIJKLMNOPQRSTUVWXYZ',
+  de: 'ABCDEFGHIJKLMNOPQRSTUVWXYZ',
+  es: 'ABCDEFGHIJKLMNÑOPQRSTUVWXYZ',
+  zh: 'ABCDEFGHIJKLMNOPQRSTUVWXYZ',
+  hi: 'ABCDEFGHIJKLMNOPQRSTUVWXYZ',
+  la: 'ABCDEFGHIKLMNOPQRSTUVXYZ'
+};
+
+const WORDS = {
+  it: ['gatto','cane','sole','luna','casa','mare','montagna','fiume','strada',
+    'libro','scuola','amico','famiglia','cuore','sogno','viaggio','musica',
+    'pittura','teatro','telefono','finestra','porta','tavolo','sedia','giardino',
+    'fiore','albero','foglia','neve','pioggia','vento','fuoco','terra','acqua',
+    'pane','vino','formaggio','pasta','pizza','gelato','cioccolato','mela',
+    'pera','banana','fragola','limone','arancia','pomodoro','insalata','pesce',
+    'carne','dolce','treno','autobus','bicicletta','macchina','aereo','barca',
+    'biblioteca','ospedale','cinema','museo','ristorante','mercato','spiaggia',
+    'isola','lago','foresta','deserto','primavera','estate','autunno','inverno',
+    'mattina','sera','notte','stella','pianeta','oceano','tempesta','pinguino',
+    'elefante','leone','tigre','lupo','volpe','aquila','farfalla','serpente',
+    'calcio','tennis','nuoto','corsa','scacchi','chitarra','pianoforte',
+    'violino','batteria','torre','castello','ponte','fontana','piazza','cattedrale'],
+  'en-gb': ['cat','dog','sun','moon','house','sea','mountain','river','road',
+    'book','school','friend','family','heart','dream','journey','music','theatre',
+    'telephone','window','door','table','chair','garden','flower','tree','leaf',
+    'snow','rain','wind','fire','earth','water','bread','wine','cheese','pasta',
+    'pizza','chocolate','apple','pear','banana','lemon','orange','tomato','salad',
+    'fish','meat','train','bus','bicycle','plane','boat','library','hospital',
+    'cinema','museum','restaurant','market','beach','island','lake','forest',
+    'desert','spring','summer','autumn','winter','morning','evening','night',
+    'star','planet','ocean','storm','penguin','elephant','lion','tiger','wolf',
+    'fox','eagle','butterfly','snake','football','tennis','chess','guitar',
+    'piano','violin','tower','castle','bridge','fountain','square','cathedral',
+    'lorry','flat','biscuit','jumper'],
+  'en-us': ['cat','dog','sun','moon','house','sea','mountain','river','road',
+    'book','school','friend','family','heart','dream','journey','music','theater',
+    'telephone','window','door','table','chair','garden','flower','tree','leaf',
+    'snow','rain','wind','fire','earth','water','bread','wine','cheese','pasta',
+    'pizza','chocolate','apple','pear','banana','lemon','orange','tomato','salad',
+    'fish','meat','train','bus','bicycle','airplane','boat','library','hospital',
+    'cinema','museum','restaurant','market','beach','island','lake','forest',
+    'desert','spring','summer','fall','winter','morning','evening','night',
+    'star','planet','ocean','storm','penguin','elephant','lion','tiger','wolf',
+    'fox','eagle','butterfly','snake','soccer','tennis','chess','guitar',
+    'piano','violin','tower','castle','bridge','fountain','plaza','cathedral',
+    'truck','apartment','cookie','sweater'],
+  de: ['hund','mond','haus','meer','berg','buch','herz','traum','musik','wind',
+    'feuer','erde','wasser','brot','wein','pizza','apfel','birne','banane',
+    'orange','tomate','salat','fisch','zug','bus','auto','kino','museum','markt',
+    'strand','insel','wald','winter','morgen','abend','nacht','stern','planet',
+    'ozean','sturm','pinguin','elefant','tiger','wolf','schach','gitarre',
+    'klavier','turm','sommer','schlange','garten','fenster','tisch','stuhl',
+    'baum','blatt','schnee','regen','sonne','milch','wasser','blume','vogel',
+    'fisch','schiff','strasse','platz','dorf','stadt','land','reise','freund',
+    'familie'],
+  es: ['gato','perro','sol','luna','casa','mar','montaña','rio','playa','calle',
+    'libro','escuela','amigo','familia','musica','teatro','telefono','ventana',
+    'puerta','mesa','silla','jardin','flor','arbol','hoja','nieve','lluvia',
+    'viento','fuego','tierra','agua','pan','vino','queso','pizza','manzana',
+    'pera','platano','limon','naranja','tomate','ensalada','pescado','carne',
+    'dulce','tren','autobus','coche','avion','barco','biblioteca','hospital',
+    'cine','museo','mercado','isla','lago','bosque','primavera','verano',
+    'invierno','mañana','noche','estrella','planeta','oceano','tormenta',
+    'elefante','leon','tigre','lobo','zorro','mariposa','serpiente','futbol',
+    'tenis','guitarra','piano','violin','torre','castillo','puente','plaza',
+    'otoño','españa','niño','sueño'],
+  zh: ['mao','gou','taiyang','yueliang','haiyang','shan','hewen','shu','xuexiao',
+    'pengyou','jiating','xinzang','meng','lvxing','yinyue','xiju','dianhua',
+    'chuanghu','men','zhuozi','yizi','huayuan','huar','shumu','yezi','xue',
+    'yu','feng','huo','dadi','shui','mianbao','putaojiu','nailao','pisa',
+    'qiaokeli','pingguo','xiangjiao','ningmeng','chengzi','xihongshi','shala',
+    'yu','rou','huoche','gongche','zixingche','feiji','chuan','tushuguan',
+    'yiyuan','dianying','bowuguan','canting','shichang','haitan','daoyu','hupo',
+    'senlin','shamo','chuntian','xiatian','qiutian','dongtian','zaoshang',
+    'wanshang','yewan','xingxing','xingqiu','baofeng','qier','daxiang','shizi',
+    'laohu','lang','huli','laoying','hudie','shechi','zuqiu','wangqiu','xiangqi',
+    'jita','gangqin','xiaotiqin','gulou','chengbao','qiao','penquan','guangchang'],
+  hi: ['billi','kutta','suraj','chand','ghar','samundar','pahad','nadi','kitab',
+    'school','dost','parivar','dil','sapna','yatra','sangeet','darwaza','mez',
+    'kursi','bagicha','phool','ped','patta','barf','barish','hawa','aag',
+    'zameen','paani','roti','sharab','paneer','pizza','seb','kela','nimbu',
+    'santara','tamatar','salad','machhli','train','bus','gaadi','naav','garmi',
+    'sardi','subah','shyam','raat','taara','grah','aakash','tufaan','sher',
+    'bagh','bhediya','bandar','titli','saanp','gulaab','chai','pyaar','sansaar',
+    'desh','shahar','gaon','khana','samay','ankh','haath','sapna','kavi','geet',
+    'kahani','school','college','dawai','vidyalaya','adhyapak','vidyarthi'],
+  la: ['aqua','arbor','avis','bellum','caelum','canis','civitas','corpus','deus',
+    'domus','equus','feles','filius','flos','flumen','fortuna','frater','homo',
+    'hora','ignis','insula','lapis','liber','lingua','luna','lupus','manus',
+    'mare','mater','mons','mors','mundus','musa','natura','navis','nives',
+    'numerus','oceanus','oculus','pater','pax','piscis','porta','puer','rex',
+    'roma','sol','stella','tempestas','tempus','terra','turris','urbs','ventus',
+    'via','victoria','vinum','vir','vita','rosa','silva','populus','dominus',
+    'imperium','senatus','consul','legio','miles','templum','via','forum',
+    'amicus','servus','poeta','liber','agricola','vicus','castra','gladius']
+};
+
+let currentLang = localStorage.getItem('lang') || 'it';
+if (!(currentLang in I18N)) currentLang = 'it';
+
+function T() { return I18N[currentLang]; }
+
 // =========================================================================
 // Sfondi condivisi
 // =========================================================================
@@ -485,12 +854,12 @@ const Tris = (() => {
       humanMark = 'X';
       aiMark = 'O';
       currentPlayer = humanMark;
-      statusEl.textContent = 'Tocca a te (X)';
+      statusEl.textContent = T().tris.yourTurn(humanMark);
     } else {
       humanMark = 'O';
       aiMark = 'X';
       currentPlayer = aiMark;
-      statusEl.textContent = "L'IA pensa…";
+      statusEl.textContent = T().tris.aiThinking;
     }
     statusEl.className = 'status';
     cells.forEach(c => {
@@ -522,15 +891,15 @@ const Tris = (() => {
     gameOver = true;
     cells.forEach(c => c.disabled = true);
     if (result.winner === 'draw') {
-      statusEl.textContent = 'Patta.';
+      statusEl.textContent = T().tris.draw;
       statusEl.className = 'status draw';
       score.draws++;
     } else if (result.winner === humanMark) {
-      statusEl.textContent = 'Hai vinto! Davvero?';
+      statusEl.textContent = T().tris.youWon;
       statusEl.className = 'status win';
       score.you++;
     } else {
-      statusEl.textContent = "Ha vinto l'IA.";
+      statusEl.textContent = T().tris.aiWon;
       statusEl.className = 'status lose';
       score.ai++;
     }
@@ -554,7 +923,7 @@ const Tris = (() => {
     const result = checkWinner(board);
     if (result) return endGame(result);
     currentPlayer = aiMark;
-    statusEl.textContent = "L'IA pensa…";
+    statusEl.textContent = T().tris.aiThinking;
     setTimeout(aiMove, 280);
   }
 
@@ -565,7 +934,7 @@ const Tris = (() => {
     const result = checkWinner(board);
     if (result) return endGame(result);
     currentPlayer = humanMark;
-    statusEl.textContent = `Tocca a te (${humanMark})`;
+    statusEl.textContent = T().tris.yourTurn(humanMark);
   }
 
   function findWinningMove(b, player) {
@@ -658,30 +1027,31 @@ const Tris = (() => {
   });
   btnReset.addEventListener('click', () => init(humanStarts));
 
-  return { init: () => init(true) };
+  function refreshText() {
+    const t = T().tris;
+    document.getElementById('tris-subtitle').textContent = t.subtitle;
+    btnHumanFirst.textContent = t.btnHumanFirst;
+    btnAiFirst.textContent = t.btnAiFirst;
+    btnReset.textContent = t.btnReset;
+    document.getElementById('lbl-score-you').textContent = t.scoreYou;
+    document.getElementById('lbl-score-draws').textContent = t.scoreDraws;
+    document.getElementById('lbl-score-ai').textContent = t.scoreAi;
+    document.getElementById('tris-footer').textContent = t.footer;
+    if (gameOver) return;
+    if (currentPlayer === humanMark) {
+      statusEl.textContent = t.yourTurn(humanMark);
+    } else {
+      statusEl.textContent = t.aiThinking;
+    }
+  }
+
+  return { init: () => init(true), refreshText };
 })();
 
 // =========================================================================
 // IMPICCATO
 // =========================================================================
 const Impiccato = (() => {
-  const PAROLE = [
-    'gatto','cane','sole','luna','casa','mare','montagna','fiume','strada',
-    'libro','scuola','amico','famiglia','cuore','sogno','viaggio','musica',
-    'pittura','teatro','telefono','finestra','porta','tavolo','sedia',
-    'giardino','fiore','albero','foglia','neve','pioggia','vento','fuoco',
-    'terra','acqua','pane','vino','formaggio','pasta','pizza','gelato',
-    'cioccolato','mela','pera','banana','fragola','limone','arancia',
-    'pomodoro','insalata','pesce','carne','dolce','treno','autobus',
-    'bicicletta','macchina','aereo','barca','biblioteca','ospedale','cinema',
-    'museo','ristorante','mercato','spiaggia','isola','lago','foresta',
-    'deserto','primavera','estate','autunno','inverno','mattina','sera',
-    'notte','stella','pianeta','oceano','tempesta','pinguino','elefante',
-    'leone','tigre','lupo','volpe','aquila','farfalla','serpente','calcio',
-    'tennis','nuoto','corsa','scacchi','chitarra','pianoforte','violino',
-    'batteria','torre','castello','ponte','fontana','piazza','cattedrale'
-  ];
-  const ALPHABET = 'ABCDEFGHILMNOPQRSTUVZ';
   const MAX_ERRORS = 9;
 
   const stats = { wins: 0, losses: 0 };
@@ -702,10 +1072,11 @@ const Impiccato = (() => {
   let lastWord = '';
 
   function pickWord() {
+    const pool = WORDS[currentLang] || WORDS.it;
     let w;
     do {
-      w = PAROLE[Math.floor(Math.random() * PAROLE.length)];
-    } while (w === lastWord && PAROLE.length > 1);
+      w = pool[Math.floor(Math.random() * pool.length)];
+    } while (w === lastWord && pool.length > 1);
     lastWord = w;
     return w.toUpperCase();
   }
@@ -727,7 +1098,8 @@ const Impiccato = (() => {
 
   function renderKeyboard() {
     keyboardEl.innerHTML = '';
-    for (const letter of ALPHABET) {
+    const alphabet = ALPHABETS[currentLang] || ALPHABETS.it;
+    for (const letter of alphabet) {
       const btn = document.createElement('button');
       btn.className = 'key';
       btn.textContent = letter;
@@ -768,11 +1140,11 @@ const Impiccato = (() => {
   function endGame(won) {
     gameOver = true;
     if (won) {
-      statusEl.textContent = `Bravo! La parola era ${currentWord}.`;
+      statusEl.textContent = T().imp.won(currentWord);
       statusEl.className = 'status win';
       stats.wins++;
     } else {
-      statusEl.textContent = `Impiccato. La parola era ${currentWord}.`;
+      statusEl.textContent = T().imp.lost(currentWord);
       statusEl.className = 'status lose';
       stats.losses++;
       // rivela la parola
@@ -800,7 +1172,7 @@ const Impiccato = (() => {
     errors = 0;
     gameOver = false;
     changeBackground();
-    statusEl.textContent = 'Indovina una lettera';
+    statusEl.textContent = T().imp.guess;
     statusEl.className = 'status';
     renderWord();
     renderKeyboard();
@@ -808,15 +1180,30 @@ const Impiccato = (() => {
     if ([...currentWord].every(ch => guessed.has(ch))) endGame(true);
   }
 
+  function refreshText() {
+    const t = T().imp;
+    document.getElementById('imp-subtitle').textContent = t.subtitle;
+    btnNew.textContent = t.btnNew;
+    document.getElementById('lbl-hm-wins').textContent = t.statWins;
+    document.getElementById('lbl-hm-errors').textContent = t.statErrors;
+    document.getElementById('lbl-hm-losses').textContent = t.statLosses;
+    const alphLen = (ALPHABETS[currentLang] || ALPHABETS.it).length;
+    document.getElementById('imp-footer').textContent = t.footer(alphLen);
+    if (!gameOver) {
+      statusEl.textContent = t.guess;
+    }
+  }
+
   document.addEventListener('keydown', (e) => {
     if (document.getElementById('game-impiccato').classList.contains('hidden')) return;
     const ch = e.key.toUpperCase();
-    if (ALPHABET.includes(ch)) onGuess(ch);
+    const alphabet = ALPHABETS[currentLang] || ALPHABETS.it;
+    if (alphabet.includes(ch)) onGuess(ch);
   });
 
   btnNew.addEventListener('click', () => init());
 
-  return { init };
+  return { init, refreshText };
 })();
 
 // =========================================================================
@@ -838,9 +1225,35 @@ tabs.forEach(tab => {
   });
 });
 
+// =========================================================================
+// Selettore lingua
+// =========================================================================
+function applyLanguage(lang) {
+  if (!(lang in I18N)) lang = 'it';
+  currentLang = lang;
+  localStorage.setItem('lang', lang);
+  document.documentElement.lang = lang.split('-')[0];
+  const t = T();
+  document.getElementById('title').textContent = t.title;
+  document.getElementById('lang-label').textContent = t.langLabel;
+  document.querySelector('[data-i18n="tabs.tris"]').textContent = t.tabs.tris;
+  document.querySelector('[data-i18n="tabs.imp"]').textContent = t.tabs.imp;
+  Tris.refreshText();
+  Impiccato.refreshText();
+}
+
+const langSelect = document.getElementById('lang-select');
+langSelect.value = currentLang;
+langSelect.addEventListener('change', (e) => {
+  applyLanguage(e.target.value);
+  // riavvia l'impiccato perché alfabeto e parole cambiano
+  Impiccato.init();
+});
+
 // Avvio
 Tris.init();
 Impiccato.init();
+applyLanguage(currentLang);
 </script>
 </body>
 </html>

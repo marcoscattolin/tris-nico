@@ -1,10 +1,10 @@
 # Tris &amp; Impiccato
 
-Sito statico a pagina singola con due giochi giocabili nel browser: il **Tris** contro un'IA imbattibile e l'**Impiccato** in italiano. HTML/CSS/JavaScript vanilla, nessuna build, nessuna dipendenza.
+Sito statico a pagina singola con due giochi giocabili nel browser: il **Tris** contro un'IA imbattibile e l'**Impiccato**, in 8 lingue (italiano, inglese britannico e americano, tedesco, spagnolo, cinese pinyin, hindi romanizzato, latino). HTML/CSS/JavaScript vanilla, nessuna build, nessuna dipendenza.
 
 ## Gioca
 
-Apri `index.html` in un browser, oppure visita la versione pubblicata su GitHub Pages. Il menù in alto permette di passare tra Tris e Impiccato.
+Apri `index.html` in un browser, oppure visita la versione pubblicata su GitHub Pages. In alto: selettore di lingua e menù per passare tra Tris e Impiccato. La lingua scelta viene ricordata via `localStorage`.
 
 ### Tris
 
@@ -13,9 +13,10 @@ Apri `index.html` in un browser, oppure visita la versione pubblicata su GitHub 
 
 ### Impiccato
 
-- Parola italiana casuale da una lista interna (~100 parole, lettere senza accenti).
-- Tastiera italiana di 21 lettere (A-V, escluse J/K/W/X/Y); funziona anche da tastiera fisica.
+- Parola casuale dalla lista della lingua scelta (~50-100 parole per lingua, senza diacritici).
+- Tastiera con l'alfabeto della lingua: 21 lettere per l'italiano, 24 per il latino classico (no J/W), 26 per inglese / tedesco / pinyin / hindi romanizzato, 27 per lo spagnolo (con Ñ). Funziona anche da tastiera fisica.
 - 9 errori e sei impiccato: ad ogni errore appare un nuovo pezzo, prima la forca (asta verticale, asta superiore, cavo) e poi il corpo (testa, busto, braccia, gambe).
+- La prima e l'ultima lettera della parola sono già rivelate all'inizio.
 
 A fine partita (in entrambi i giochi) la sessione successiva parte automaticamente dopo 1 secondo, con uno sfondo casuale diverso.
 
