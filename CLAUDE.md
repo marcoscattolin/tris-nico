@@ -4,7 +4,7 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 
 ## Project
 
-Single-page static site with six browser games — **Tris** (tic-tac-toe vs. an unbeatable AI), **Impiccato** (hangman), **Anagrammi** (anagrams), **Memory** (matching pairs), **2048**, and **P15** (15 puzzle / fifteen sliding puzzle) — localized in 8 languages (it / en-gb / en-us / de / es / zh / hi / la), deployed on GitHub Pages. Pure HTML/CSS/JavaScript, no build step, no dependencies.
+Single-page static site with six browser games — **Tris** (tic-tac-toe vs. an unbeatable AI), **Impiccato** (hangman), **Anagrammi** (anagrams), **Memory** (matching pairs), **2048**, and **P15** (15 puzzle / fifteen sliding puzzle) — localized in 2 languages (it / en), deployed on GitHub Pages. Pure HTML/CSS/JavaScript, no build step, no dependencies.
 
 The user communicates in Italian; reply in Italian. UI defaults are in Italian but every visible string lives in the `I18N` object and can be switched at runtime.
 
@@ -12,7 +12,7 @@ The user communicates in Italian; reply in Italian. UI defaults are in Italian b
 
 Everything is in `index.html`: markup, styles, and game logic are inlined to keep the deployment a single file. The script is organized as:
 
-- **i18n layer** — `I18N` (translations per language with function templates), `ALPHABETS` (keyboard letters per language, used by Impiccato), `WORDS` (word pool per language, used by Impiccato and Anagrammi), `currentLang` (persisted in `localStorage`), and `T()` returning the current bundle. Chinese uses pinyin (Latin 26), Hindi uses ITRANS-style romanization (Latin 26), Latin uses the 24-letter convention (no J, no W). Spanish includes Ñ.
+- **i18n layer** — `I18N` (translations per language with function templates), `ALPHABETS` (keyboard letters per language, used by Impiccato), `WORDS` (word pool per language, used by Impiccato and Anagrammi), `currentLang` (persisted in `localStorage`), and `T()` returning the current bundle.
 - **Shared layer** — `BACKGROUNDS` (12 gradients) and `changeBackground()`. Each game calls this when it starts a new round.
 - **Five game modules**, each as an IIFE exposing `{ init, refreshText, resetStats }` (Tris exposes `resetScores`):
   - **`Tris`** — Newell &amp; Simon priority list (Win → Block → Fork → Block fork → Center → Opposite corner → Empty corner → Empty side). The corner-opposite-corner trap is the classic failure mode — at step 4 we pick a threat whose forced block doesn't itself create the opponent's fork.
@@ -26,7 +26,7 @@ Everything is in `index.html`: markup, styles, and game logic are inlined to kee
 ## Invariants to preserve
 
 - **Tris AI must never lose.** Corner-opposite-corner is the classic test case — verify the AI responds with a side, not a corner.
-- **Each language's hangman/anagram words must contain only letters in that language's `ALPHABETS` entry.** Italian skips J/K/W/X/Y; Latin skips J/W; German words must avoid umlauts and ß; Spanish words may include Ñ.
+- **Each language's hangman/anagram words must contain only letters in that language's `ALPHABETS` entry.** Italian skips J/K/W/X/Y; English uses the full 26-letter alphabet.
 - **When adding a new UI string**, add it to *every* language in `I18N` — there is no fallback chain, missing keys render as `undefined`.
 - **Each new game module must expose `init`, `refreshText`, and `resetStats`** so the language selector can re-render and reset it. Add it to both the `views` map (for tab toggling) and to the bootstrap section at the bottom.
 
