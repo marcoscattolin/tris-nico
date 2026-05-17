@@ -1,5 +1,5 @@
 export default {
-  title: 'Giochi',
+  title: 'Casual Kids Games',
   langLabel: 'Lingua',
   menu: {
     backToMenu: '← Menu',
