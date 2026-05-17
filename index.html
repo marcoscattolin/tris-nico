@@ -478,10 +478,11 @@
     position: absolute;
     inset: 8px;
     pointer-events: none;
+    container-type: inline-size;
   }
   .t2048-tile {
     position: absolute;
-    --cell-size: calc((100% - 24px) / 4);
+    --cell-size: calc((100cqw - 24px) / 4);
     width: var(--cell-size);
     height: var(--cell-size);
     top: 0; left: 0;
