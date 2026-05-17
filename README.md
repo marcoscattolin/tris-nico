@@ -15,7 +15,7 @@ Apri `index.html` in un browser, oppure visita la versione pubblicata su GitHub 
 
 - Parola italiana casuale da una lista interna (~100 parole, lettere senza accenti).
 - Tastiera italiana di 21 lettere (A-V, escluse J/K/W/X/Y); funziona anche da tastiera fisica.
-- 6 errori e sei impiccato. La figura del boia si compone mano a mano.
+- 9 errori e sei impiccato: ad ogni errore appare un nuovo pezzo, prima la forca (asta verticale, asta superiore, cavo) e poi il corpo (testa, busto, braccia, gambe).
 
 A fine partita (in entrambi i giochi) la sessione successiva parte automaticamente dopo 1 secondo, con uno sfondo casuale diverso.
 

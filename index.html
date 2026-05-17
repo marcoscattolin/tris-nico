@@ -381,18 +381,19 @@
       </div>
 
       <svg class="hangman-svg" viewBox="0 0 180 220">
-        <!-- forca -->
+        <!-- asta orizzontale a terra (sempre visibile) -->
         <line x1="10" y1="210" x2="170" y2="210"/>
-        <line x1="40" y1="210" x2="40" y2="15"/>
-        <line x1="40" y1="15" x2="125" y2="15"/>
-        <line x1="125" y1="15" x2="125" y2="35"/>
-        <!-- corpo (nascosto inizialmente) -->
-        <circle class="part" data-part="0" cx="125" cy="52" r="16"/>
-        <line class="part" data-part="1" x1="125" y1="68" x2="125" y2="130"/>
-        <line class="part" data-part="2" x1="125" y1="85" x2="100" y2="110"/>
-        <line class="part" data-part="3" x1="125" y1="85" x2="150" y2="110"/>
-        <line class="part" data-part="4" x1="125" y1="130" x2="100" y2="170"/>
-        <line class="part" data-part="5" x1="125" y1="130" x2="150" y2="170"/>
+        <!-- forca (parti progressive: 0=verticale, 1=orizzontale sup., 2=cavo) -->
+        <line class="part" data-part="0" x1="40" y1="210" x2="40" y2="15"/>
+        <line class="part" data-part="1" x1="40" y1="15" x2="125" y2="15"/>
+        <line class="part" data-part="2" x1="125" y1="15" x2="125" y2="35"/>
+        <!-- corpo: 3=testa, 4=corpo, 5/6=braccia, 7/8=gambe -->
+        <circle class="part" data-part="3" cx="125" cy="52" r="16"/>
+        <line class="part" data-part="4" x1="125" y1="68" x2="125" y2="130"/>
+        <line class="part" data-part="5" x1="125" y1="85" x2="100" y2="110"/>
+        <line class="part" data-part="6" x1="125" y1="85" x2="150" y2="110"/>
+        <line class="part" data-part="7" x1="125" y1="130" x2="100" y2="170"/>
+        <line class="part" data-part="8" x1="125" y1="130" x2="150" y2="170"/>
       </svg>
 
       <div class="status" id="hm-status">Indovina una lettera</div>
@@ -408,7 +409,7 @@
         </div>
         <div class="stat-item errors">
           <div class="label">Errori</div>
-          <div class="value" id="hm-errors">0/6</div>
+          <div class="value" id="hm-errors">0/9</div>
         </div>
         <div class="stat-item losses">
           <div class="label">Sconfitte</div>
@@ -417,7 +418,7 @@
       </div>
     </div>
 
-    <footer>21 lettere italiane. 6 errori e sei spacciato.</footer>
+    <footer>21 lettere italiane. 9 errori e sei spacciato.</footer>
   </div>
 
 <script>
@@ -681,7 +682,7 @@ const Impiccato = (() => {
     'batteria','torre','castello','ponte','fontana','piazza','cattedrale'
   ];
   const ALPHABET = 'ABCDEFGHILMNOPQRSTUVZ';
-  const MAX_ERRORS = 6;
+  const MAX_ERRORS = 9;
 
   const stats = { wins: 0, losses: 0 };
   let currentWord = '';
