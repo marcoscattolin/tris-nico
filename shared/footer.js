@@ -25,13 +25,22 @@ export function renderFooter({ mount = document.getElementById('app-footer') } =
 }
 
 function openConsentDialog() {
-  if (window.googlefc && window.googlefc.callbackQueue) {
+  if (window.googlefc && typeof window.googlefc.showRevocationMessage === 'function') {
+    window.googlefc.showRevocationMessage();
+    return;
+  }
+  if (window.googlefc) {
+    window.googlefc.callbackQueue = window.googlefc.callbackQueue || [];
     window.googlefc.callbackQueue.push({
-      'CONSENT_DATA_READY': () => {
-        if (window.googlefc.showRevocationMessage) {
+      CONSENT_API_READY: () => {
+        if (window.googlefc && typeof window.googlefc.showRevocationMessage === 'function') {
           window.googlefc.showRevocationMessage();
         }
       }
     });
+    return;
   }
+  console.warn('[footer] Google Funding Choices CMP non caricato: window.googlefc è undefined. Su localhost il banner non viene servito; in produzione assicurati di aver pubblicato il messaggio GDPR in AdSense → Privacy & messaging.');
+  const t = (T() && T().legal) || {};
+  alert(t.cmpUnavailable || 'Il sistema di gestione consensi non è ancora caricato. Riprova tra qualche secondo o ricarica la pagina.');
 }
