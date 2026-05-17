@@ -5,6 +5,11 @@ export default {
     backToMenu: '← Menu',
     pickAGame: 'Pick a game'
   },
+  legal: {
+    privacyLink: 'Privacy & Cookies',
+    manageConsent: 'Manage cookie preferences',
+    privacyPageTitle: 'Privacy Policy & Cookie Policy'
+  },
   tabs: { tris: 'Noughts & Crosses', imp: 'Hangman', anagram: 'Anagrams', memory: 'Memory', t2048: '2048', p15: '15 Puzzle' },
   tris: {
     subtitle: 'Newell & Simon strategy — the AI never loses',

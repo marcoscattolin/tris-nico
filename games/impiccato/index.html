@@ -6,6 +6,7 @@
 <title>Impiccato</title>
 <link rel="stylesheet" href="../../styles/base.css" />
 <link rel="stylesheet" href="impiccato.css" />
+<script async src="../../shared/cmp.js"></script>
 <script src="../../shared/analytics.js"></script>
 </head>
 <body>
@@ -48,11 +49,14 @@
     </div>
     <footer id="imp-footer"></footer>
   </div>
+  <div id="app-footer"></div>
   <script type="module">
     import { applyLanguage, currentLang } from '../../shared/i18n.js';
     import { renderHeader } from '../../shared/header.js';
+    import { renderFooter } from '../../shared/footer.js';
     import game from './impiccato.js';
     renderHeader({ backHref: '../../' });
+    renderFooter();
     game.init();
     applyLanguage(currentLang);
   </script>

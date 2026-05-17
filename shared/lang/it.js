@@ -5,6 +5,11 @@ export default {
     backToMenu: '← Menu',
     pickAGame: 'Scegli un gioco'
   },
+  legal: {
+    privacyLink: 'Privacy & Cookie',
+    manageConsent: 'Gestisci preferenze cookie',
+    privacyPageTitle: 'Privacy Policy & Cookie Policy'
+  },
   tabs: { tris: 'Tris', imp: 'Impiccato', anagram: 'Anagrammi', memory: 'Memory', t2048: '2048', p15: 'Gioco del 15' },
   tris: {
     subtitle: "Strategia Newell & Simon — l'IA non perde mai",
