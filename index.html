@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-<title>Tris — Sfida l'IA Imbattibile</title>
+<title>Giochi — Tris &amp; Impiccato</title>
 <style>
   :root {
     --bg: #0f172a;
@@ -16,6 +16,7 @@
     --muted: #94a3b8;
     --accent: #fbbf24;
     --win: #22c55e;
+    --lose: #ef4444;
   }
 
   * { box-sizing: border-box; }
@@ -31,19 +32,16 @@
   body {
     background: linear-gradient(135deg, #0f172a, #1e293b);
     transition: background 0.6s ease;
-  }
-
-  body {
     display: flex;
     flex-direction: column;
     align-items: center;
-    justify-content: center;
+    justify-content: flex-start;
     padding: 24px 16px;
     min-height: 100vh;
   }
 
   h1 {
-    margin: 0 0 4px;
+    margin: 0 0 12px;
     font-size: clamp(28px, 6vw, 40px);
     letter-spacing: 1px;
     text-align: center;
@@ -51,9 +49,45 @@
 
   .subtitle {
     color: var(--muted);
-    margin-bottom: 24px;
+    margin-bottom: 16px;
     font-size: 14px;
     text-align: center;
+  }
+
+  .game-menu {
+    display: flex;
+    gap: 8px;
+    margin-bottom: 20px;
+    background: rgba(0,0,0,0.25);
+    padding: 6px;
+    border-radius: 14px;
+  }
+
+  .game-tab {
+    background: transparent;
+    color: var(--text);
+    border: none;
+    padding: 10px 22px;
+    border-radius: 10px;
+    cursor: pointer;
+    font-size: 15px;
+    font-weight: 600;
+    font-family: inherit;
+    transition: background 0.15s;
+  }
+
+  .game-tab:hover { background: rgba(255,255,255,0.08); }
+  .game-tab.active {
+    background: var(--cell);
+    box-shadow: 0 2px 8px rgba(0,0,0,0.3);
+  }
+
+  .game-view.hidden { display: none; }
+  .game-view {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 100%;
   }
 
   .panel {
@@ -61,7 +95,7 @@
     border-radius: 16px;
     padding: 20px;
     box-shadow: 0 20px 60px rgba(0,0,0,0.4);
-    width: min(420px, 100%);
+    width: min(440px, 100%);
   }
 
   .controls {
@@ -81,6 +115,7 @@
     cursor: pointer;
     font-size: 14px;
     font-weight: 500;
+    font-family: inherit;
     transition: background 0.15s, border-color 0.15s;
   }
 
@@ -99,8 +134,10 @@
   }
 
   .status.win { color: var(--win); }
-  .status.lose { color: var(--o-color); }
+  .status.lose { color: var(--lose); }
   .status.draw { color: var(--accent); }
+
+  /* -------- Tris -------- */
 
   .board {
     display: grid;
@@ -180,6 +217,101 @@
   .score-item.ai .value { color: var(--o-color); }
   .score-item.draws .value { color: var(--accent); }
 
+  /* -------- Impiccato -------- */
+
+  .hangman-svg {
+    display: block;
+    margin: 0 auto 12px;
+    width: 180px;
+    height: 220px;
+  }
+  .hangman-svg line, .hangman-svg circle {
+    stroke: var(--text);
+    stroke-width: 4;
+    stroke-linecap: round;
+    fill: none;
+  }
+  .hangman-svg .part {
+    opacity: 0;
+    transition: opacity 0.25s ease;
+  }
+  .hangman-svg .part.shown { opacity: 1; }
+
+  .word-display {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 6px;
+    margin-bottom: 16px;
+    font-size: clamp(22px, 5vw, 30px);
+    font-weight: 700;
+    letter-spacing: 1px;
+  }
+
+  .letter-slot {
+    min-width: 22px;
+    text-align: center;
+    border-bottom: 3px solid var(--cell);
+    padding: 2px 4px;
+    color: var(--text);
+  }
+  .letter-slot.revealed { border-bottom-color: var(--win); }
+  .letter-slot.space { border-bottom-color: transparent; }
+
+  .keyboard {
+    display: grid;
+    grid-template-columns: repeat(7, 1fr);
+    gap: 5px;
+    margin-bottom: 16px;
+  }
+
+  .key {
+    background: var(--cell);
+    color: var(--text);
+    border: none;
+    border-radius: 8px;
+    padding: 10px 0;
+    font-size: 15px;
+    font-weight: 700;
+    cursor: pointer;
+    font-family: inherit;
+    transition: background 0.15s, transform 0.1s;
+  }
+  .key:not(:disabled):hover {
+    background: var(--cell-hover);
+    transform: translateY(-1px);
+  }
+  .key:disabled { cursor: default; opacity: 0.7; }
+  .key.correct { background: rgba(34, 197, 94, 0.35); color: var(--text); }
+  .key.wrong { background: rgba(239, 68, 68, 0.35); color: var(--text); }
+
+  .hangman-stats {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 8px;
+    text-align: center;
+    font-size: 14px;
+  }
+  .stat-item {
+    background: var(--cell);
+    padding: 10px 6px;
+    border-radius: 10px;
+  }
+  .stat-item .label {
+    color: var(--muted);
+    font-size: 12px;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+  }
+  .stat-item .value {
+    font-size: 22px;
+    font-weight: 700;
+    margin-top: 2px;
+  }
+  .stat-item.wins .value { color: var(--win); }
+  .stat-item.losses .value { color: var(--lose); }
+  .stat-item.errors .value { color: var(--accent); }
+
   footer {
     margin-top: 20px;
     color: var(--muted);
@@ -189,50 +321,137 @@
 </style>
 </head>
 <body>
-  <h1>Tris vs IA</h1>
-  <div class="subtitle">Strategia Newell &amp; Simon — l'IA non perde mai</div>
-
-  <div class="panel">
-    <div class="controls">
-      <button id="btn-human-first" class="active">Inizio io</button>
-      <button id="btn-ai-first">Inizia l'IA</button>
-      <button id="btn-reset">Nuova partita</button>
-    </div>
-
-    <div class="status" id="status">Tocca a te (X)</div>
-
-    <div class="board" id="board">
-      <button class="cell" data-i="0"></button>
-      <button class="cell" data-i="1"></button>
-      <button class="cell" data-i="2"></button>
-      <button class="cell" data-i="3"></button>
-      <button class="cell" data-i="4"></button>
-      <button class="cell" data-i="5"></button>
-      <button class="cell" data-i="6"></button>
-      <button class="cell" data-i="7"></button>
-      <button class="cell" data-i="8"></button>
-    </div>
-
-    <div class="scoreboard">
-      <div class="score-item you">
-        <div class="label">Tu</div>
-        <div class="value" id="score-you">0</div>
-      </div>
-      <div class="score-item draws">
-        <div class="label">Patte</div>
-        <div class="value" id="score-draws">0</div>
-      </div>
-      <div class="score-item ai">
-        <div class="label">IA</div>
-        <div class="value" id="score-ai">0</div>
-      </div>
-    </div>
+  <h1>Giochi</h1>
+  <div class="game-menu">
+    <button class="game-tab active" data-game="tris">Tris</button>
+    <button class="game-tab" data-game="impiccato">Impiccato</button>
   </div>
 
-  <footer>Il meglio che puoi fare è pareggiare. Provaci.</footer>
+  <!-- ============= TRIS ============= -->
+  <div id="game-tris" class="game-view">
+    <div class="subtitle">Strategia Newell &amp; Simon — l'IA non perde mai</div>
+
+    <div class="panel">
+      <div class="controls">
+        <button id="btn-human-first" class="active">Inizio io</button>
+        <button id="btn-ai-first">Inizia l'IA</button>
+        <button id="btn-reset">Nuova partita</button>
+      </div>
+
+      <div class="status" id="status">Tocca a te (X)</div>
+
+      <div class="board" id="board">
+        <button class="cell" data-i="0"></button>
+        <button class="cell" data-i="1"></button>
+        <button class="cell" data-i="2"></button>
+        <button class="cell" data-i="3"></button>
+        <button class="cell" data-i="4"></button>
+        <button class="cell" data-i="5"></button>
+        <button class="cell" data-i="6"></button>
+        <button class="cell" data-i="7"></button>
+        <button class="cell" data-i="8"></button>
+      </div>
+
+      <div class="scoreboard">
+        <div class="score-item you">
+          <div class="label">Tu</div>
+          <div class="value" id="score-you">0</div>
+        </div>
+        <div class="score-item draws">
+          <div class="label">Patte</div>
+          <div class="value" id="score-draws">0</div>
+        </div>
+        <div class="score-item ai">
+          <div class="label">IA</div>
+          <div class="value" id="score-ai">0</div>
+        </div>
+      </div>
+    </div>
+
+    <footer>Il meglio che puoi fare è pareggiare. Provaci.</footer>
+  </div>
+
+  <!-- ============= IMPICCATO ============= -->
+  <div id="game-impiccato" class="game-view hidden">
+    <div class="subtitle">Indovina la parola italiana prima di farti impiccare</div>
+
+    <div class="panel">
+      <div class="controls">
+        <button id="hm-new">Nuova parola</button>
+      </div>
+
+      <svg class="hangman-svg" viewBox="0 0 180 220">
+        <!-- forca -->
+        <line x1="10" y1="210" x2="170" y2="210"/>
+        <line x1="40" y1="210" x2="40" y2="15"/>
+        <line x1="40" y1="15" x2="125" y2="15"/>
+        <line x1="125" y1="15" x2="125" y2="35"/>
+        <!-- corpo (nascosto inizialmente) -->
+        <circle class="part" data-part="0" cx="125" cy="52" r="16"/>
+        <line class="part" data-part="1" x1="125" y1="68" x2="125" y2="130"/>
+        <line class="part" data-part="2" x1="125" y1="85" x2="100" y2="110"/>
+        <line class="part" data-part="3" x1="125" y1="85" x2="150" y2="110"/>
+        <line class="part" data-part="4" x1="125" y1="130" x2="100" y2="170"/>
+        <line class="part" data-part="5" x1="125" y1="130" x2="150" y2="170"/>
+      </svg>
+
+      <div class="status" id="hm-status">Indovina una lettera</div>
+
+      <div class="word-display" id="hm-word"></div>
+
+      <div class="keyboard" id="hm-keyboard"></div>
+
+      <div class="hangman-stats">
+        <div class="stat-item wins">
+          <div class="label">Vittorie</div>
+          <div class="value" id="hm-wins">0</div>
+        </div>
+        <div class="stat-item errors">
+          <div class="label">Errori</div>
+          <div class="value" id="hm-errors">0/6</div>
+        </div>
+        <div class="stat-item losses">
+          <div class="label">Sconfitte</div>
+          <div class="value" id="hm-losses">0</div>
+        </div>
+      </div>
+    </div>
+
+    <footer>21 lettere italiane. 6 errori e sei spacciato.</footer>
+  </div>
 
 <script>
-(() => {
+// =========================================================================
+// Sfondi condivisi
+// =========================================================================
+const BACKGROUNDS = [
+  'linear-gradient(135deg, #0f172a, #1e293b)',
+  'linear-gradient(135deg, #1e3a8a, #6d28d9)',
+  'linear-gradient(135deg, #831843, #4c1d95)',
+  'linear-gradient(135deg, #064e3b, #0f766e)',
+  'linear-gradient(135deg, #7c2d12, #b45309)',
+  'linear-gradient(135deg, #134e4a, #1e3a8a)',
+  'linear-gradient(135deg, #500724, #831843)',
+  'linear-gradient(135deg, #1f2937, #4338ca)',
+  'linear-gradient(135deg, #052e16, #166534)',
+  'linear-gradient(135deg, #422006, #92400e)',
+  'linear-gradient(135deg, #3b0764, #0c4a6e)',
+  'linear-gradient(135deg, #0c4a6e, #134e4a)'
+];
+let lastBgIndex = -1;
+function changeBackground() {
+  let idx;
+  do {
+    idx = Math.floor(Math.random() * BACKGROUNDS.length);
+  } while (idx === lastBgIndex && BACKGROUNDS.length > 1);
+  lastBgIndex = idx;
+  document.body.style.background = BACKGROUNDS[idx];
+}
+
+// =========================================================================
+// TRIS — strategia Newell & Simon
+// =========================================================================
+const Tris = (() => {
   const LINES = [
     [0,1,2],[3,4,5],[6,7,8],
     [0,3,6],[1,4,7],[2,5,8],
@@ -242,38 +461,12 @@
   const SIDES = [1,3,5,7];
   const OPPOSITE_CORNER = { 0:8, 2:6, 6:2, 8:0 };
 
-  const BACKGROUNDS = [
-    'linear-gradient(135deg, #0f172a, #1e293b)',
-    'linear-gradient(135deg, #1e3a8a, #6d28d9)',
-    'linear-gradient(135deg, #831843, #4c1d95)',
-    'linear-gradient(135deg, #064e3b, #0f766e)',
-    'linear-gradient(135deg, #7c2d12, #b45309)',
-    'linear-gradient(135deg, #134e4a, #1e3a8a)',
-    'linear-gradient(135deg, #500724, #831843)',
-    'linear-gradient(135deg, #1f2937, #4338ca)',
-    'linear-gradient(135deg, #052e16, #166534)',
-    'linear-gradient(135deg, #422006, #92400e)',
-    'linear-gradient(135deg, #3b0764, #0c4a6e)',
-    'linear-gradient(135deg, #0c4a6e, #134e4a)'
-  ];
-  let lastBgIndex = -1;
-
   let board, currentPlayer, humanMark, aiMark, gameOver, humanStarts;
   let autoRestartTimer = null;
   const score = { you: 0, ai: 0, draws: 0 };
 
-  function changeBackground() {
-    let idx;
-    do {
-      idx = Math.floor(Math.random() * BACKGROUNDS.length);
-    } while (idx === lastBgIndex && BACKGROUNDS.length > 1);
-    lastBgIndex = idx;
-    document.body.style.background = BACKGROUNDS[idx];
-  }
-
-  const cells = [...document.querySelectorAll('.cell')];
+  const cells = [...document.querySelectorAll('#game-tris .cell')];
   const statusEl = document.getElementById('status');
-  const boardEl = document.getElementById('board');
   const btnHumanFirst = document.getElementById('btn-human-first');
   const btnAiFirst = document.getElementById('btn-ai-first');
   const btnReset = document.getElementById('btn-reset');
@@ -374,16 +567,12 @@
     statusEl.textContent = `Tocca a te (${humanMark})`;
   }
 
-  // -------- Strategia Newell & Simon --------
-
   function findWinningMove(b, player) {
     for (const [a,c,d] of LINES) {
-      const cellsArr = [b[a], b[c], b[d]];
-      const p = cellsArr.filter(x => x === player).length;
-      const e = cellsArr.filter(x => x === '').length;
-      if (p === 2 && e === 1) {
-        return [a,c,d].find(idx => b[idx] === '');
-      }
+      const arr = [b[a], b[c], b[d]];
+      const p = arr.filter(x => x === player).length;
+      const e = arr.filter(x => x === '').length;
+      if (p === 2 && e === 1) return [a,c,d].find(idx => b[idx] === '');
     }
     return null;
   }
@@ -391,9 +580,9 @@
   function countOpenTwos(b, player) {
     let n = 0;
     for (const [a,c,d] of LINES) {
-      const cellsArr = [b[a], b[c], b[d]];
-      const p = cellsArr.filter(x => x === player).length;
-      const o = cellsArr.filter(x => x !== '' && x !== player).length;
+      const arr = [b[a], b[c], b[d]];
+      const p = arr.filter(x => x === player).length;
+      const o = arr.filter(x => x !== '' && x !== player).length;
       if (p === 2 && o === 0) n++;
     }
     return n;
@@ -411,8 +600,6 @@
   }
 
   function findThreatMoves(b, player) {
-    // returns array of { move, forcedBlock } where placing `move` creates exactly
-    // one new two-in-a-row threat that opponent must block at `forcedBlock`.
     const out = [];
     for (let i = 0; i < 9; i++) {
       if (b[i] !== '') continue;
@@ -420,12 +607,10 @@
       copy[i] = player;
       const blocks = [];
       for (const [a,c,d] of LINES) {
-        const cellsArr = [copy[a], copy[c], copy[d]];
-        const p = cellsArr.filter(x => x === player).length;
-        const e = cellsArr.filter(x => x === '').length;
-        if (p === 2 && e === 1) {
-          blocks.push([a,c,d].find(idx => copy[idx] === ''));
-        }
+        const arr = [copy[a], copy[c], copy[d]];
+        const p = arr.filter(x => x === player).length;
+        const e = arr.filter(x => x === '').length;
+        if (p === 2 && e === 1) blocks.push([a,c,d].find(idx => copy[idx] === ''));
       }
       if (blocks.length === 1) out.push({ move: i, forcedBlock: blocks[0] });
     }
@@ -435,57 +620,31 @@
   function chooseAiMove() {
     const me = aiMark;
     const opp = humanMark;
-
-    // 1. Win
     let m = findWinningMove(board, me);
     if (m !== null) return m;
-
-    // 2. Block
     m = findWinningMove(board, opp);
     if (m !== null) return m;
-
-    // 3. Fork (create two threats)
     const myForks = findForkMoves(board, me);
     if (myForks.length > 0) return myForks[0];
-
-    // 4. Block opponent's fork
     const oppForks = findForkMoves(board, opp);
-    if (oppForks.length === 1) {
-      return oppForks[0];
-    } else if (oppForks.length > 1) {
-      // Force opponent to defend a two-in-a-row, picking a threat whose forced
-      // block doesn't itself create an opponent fork.
+    if (oppForks.length === 1) return oppForks[0];
+    if (oppForks.length > 1) {
       const threats = findThreatMoves(board, me);
       for (const { move, forcedBlock } of threats) {
         if (!oppForks.includes(forcedBlock)) return move;
       }
-      // Fallback: just block one of the forks.
       return oppForks[0];
     }
-
-    // 5. Center
     if (board[4] === '') return 4;
-
-    // 6. Opposite corner (if opponent in corner and opposite empty)
     for (const c of CORNERS) {
-      if (board[c] === opp && board[OPPOSITE_CORNER[c]] === '') {
-        return OPPOSITE_CORNER[c];
-      }
+      if (board[c] === opp && board[OPPOSITE_CORNER[c]] === '') return OPPOSITE_CORNER[c];
     }
-
-    // 7. Empty corner
     for (const c of CORNERS) if (board[c] === '') return c;
-
-    // 8. Empty side
     for (const s of SIDES) if (board[s] === '') return s;
-
-    return -1; // unreachable
+    return -1;
   }
 
-  // -------- UI bindings --------
-
   cells.forEach(c => c.addEventListener('click', onCellClick));
-
   btnHumanFirst.addEventListener('click', () => {
     btnHumanFirst.classList.add('active');
     btnAiFirst.classList.remove('active');
@@ -498,8 +657,184 @@
   });
   btnReset.addEventListener('click', () => init(humanStarts));
 
-  init(true);
+  return { init: () => init(true) };
 })();
+
+// =========================================================================
+// IMPICCATO
+// =========================================================================
+const Impiccato = (() => {
+  const PAROLE = [
+    'gatto','cane','sole','luna','casa','mare','montagna','fiume','strada',
+    'libro','scuola','amico','famiglia','cuore','sogno','viaggio','musica',
+    'pittura','teatro','telefono','finestra','porta','tavolo','sedia',
+    'giardino','fiore','albero','foglia','neve','pioggia','vento','fuoco',
+    'terra','acqua','pane','vino','formaggio','pasta','pizza','gelato',
+    'cioccolato','mela','pera','banana','fragola','limone','arancia',
+    'pomodoro','insalata','pesce','carne','dolce','treno','autobus',
+    'bicicletta','macchina','aereo','barca','biblioteca','ospedale','cinema',
+    'museo','ristorante','mercato','spiaggia','isola','lago','foresta',
+    'deserto','primavera','estate','autunno','inverno','mattina','sera',
+    'notte','stella','pianeta','oceano','tempesta','pinguino','elefante',
+    'leone','tigre','lupo','volpe','aquila','farfalla','serpente','calcio',
+    'tennis','nuoto','corsa','scacchi','chitarra','pianoforte','violino',
+    'batteria','torre','castello','ponte','fontana','piazza','cattedrale'
+  ];
+  const ALPHABET = 'ABCDEFGHILMNOPQRSTUVZ';
+  const MAX_ERRORS = 6;
+
+  const stats = { wins: 0, losses: 0 };
+  let currentWord = '';
+  let guessed = new Set();
+  let errors = 0;
+  let gameOver = false;
+  let autoRestartTimer = null;
+
+  const statusEl = document.getElementById('hm-status');
+  const wordEl = document.getElementById('hm-word');
+  const keyboardEl = document.getElementById('hm-keyboard');
+  const errorsEl = document.getElementById('hm-errors');
+  const winsEl = document.getElementById('hm-wins');
+  const lossesEl = document.getElementById('hm-losses');
+  const partEls = [...document.querySelectorAll('#game-impiccato .part')];
+  const btnNew = document.getElementById('hm-new');
+  let lastWord = '';
+
+  function pickWord() {
+    let w;
+    do {
+      w = PAROLE[Math.floor(Math.random() * PAROLE.length)];
+    } while (w === lastWord && PAROLE.length > 1);
+    lastWord = w;
+    return w.toUpperCase();
+  }
+
+  function renderWord() {
+    wordEl.innerHTML = '';
+    for (const ch of currentWord) {
+      const span = document.createElement('span');
+      span.className = 'letter-slot';
+      if (guessed.has(ch)) {
+        span.textContent = ch;
+        span.classList.add('revealed');
+      } else {
+        span.textContent = ' ';
+      }
+      wordEl.appendChild(span);
+    }
+  }
+
+  function renderKeyboard() {
+    keyboardEl.innerHTML = '';
+    for (const letter of ALPHABET) {
+      const btn = document.createElement('button');
+      btn.className = 'key';
+      btn.textContent = letter;
+      btn.dataset.letter = letter;
+      btn.addEventListener('click', () => onGuess(letter));
+      keyboardEl.appendChild(btn);
+    }
+  }
+
+  function renderHangman() {
+    partEls.forEach((el, i) => {
+      el.classList.toggle('shown', i < errors);
+    });
+    errorsEl.textContent = `${errors}/${MAX_ERRORS}`;
+  }
+
+  function onGuess(letter) {
+    if (gameOver || guessed.has(letter)) return;
+    guessed.add(letter);
+    const btn = keyboardEl.querySelector(`[data-letter="${letter}"]`);
+    if (btn) btn.disabled = true;
+    if (currentWord.includes(letter)) {
+      if (btn) btn.classList.add('correct');
+      renderWord();
+      if ([...currentWord].every(ch => guessed.has(ch))) endGame(true);
+    } else {
+      if (btn) btn.classList.add('wrong');
+      errors++;
+      renderHangman();
+      if (errors >= MAX_ERRORS) endGame(false);
+    }
+  }
+
+  function endGame(won) {
+    gameOver = true;
+    if (won) {
+      statusEl.textContent = `Bravo! La parola era ${currentWord}.`;
+      statusEl.className = 'status win';
+      stats.wins++;
+    } else {
+      statusEl.textContent = `Impiccato. La parola era ${currentWord}.`;
+      statusEl.className = 'status lose';
+      stats.losses++;
+      // rivela la parola
+      [...wordEl.children].forEach((slot, i) => {
+        slot.textContent = currentWord[i];
+        slot.classList.add('revealed');
+      });
+    }
+    winsEl.textContent = stats.wins;
+    lossesEl.textContent = stats.losses;
+    keyboardEl.querySelectorAll('.key').forEach(b => b.disabled = true);
+    autoRestartTimer = setTimeout(() => {
+      autoRestartTimer = null;
+      init();
+    }, 1000);
+  }
+
+  function init() {
+    if (autoRestartTimer !== null) {
+      clearTimeout(autoRestartTimer);
+      autoRestartTimer = null;
+    }
+    currentWord = pickWord();
+    guessed = new Set();
+    errors = 0;
+    gameOver = false;
+    changeBackground();
+    statusEl.textContent = 'Indovina una lettera';
+    statusEl.className = 'status';
+    renderWord();
+    renderKeyboard();
+    renderHangman();
+  }
+
+  document.addEventListener('keydown', (e) => {
+    if (document.getElementById('game-impiccato').classList.contains('hidden')) return;
+    const ch = e.key.toUpperCase();
+    if (ALPHABET.includes(ch)) onGuess(ch);
+  });
+
+  btnNew.addEventListener('click', () => init());
+
+  return { init };
+})();
+
+// =========================================================================
+// Menù di selezione gioco
+// =========================================================================
+const tabs = [...document.querySelectorAll('.game-tab')];
+const views = {
+  tris: document.getElementById('game-tris'),
+  impiccato: document.getElementById('game-impiccato')
+};
+
+tabs.forEach(tab => {
+  tab.addEventListener('click', () => {
+    const game = tab.dataset.game;
+    tabs.forEach(t => t.classList.toggle('active', t === tab));
+    Object.entries(views).forEach(([k, el]) => {
+      el.classList.toggle('hidden', k !== game);
+    });
+  });
+});
+
+// Avvio
+Tris.init();
+Impiccato.init();
 </script>
 </body>
 </html>
