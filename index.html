@@ -519,6 +519,62 @@
   .t2048-tile[data-v="1024"] { background: #edc53f; color: #f9f6f2; font-size: clamp(16px, 4vw, 22px); }
   .t2048-tile[data-v="2048"] { background: #edc22e; color: #f9f6f2; font-size: clamp(16px, 4vw, 22px); }
 
+  /* -------- Gioco del 15 -------- */
+
+  .p15-board {
+    position: relative;
+    aspect-ratio: 1 / 1;
+    background: rgba(0,0,0,0.3);
+    border-radius: 10px;
+    padding: 8px;
+    margin-bottom: 16px;
+  }
+  .p15-bg {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    grid-template-rows: repeat(4, 1fr);
+    gap: 8px;
+    width: 100%;
+    height: 100%;
+  }
+  .p15-bg-cell {
+    background: rgba(255,255,255,0.05);
+    border-radius: 8px;
+    min-width: 0;
+    min-height: 0;
+  }
+  .p15-tiles {
+    position: absolute;
+    inset: 8px;
+    container-type: inline-size;
+  }
+  .p15-tile {
+    position: absolute;
+    --cell-size: calc((100cqw - 24px) / 4);
+    width: var(--cell-size);
+    height: var(--cell-size);
+    top: 0; left: 0;
+    border: none;
+    border-radius: 8px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: clamp(22px, 7vw, 36px);
+    font-weight: 700;
+    font-family: inherit;
+    color: var(--text);
+    background: var(--cell-hover);
+    cursor: pointer;
+    translate: calc(var(--c) * (var(--cell-size) + 8px)) calc(var(--r) * (var(--cell-size) + 8px));
+    transition: translate 0.18s ease, background 0.15s;
+  }
+  .p15-tile:hover { background: #5b6b80; }
+  .p15-tile.correct { background: rgba(34, 197, 94, 0.45); }
+  .p15-tile.correct:hover { background: rgba(34, 197, 94, 0.55); }
+  .p15-tile.won { animation: tile-merge 0.5s ease; }
+
+  .stat-item.time .value { color: var(--text); }
+
   footer {
     margin-top: 20px;
     color: var(--muted);
@@ -548,6 +604,7 @@
     <button class="game-tab" data-game="anagram" data-i18n="tabs.anagram">Anagrammi</button>
     <button class="game-tab" data-game="memory" data-i18n="tabs.memory">Memory</button>
     <button class="game-tab" data-game="t2048" data-i18n="tabs.t2048">2048</button>
+    <button class="game-tab" data-game="p15" data-i18n="tabs.p15">Gioco del 15</button>
   </div>
 
   <!-- ============= TRIS ============= -->
@@ -712,6 +769,33 @@
     <footer id="t2048-footer"></footer>
   </div>
 
+  <!-- ============= GIOCO DEL 15 ============= -->
+  <div id="game-p15" class="game-view hidden">
+    <div class="subtitle" id="p15-subtitle"></div>
+    <div class="panel">
+      <div class="controls">
+        <button id="p15-new">Mescola</button>
+      </div>
+      <div class="status" id="p15-status"></div>
+      <div class="p15-board" id="p15-board"></div>
+      <div class="three-stats">
+        <div class="stat-item moves">
+          <div class="label" id="lbl-p15-moves">Mosse</div>
+          <div class="value" id="p15-moves">0</div>
+        </div>
+        <div class="stat-item time">
+          <div class="label" id="lbl-p15-time">Tempo</div>
+          <div class="value" id="p15-time">00:00</div>
+        </div>
+        <div class="stat-item best">
+          <div class="label" id="lbl-p15-best">Record</div>
+          <div class="value" id="p15-best">–</div>
+        </div>
+      </div>
+    </div>
+    <footer id="p15-footer"></footer>
+  </div>
+
 <script>
 // =========================================================================
 // i18n
@@ -720,7 +804,7 @@ const I18N = {
   it: {
     title: 'Giochi',
     langLabel: 'Lingua',
-    tabs: { tris: 'Tris', imp: 'Impiccato', anagram: 'Anagrammi', memory: 'Memory', t2048: '2048' },
+    tabs: { tris: 'Tris', imp: 'Impiccato', anagram: 'Anagrammi', memory: 'Memory', t2048: '2048', p15: 'Gioco del 15' },
     tris: {
       subtitle: "Strategia Newell & Simon — l'IA non perde mai",
       btnHumanFirst: 'Inizio io',
@@ -769,12 +853,20 @@ const I18N = {
       lost: 'Niente più mosse.',
       statScore: 'Punteggio', statBest: 'Record', statMax: 'Max',
       footer: 'Frecce ↑↓←→ o swipe.'
+    },
+    p15: {
+      subtitle: 'Sistema le tessere da 1 a 15 in ordine',
+      btnNew: 'Mescola',
+      play: 'Muovi le tessere',
+      won: (m, t) => `Risolto in ${m} mosse (${t})!`,
+      statMoves: 'Mosse', statTime: 'Tempo', statBest: 'Record',
+      footer: 'Clicca una tessera adiacente al vuoto.'
     }
   },
   'en-gb': {
     title: 'Games',
     langLabel: 'Language',
-    tabs: { tris: 'Noughts & Crosses', imp: 'Hangman', anagram: 'Anagrams', memory: 'Memory', t2048: '2048' },
+    tabs: { tris: 'Noughts & Crosses', imp: 'Hangman', anagram: 'Anagrams', memory: 'Memory', t2048: '2048', p15: '15 Puzzle' },
     tris: {
       subtitle: 'Newell & Simon strategy — the AI never loses',
       btnHumanFirst: 'I start', btnAiFirst: 'AI starts', btnReset: 'New game',
@@ -809,12 +901,20 @@ const I18N = {
       play: 'Arrow keys or swipe', won: 'You reached 2048!', lost: 'No more moves.',
       statScore: 'Score', statBest: 'Best', statMax: 'Max',
       footer: 'Arrow keys ↑↓←→ or swipe.'
+    },
+    p15: {
+      subtitle: 'Arrange the tiles 1 to 15 in order',
+      btnNew: 'Shuffle',
+      play: 'Slide the tiles',
+      won: (m, t) => `Solved in ${m} moves (${t})!`,
+      statMoves: 'Moves', statTime: 'Time', statBest: 'Best',
+      footer: 'Click a tile next to the gap.'
     }
   },
   'en-us': {
     title: 'Games',
     langLabel: 'Language',
-    tabs: { tris: 'Tic-Tac-Toe', imp: 'Hangman', anagram: 'Anagrams', memory: 'Memory', t2048: '2048' },
+    tabs: { tris: 'Tic-Tac-Toe', imp: 'Hangman', anagram: 'Anagrams', memory: 'Memory', t2048: '2048', p15: '15 Puzzle' },
     tris: {
       subtitle: 'Newell & Simon strategy — the AI never loses',
       btnHumanFirst: 'I start', btnAiFirst: 'AI starts', btnReset: 'New game',
@@ -849,12 +949,20 @@ const I18N = {
       play: 'Arrow keys or swipe', won: 'You reached 2048!', lost: 'No more moves.',
       statScore: 'Score', statBest: 'Best', statMax: 'Max',
       footer: 'Arrow keys ↑↓←→ or swipe.'
+    },
+    p15: {
+      subtitle: 'Arrange the tiles 1 to 15 in order',
+      btnNew: 'Shuffle',
+      play: 'Slide the tiles',
+      won: (m, t) => `Solved in ${m} moves (${t})!`,
+      statMoves: 'Moves', statTime: 'Time', statBest: 'Best',
+      footer: 'Click a tile next to the gap.'
     }
   },
   de: {
     title: 'Spiele',
     langLabel: 'Sprache',
-    tabs: { tris: 'Tic-Tac-Toe', imp: 'Galgenmännchen', anagram: 'Anagramme', memory: 'Memory', t2048: '2048' },
+    tabs: { tris: 'Tic-Tac-Toe', imp: 'Galgenmännchen', anagram: 'Anagramme', memory: 'Memory', t2048: '2048', p15: '15er-Spiel' },
     tris: {
       subtitle: 'Newell-Simon-Strategie — die KI verliert nie',
       btnHumanFirst: 'Ich beginne', btnAiFirst: 'KI beginnt', btnReset: 'Neues Spiel',
@@ -889,12 +997,20 @@ const I18N = {
       play: 'Pfeiltasten oder Wischen', won: '2048 erreicht!', lost: 'Keine Züge mehr.',
       statScore: 'Punkte', statBest: 'Rekord', statMax: 'Max',
       footer: 'Pfeiltasten ↑↓←→ oder Wischen.'
+    },
+    p15: {
+      subtitle: 'Ordne die Steine 1 bis 15',
+      btnNew: 'Mischen',
+      play: 'Schieb die Steine',
+      won: (m, t) => `Gelöst in ${m} Zügen (${t})!`,
+      statMoves: 'Züge', statTime: 'Zeit', statBest: 'Rekord',
+      footer: 'Klick auf einen Stein neben der Lücke.'
     }
   },
   es: {
     title: 'Juegos',
     langLabel: 'Idioma',
-    tabs: { tris: 'Tres en raya', imp: 'Ahorcado', anagram: 'Anagramas', memory: 'Memoria', t2048: '2048' },
+    tabs: { tris: 'Tres en raya', imp: 'Ahorcado', anagram: 'Anagramas', memory: 'Memoria', t2048: '2048', p15: 'Juego del 15' },
     tris: {
       subtitle: 'Estrategia de Newell y Simon — la IA nunca pierde',
       btnHumanFirst: 'Empiezo yo', btnAiFirst: 'Empieza la IA', btnReset: 'Nueva partida',
@@ -929,12 +1045,20 @@ const I18N = {
       play: 'Flechas o deslizar', won: '¡Llegaste a 2048!', lost: 'No hay más movimientos.',
       statScore: 'Puntos', statBest: 'Récord', statMax: 'Máx',
       footer: 'Flechas ↑↓←→ o deslizar.'
+    },
+    p15: {
+      subtitle: 'Ordena las fichas del 1 al 15',
+      btnNew: 'Mezclar',
+      play: 'Desliza las fichas',
+      won: (m, t) => `¡Resuelto en ${m} movimientos (${t})!`,
+      statMoves: 'Movimientos', statTime: 'Tiempo', statBest: 'Récord',
+      footer: 'Haz clic en una ficha junto al hueco.'
     }
   },
   zh: {
     title: '游戏',
     langLabel: '语言',
-    tabs: { tris: '井字棋', imp: '猜词游戏', anagram: '字母重组', memory: '记忆游戏', t2048: '2048' },
+    tabs: { tris: '井字棋', imp: '猜词游戏', anagram: '字母重组', memory: '记忆游戏', t2048: '2048', p15: '15 之谜' },
     tris: {
       subtitle: 'Newell 和 Simon 策略 — AI 永不败北',
       btnHumanFirst: '我先来', btnAiFirst: 'AI 先来', btnReset: '新游戏',
@@ -968,12 +1092,20 @@ const I18N = {
       play: '方向键或滑动', won: '达到 2048！', lost: '无法再移动。',
       statScore: '分数', statBest: '最高', statMax: '最大',
       footer: '方向键 ↑↓←→ 或滑动。'
+    },
+    p15: {
+      subtitle: '把 1 到 15 排好序',
+      btnNew: '洗牌',
+      play: '滑动方块',
+      won: (m, t) => `用了 ${m} 步（${t}）！`,
+      statMoves: '步数', statTime: '时间', statBest: '最佳',
+      footer: '点击空格旁边的方块。'
     }
   },
   hi: {
     title: 'खेल',
     langLabel: 'भाषा',
-    tabs: { tris: 'टिक टैक टो', imp: 'फांसी का खेल', anagram: 'अक्षर पहेली', memory: 'मेमोरी', t2048: '2048' },
+    tabs: { tris: 'टिक टैक टो', imp: 'फांसी का खेल', anagram: 'अक्षर पहेली', memory: 'मेमोरी', t2048: '2048', p15: '15 पहेली' },
     tris: {
       subtitle: 'न्यूएल और साइमन की रणनीति — AI कभी नहीं हारता',
       btnHumanFirst: 'मैं पहले', btnAiFirst: 'AI पहले', btnReset: 'नया खेल',
@@ -1008,12 +1140,20 @@ const I18N = {
       play: 'तीर बटन या स्वाइप', won: '2048 तक पहुँच गए!', lost: 'और चाल नहीं।',
       statScore: 'स्कोर', statBest: 'रिकॉर्ड', statMax: 'मैक्स',
       footer: 'तीर ↑↓←→ या स्वाइप।'
+    },
+    p15: {
+      subtitle: 'टाइलें 1 से 15 तक क्रम में लगाएँ',
+      btnNew: 'फेंटें',
+      play: 'टाइलें खिसकाएँ',
+      won: (m, t) => `${m} चालों में हल किया (${t})!`,
+      statMoves: 'चालें', statTime: 'समय', statBest: 'रिकॉर्ड',
+      footer: 'खाली जगह के पास टाइल पर क्लिक करें।'
     }
   },
   la: {
     title: 'Ludi',
     langLabel: 'Lingua',
-    tabs: { tris: 'Triplices', imp: 'Suspensus', anagram: 'Anagrammata', memory: 'Memoria', t2048: '2048' },
+    tabs: { tris: 'Triplices', imp: 'Suspensus', anagram: 'Anagrammata', memory: 'Memoria', t2048: '2048', p15: 'Ludus XV' },
     tris: {
       subtitle: 'Ratio Newell-Simon — machina numquam vincitur',
       btnHumanFirst: 'Ego incipio', btnAiFirst: 'Machina incipit', btnReset: 'Novus ludus',
@@ -1048,6 +1188,14 @@ const I18N = {
       play: 'Sagittae aut tactus', won: '2048 attigisti!', lost: 'Nulli motus.',
       statScore: 'Puncta', statBest: 'Optimum', statMax: 'Max',
       footer: 'Sagittae ↑↓←→ aut tactus.'
+    },
+    p15: {
+      subtitle: 'Tessellas a 1 ad 15 in ordinem dispone',
+      btnNew: 'Misce',
+      play: 'Tessellas move',
+      won: (m, t) => `${m} motibus solutum (${t})!`,
+      statMoves: 'Motus', statTime: 'Tempus', statBest: 'Optimum',
+      footer: 'Tessellam iuxta vacuum tange.'
     }
   }
 };
@@ -2079,6 +2227,262 @@ const T2048 = (() => {
 })();
 
 // =========================================================================
+// GIOCO DEL 15
+// =========================================================================
+const P15 = (() => {
+  const SIZE = 4;
+  let grid; // 4x4 di tile id (1..15) o 0 (vuoto)
+  let tiles; // Map<id, { id, value, r, c, el }>
+  let blankR, blankC;
+  let moves, startTime, timerId, gameOver, best;
+
+  const subtitleEl = document.getElementById('p15-subtitle');
+  const statusEl = document.getElementById('p15-status');
+  const boardEl = document.getElementById('p15-board');
+  const movesEl = document.getElementById('p15-moves');
+  const timeEl = document.getElementById('p15-time');
+  const bestEl = document.getElementById('p15-best');
+  const btnNew = document.getElementById('p15-new');
+  let bgEl, tilesLayerEl;
+
+  function setupBoard() {
+    boardEl.innerHTML = '';
+    bgEl = document.createElement('div');
+    bgEl.className = 'p15-bg';
+    for (let i = 0; i < SIZE * SIZE; i++) {
+      const c = document.createElement('div');
+      c.className = 'p15-bg-cell';
+      bgEl.appendChild(c);
+    }
+    boardEl.appendChild(bgEl);
+    tilesLayerEl = document.createElement('div');
+    tilesLayerEl.className = 'p15-tiles';
+    boardEl.appendChild(tilesLayerEl);
+  }
+
+  function createTile(value, r, c) {
+    const el = document.createElement('button');
+    el.className = 'p15-tile';
+    el.textContent = value;
+    el.style.setProperty('--r', r);
+    el.style.setProperty('--c', c);
+    el.addEventListener('click', () => clickTile(value));
+    tilesLayerEl.appendChild(el);
+    const tile = { id: value, value, r, c, el };
+    tiles.set(value, tile);
+    return tile;
+  }
+
+  function isSolved() {
+    for (let r = 0; r < SIZE; r++)
+      for (let c = 0; c < SIZE; c++) {
+        const expected = (r === SIZE - 1 && c === SIZE - 1) ? 0 : (r * SIZE + c + 1);
+        if (grid[r][c] !== expected) return false;
+      }
+    return true;
+  }
+
+  function dataSwap(r, c) {
+    // Sposta la tessera in (r,c) nella posizione del vuoto, senza animazione né update DOM
+    const id = grid[r][c];
+    const tile = tiles.get(id);
+    grid[blankR][blankC] = id;
+    tile.r = blankR;
+    tile.c = blankC;
+    grid[r][c] = 0;
+    blankR = r; blankC = c;
+  }
+
+  function move(r, c) {
+    // Sposta la tessera in (r,c) verso il vuoto. Assume che (r,c) sia adiacente al vuoto.
+    const id = grid[r][c];
+    if (!id) return;
+    const tile = tiles.get(id);
+    const oldR = blankR, oldC = blankC;
+    grid[oldR][oldC] = id;
+    grid[r][c] = 0;
+    tile.r = oldR; tile.c = oldC;
+    blankR = r; blankC = c;
+    tile.el.style.setProperty('--r', tile.r);
+    tile.el.style.setProperty('--c', tile.c);
+  }
+
+  function clickTile(value) {
+    if (gameOver) return;
+    const tile = tiles.get(value);
+    if (!tile) return;
+    const { r, c } = tile;
+    if (r === blankR && c !== blankC) {
+      // Slide orizzontale: muovi tutte le tessere fra il vuoto e (r,c)
+      const dir = c < blankC ? -1 : 1;
+      let count = 0;
+      while (blankC !== c) {
+        move(blankR, blankC + dir);
+        count++;
+      }
+      registerMove(count);
+    } else if (c === blankC && r !== blankR) {
+      const dir = r < blankR ? -1 : 1;
+      let count = 0;
+      while (blankR !== r) {
+        move(blankR + dir, blankC);
+        count++;
+      }
+      registerMove(count);
+    }
+  }
+
+  function registerMove(n) {
+    if (n === 0) return;
+    moves += n;
+    movesEl.textContent = moves;
+    if (!startTime) startTimer();
+    updateCorrect();
+    if (isSolved()) win();
+  }
+
+  function updateCorrect() {
+    for (const tile of tiles.values()) {
+      const expectedValue = tile.r * SIZE + tile.c + 1;
+      tile.el.classList.toggle('correct', tile.value === expectedValue);
+    }
+  }
+
+  function win() {
+    gameOver = true;
+    stopTimer();
+    const sec = Math.floor((Date.now() - startTime) / 1000);
+    const tStr = formatTime(sec);
+    statusEl.textContent = T().p15.won(moves, tStr);
+    statusEl.className = 'status win';
+    if (best === null || moves < best) {
+      best = moves;
+      localStorage.setItem('p15-best', best);
+    }
+    bestEl.textContent = best;
+    for (const tile of tiles.values()) {
+      tile.el.classList.remove('won');
+      void tile.el.offsetWidth;
+      tile.el.classList.add('won');
+    }
+  }
+
+  function formatTime(sec) {
+    const m = Math.floor(sec / 60).toString().padStart(2, '0');
+    const s = (sec % 60).toString().padStart(2, '0');
+    return `${m}:${s}`;
+  }
+
+  function startTimer() {
+    startTime = Date.now();
+    timerId = setInterval(() => {
+      const sec = Math.floor((Date.now() - startTime) / 1000);
+      timeEl.textContent = formatTime(sec);
+    }, 500);
+  }
+  function stopTimer() { if (timerId) { clearInterval(timerId); timerId = null; } }
+
+  function shuffleData() {
+    // ~250 mosse random valide partendo dallo stato risolto: sempre risolvibile
+    let lastBlank = null;
+    for (let i = 0; i < 250; i++) {
+      const neighbors = [];
+      if (blankR > 0) neighbors.push([blankR - 1, blankC]);
+      if (blankR < SIZE - 1) neighbors.push([blankR + 1, blankC]);
+      if (blankC > 0) neighbors.push([blankR, blankC - 1]);
+      if (blankC < SIZE - 1) neighbors.push([blankR, blankC + 1]);
+      // evita di tornare indietro
+      const filtered = lastBlank ? neighbors.filter(([r, c]) => r !== lastBlank[0] || c !== lastBlank[1]) : neighbors;
+      const pool = filtered.length ? filtered : neighbors;
+      const [r, c] = pool[Math.floor(Math.random() * pool.length)];
+      lastBlank = [blankR, blankC];
+      dataSwap(r, c);
+    }
+  }
+
+  function init() {
+    setupBoard();
+    grid = [];
+    tiles = new Map();
+    moves = 0;
+    startTime = null;
+    stopTimer();
+    timeEl.textContent = '00:00';
+    movesEl.textContent = 0;
+    gameOver = false;
+
+    // Stato risolto
+    let value = 1;
+    for (let r = 0; r < SIZE; r++) {
+      const row = [];
+      for (let c = 0; c < SIZE; c++) {
+        if (r === SIZE - 1 && c === SIZE - 1) row.push(0);
+        else row.push(value++);
+      }
+      grid.push(row);
+    }
+    blankR = SIZE - 1; blankC = SIZE - 1;
+
+    // Crea le tessere DOM nelle posizioni "risolte"
+    for (let r = 0; r < SIZE; r++) {
+      for (let c = 0; c < SIZE; c++) {
+        const id = grid[r][c];
+        if (id) createTile(id, r, c);
+      }
+    }
+
+    // Mescola i dati, poi assicurati che non sia già risolto
+    do { shuffleData(); } while (isSolved());
+
+    // Applica le posizioni mescolate senza transizione
+    for (const tile of tiles.values()) {
+      tile.el.style.transition = 'none';
+      tile.el.style.setProperty('--r', tile.r);
+      tile.el.style.setProperty('--c', tile.c);
+    }
+    // Riabilita le transizioni al prossimo frame
+    requestAnimationFrame(() => {
+      requestAnimationFrame(() => {
+        for (const tile of tiles.values()) tile.el.style.transition = '';
+      });
+    });
+
+    changeBackground();
+    statusEl.textContent = T().p15.play;
+    statusEl.className = 'status';
+
+    const stored = parseInt(localStorage.getItem('p15-best') || '0', 10);
+    best = stored > 0 ? stored : null;
+    bestEl.textContent = best ?? '–';
+
+    updateCorrect();
+  }
+
+  function refreshText() {
+    const t = T().p15;
+    subtitleEl.textContent = t.subtitle;
+    btnNew.textContent = t.btnNew;
+    document.getElementById('lbl-p15-moves').textContent = t.statMoves;
+    document.getElementById('lbl-p15-time').textContent = t.statTime;
+    document.getElementById('lbl-p15-best').textContent = t.statBest;
+    document.getElementById('p15-footer').textContent = t.footer;
+    if (!gameOver) statusEl.textContent = t.play;
+  }
+
+  function resetStats() {
+    moves = 0;
+    movesEl.textContent = 0;
+    stopTimer();
+    startTime = null;
+    timeEl.textContent = '00:00';
+  }
+
+  btnNew.addEventListener('click', () => init());
+
+  return { init, refreshText, resetStats };
+})();
+
+// =========================================================================
 // Menù di selezione gioco
 // =========================================================================
 const tabs = [...document.querySelectorAll('.game-tab')];
@@ -2087,7 +2491,8 @@ const views = {
   impiccato: document.getElementById('game-impiccato'),
   anagram: document.getElementById('game-anagram'),
   memory: document.getElementById('game-memory'),
-  t2048: document.getElementById('game-t2048')
+  t2048: document.getElementById('game-t2048'),
+  p15: document.getElementById('game-p15')
 };
 
 tabs.forEach(tab => {
@@ -2121,6 +2526,7 @@ function applyLanguage(lang) {
   Anagram.refreshText();
   Memory.refreshText();
   T2048.refreshText();
+  P15.refreshText();
 }
 
 const langSelect = document.getElementById('lang-select');
@@ -2132,6 +2538,7 @@ langSelect.addEventListener('change', (e) => {
   Anagram.resetStats();
   Memory.resetStats();
   T2048.resetStats();
+  P15.resetStats();
   // gli unici giochi dove cambio lingua = nuove parole/parametri sono impiccato e anagrammi
   Impiccato.init();
   Anagram.init();
@@ -2143,6 +2550,7 @@ Impiccato.init();
 Anagram.init();
 Memory.init();
 T2048.init();
+P15.init();
 applyLanguage(currentLang);
 </script>
 </body>

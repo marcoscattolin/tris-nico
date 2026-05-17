@@ -1,6 +1,6 @@
 # Giochi
 
-Sito statico a pagina singola con cinque giochi giocabili nel browser, localizzati in 8 lingue (italiano, inglese britannico e americano, tedesco, spagnolo, cinese pinyin, hindi romanizzato, latino). HTML/CSS/JavaScript vanilla, nessuna build, nessuna dipendenza.
+Sito statico a pagina singola con sei giochi giocabili nel browser, localizzati in 8 lingue (italiano, inglese britannico e americano, tedesco, spagnolo, cinese pinyin, hindi romanizzato, latino). HTML/CSS/JavaScript vanilla, nessuna build, nessuna dipendenza.
 
 ## Giochi
 
@@ -9,6 +9,7 @@ Sito statico a pagina singola con cinque giochi giocabili nel browser, localizza
 - **Anagrammi** — rimetti in ordine le lettere mescolate, click per posizionare i tasselli nei slot.
 - **Memory** — griglia 4×4 con 8 coppie di emoji da accoppiare; record sulle mosse.
 - **2048** — unisci le tessere fino a raggiungere 2048; frecce o swipe.
+- **Gioco del 15** — rimetti in ordine le tessere da 1 a 15 facendole scivolare nello spazio vuoto; record sulle mosse minime.
 
 ## Gioca
 
