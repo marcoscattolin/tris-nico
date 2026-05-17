@@ -11,7 +11,7 @@ export default {
     privacyPageTitle: 'Privacy Policy & Cookie Policy',
     cmpUnavailable: 'Il sistema di gestione consensi non è ancora caricato. Riprova tra qualche secondo o ricarica la pagina.'
   },
-  tabs: { tris: 'Tris', imp: 'Impiccato', anagram: 'Anagrammi', memory: 'Memory', t2048: '2048', p15: 'Gioco del 15' },
+  tabs: { tris: 'Tris', imp: 'Impiccato', anagram: 'Anagrammi', memory: 'Memory', t2048: '2048', p15: 'Gioco del 15', mastermind: 'Mastermind' },
   tris: {
     subtitle: "Strategia Newell & Simon — l'IA non perde mai",
     btnHumanFirst: 'Inizio io',
@@ -68,5 +68,18 @@ export default {
     won: (m, t) => `Risolto in ${m} mosse (${t})!`,
     statMoves: 'Mosse', statTime: 'Tempo', statBest: 'Record',
     footer: 'Clicca una tessera adiacente al vuoto.'
+  },
+  mastermind: {
+    subtitle: 'Indovina la sequenza di colori',
+    btnNew: 'Nuova partita',
+    btnCheck: 'Verifica',
+    btnClear: 'Cancella',
+    play: 'Componi la sequenza',
+    won: n => `Indovinato in ${n} tentativi!`,
+    lost: 'Tentativi esauriti. Eccoti la soluzione.',
+    pegExact: 'Nero = colore giusto, posto giusto',
+    pegNear: 'Bianco = colore giusto, posto sbagliato',
+    statWins: 'Vittorie', statLosses: 'Sconfitte', statBest: 'Record',
+    footer: '4 colori su 6 disponibili, 10 tentativi. I colori possono ripetersi.'
   }
 };

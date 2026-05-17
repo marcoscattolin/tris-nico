@@ -1,0 +1,109 @@
+.mm-board {
+  display: flex;
+  flex-direction: column-reverse;
+  gap: 6px;
+  padding: 10px;
+  background: rgba(0,0,0,0.25);
+  border-radius: 10px;
+  margin-bottom: 12px;
+}
+
+.mm-row {
+  display: grid;
+  grid-template-columns: 1fr auto;
+  align-items: center;
+  gap: 10px;
+  padding: 6px 8px;
+  border-radius: 8px;
+  background: rgba(255,255,255,0.03);
+  transition: background 0.2s;
+}
+.mm-row.active {
+  background: rgba(251, 191, 36, 0.12);
+  outline: 2px solid var(--accent);
+}
+.mm-row.done { opacity: 0.95; }
+
+.mm-slots {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 8px;
+}
+
+.mm-slot {
+  aspect-ratio: 1 / 1;
+  border-radius: 50%;
+  background: rgba(0,0,0,0.35);
+  border: 2px solid rgba(255,255,255,0.08);
+  cursor: default;
+  padding: 0;
+  min-width: 0;
+}
+.mm-row.active .mm-slot {
+  cursor: pointer;
+  border-color: rgba(255,255,255,0.18);
+}
+.mm-row.active .mm-slot:hover { border-color: var(--accent); }
+.mm-slot.filled { border-color: rgba(255,255,255,0.35); }
+
+.mm-feedback {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  grid-template-rows: repeat(2, 1fr);
+  gap: 3px;
+  width: 28px;
+  height: 28px;
+  flex-shrink: 0;
+}
+.mm-peg {
+  width: 100%;
+  height: 100%;
+  border-radius: 50%;
+  background: rgba(255,255,255,0.08);
+  border: 1px solid rgba(255,255,255,0.12);
+}
+.mm-peg.exact { background: #0f172a; border-color: #e2e8f0; }
+.mm-peg.near  { background: #e2e8f0; border-color: #0f172a; }
+
+.mm-solution {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 8px;
+  padding: 8px;
+  margin-bottom: 12px;
+  border-radius: 8px;
+  background: rgba(239, 68, 68, 0.12);
+  border: 1px dashed rgba(239, 68, 68, 0.5);
+}
+.mm-solution .mm-slot { cursor: default; border-color: rgba(255,255,255,0.25); }
+
+.mm-palette {
+  display: grid;
+  grid-template-columns: repeat(6, 1fr);
+  gap: 8px;
+  margin-bottom: 12px;
+}
+.mm-color {
+  aspect-ratio: 1 / 1;
+  border-radius: 50%;
+  border: 2px solid rgba(255,255,255,0.15);
+  cursor: pointer;
+  padding: 0;
+  min-width: 0;
+  transition: transform 0.1s, border-color 0.15s;
+}
+.mm-color:hover { transform: scale(1.08); border-color: var(--accent); }
+.mm-color:disabled { cursor: not-allowed; opacity: 0.45; transform: none; }
+
+.mm-c1 { background: #ef4444; }
+.mm-c2 { background: #3b82f6; }
+.mm-c3 { background: #22c55e; }
+.mm-c4 { background: #eab308; }
+.mm-c5 { background: #a855f7; }
+.mm-c6 { background: #f97316; }
+
+#mm-check:disabled,
+#mm-clear:disabled {
+  opacity: 0.45;
+  cursor: not-allowed;
+}
