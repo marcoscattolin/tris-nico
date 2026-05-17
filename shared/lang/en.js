@@ -11,7 +11,7 @@ export default {
     privacyPageTitle: 'Privacy Policy & Cookie Policy',
     cmpUnavailable: 'The consent management system is not loaded yet. Try again in a few seconds or reload the page.'
   },
-  tabs: { tris: 'Noughts & Crosses', imp: 'Hangman', anagram: 'Anagrams', memory: 'Memory', t2048: '2048', p15: '15 Puzzle' },
+  tabs: { tris: 'Noughts & Crosses', imp: 'Hangman', anagram: 'Anagrams', memory: 'Memory', t2048: '2048', p15: '15 Puzzle', mastermind: 'Mastermind' },
   tris: {
     subtitle: 'Newell & Simon strategy — the AI never loses',
     btnHumanFirst: 'I start', btnAiFirst: 'AI starts', btnReset: 'New game',
@@ -54,5 +54,18 @@ export default {
     won: (m, t) => `Solved in ${m} moves (${t})!`,
     statMoves: 'Moves', statTime: 'Time', statBest: 'Best',
     footer: 'Click a tile next to the gap.'
+  },
+  mastermind: {
+    subtitle: 'Guess the secret colour sequence',
+    btnNew: 'New game',
+    btnCheck: 'Check',
+    btnClear: 'Clear',
+    play: 'Build the sequence',
+    won: n => `Solved in ${n} tries!`,
+    lost: 'Out of tries. Here is the answer.',
+    pegExact: 'Black = right colour, right spot',
+    pegNear: 'White = right colour, wrong spot',
+    statWins: 'Wins', statLosses: 'Losses', statBest: 'Best',
+    footer: '4 colours from 6, 10 tries. Colours can repeat.'
   }
 };

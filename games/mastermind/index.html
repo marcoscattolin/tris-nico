@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Mastermind</title>
+<link rel="stylesheet" href="../../styles/base.css" />
+<link rel="stylesheet" href="mastermind.css" />
+<script async src="../../shared/cmp.js"></script>
+<script src="../../shared/analytics.js"></script>
+</head>
+<body>
+  <div id="app-header"></div>
+  <div id="game-mastermind" class="game-view">
+    <div class="subtitle" id="mm-subtitle"></div>
+    <div class="panel">
+      <div class="status" id="mm-status"></div>
+      <div class="mm-board" id="mm-board"></div>
+      <div class="mm-solution" id="mm-solution" hidden></div>
+      <div class="mm-palette" id="mm-palette"></div>
+      <div class="controls">
+        <button id="mm-check"></button>
+        <button id="mm-clear"></button>
+        <button id="mm-new"></button>
+      </div>
+      <div class="three-stats">
+        <div class="stat-item wins">
+          <div class="label" id="lbl-mm-wins">Vittorie</div>
+          <div class="value" id="mm-wins">0</div>
+        </div>
+        <div class="stat-item losses">
+          <div class="label" id="lbl-mm-losses">Sconfitte</div>
+          <div class="value" id="mm-losses">0</div>
+        </div>
+        <div class="stat-item best">
+          <div class="label" id="lbl-mm-best">Record</div>
+          <div class="value" id="mm-best">–</div>
+        </div>
+      </div>
+    </div>
+    <footer id="mm-footer"></footer>
+  </div>
+  <div id="app-footer"></div>
+  <script type="module">
+    import { applyLanguage, currentLang } from '../../shared/i18n.js';
+    import { renderHeader } from '../../shared/header.js';
+    import { renderFooter } from '../../shared/footer.js';
+    import game from './mastermind.js';
+    renderHeader({ backHref: '../../' });
+    renderFooter();
+    game.init();
+    applyLanguage(currentLang);
+  </script>
+</body>
+</html>
