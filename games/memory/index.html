@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Memory</title>
+<link rel="stylesheet" href="../../styles/base.css" />
+<link rel="stylesheet" href="memory.css" />
+<script src="../../shared/analytics.js"></script>
+</head>
+<body>
+  <div id="app-header"></div>
+  <div id="game-memory" class="game-view">
+    <div class="subtitle" id="mem-subtitle"></div>
+    <div class="panel">
+      <div class="controls">
+        <button id="mem-new">Nuova partita</button>
+      </div>
+      <div class="status" id="mem-status"></div>
+      <div class="memory-board" id="mem-board"></div>
+      <div class="three-stats">
+        <div class="stat-item moves">
+          <div class="label" id="lbl-mem-moves">Mosse</div>
+          <div class="value" id="mem-moves">0</div>
+        </div>
+        <div class="stat-item pairs">
+          <div class="label" id="lbl-mem-pairs">Coppie</div>
+          <div class="value" id="mem-pairs">0/8</div>
+        </div>
+        <div class="stat-item best">
+          <div class="label" id="lbl-mem-best">Record</div>
+          <div class="value" id="mem-best">–</div>
+        </div>
+      </div>
+    </div>
+    <footer id="mem-footer"></footer>
+  </div>
+  <script type="module">
+    import { applyLanguage, currentLang } from '../../shared/i18n.js';
+    import { renderHeader } from '../../shared/header.js';
+    import game from './memory.js';
+    renderHeader({ backHref: '../../' });
+    game.init();
+    applyLanguage(currentLang);
+  </script>
+</body>
+</html>

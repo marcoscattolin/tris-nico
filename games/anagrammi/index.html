@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Anagrammi</title>
+<link rel="stylesheet" href="../../styles/base.css" />
+<link rel="stylesheet" href="anagrammi.css" />
+<script src="../../shared/analytics.js"></script>
+</head>
+<body>
+  <div id="app-header"></div>
+  <div id="game-anagram" class="game-view">
+    <div class="subtitle" id="an-subtitle"></div>
+    <div class="panel">
+      <div class="controls">
+        <button id="an-new">Nuova parola</button>
+        <button id="an-clear">Cancella</button>
+      </div>
+      <div class="status" id="an-status"></div>
+      <div class="anagram-slots" id="an-slots"></div>
+      <div class="anagram-tiles" id="an-tiles"></div>
+      <div class="three-stats">
+        <div class="stat-item wins">
+          <div class="label" id="lbl-an-wins">Indovinate</div>
+          <div class="value" id="an-wins">0</div>
+        </div>
+        <div class="stat-item losses">
+          <div class="label" id="lbl-an-losses">Saltate</div>
+          <div class="value" id="an-losses">0</div>
+        </div>
+        <div class="stat-item best">
+          <div class="label" id="lbl-an-best">Record</div>
+          <div class="value" id="an-best">0</div>
+        </div>
+      </div>
+    </div>
+    <footer id="an-footer"></footer>
+  </div>
+  <script type="module">
+    import { applyLanguage, currentLang } from '../../shared/i18n.js';
+    import { renderHeader } from '../../shared/header.js';
+    import game from './anagrammi.js';
+    renderHeader({ backHref: '../../' });
+    game.init();
+    applyLanguage(currentLang);
+  </script>
+</body>
+</html>

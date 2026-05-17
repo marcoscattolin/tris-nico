@@ -1,0 +1,32 @@
+export const ALPHABETS = {
+  it: 'ABCDEFGHILMNOPQRSTUVZ',
+  en: 'ABCDEFGHIJKLMNOPQRSTUVWXYZ',
+};
+
+export const WORDS = {
+  it: ['gatto','cane','sole','luna','casa','mare','montagna','fiume','strada',
+    'libro','scuola','amico','famiglia','cuore','sogno','viaggio','musica',
+    'pittura','teatro','telefono','finestra','porta','tavolo','sedia','giardino',
+    'fiore','albero','foglia','neve','pioggia','vento','fuoco','terra','acqua',
+    'pane','vino','formaggio','pasta','pizza','gelato','cioccolato','mela',
+    'pera','banana','fragola','limone','arancia','pomodoro','insalata','pesce',
+    'carne','dolce','treno','autobus','bicicletta','macchina','aereo','barca',
+    'biblioteca','ospedale','cinema','museo','ristorante','mercato','spiaggia',
+    'isola','lago','foresta','deserto','primavera','estate','autunno','inverno',
+    'mattina','sera','notte','stella','pianeta','oceano','tempesta','pinguino',
+    'elefante','leone','tigre','lupo','volpe','aquila','farfalla','serpente',
+    'calcio','tennis','nuoto','corsa','scacchi','chitarra','pianoforte',
+    'violino','batteria','torre','castello','ponte','fontana','piazza','cattedrale'],
+  en: ['cat','dog','sun','moon','house','sea','mountain','river','road',
+    'book','school','friend','family','heart','dream','journey','music','theatre',
+    'telephone','window','door','table','chair','garden','flower','tree','leaf',
+    'snow','rain','wind','fire','earth','water','bread','wine','cheese','pasta',
+    'pizza','chocolate','apple','pear','banana','lemon','orange','tomato','salad',
+    'fish','meat','train','bus','bicycle','plane','boat','library','hospital',
+    'cinema','museum','restaurant','market','beach','island','lake','forest',
+    'desert','spring','summer','autumn','winter','morning','evening','night',
+    'star','planet','ocean','storm','penguin','elephant','lion','tiger','wolf',
+    'fox','eagle','butterfly','snake','football','tennis','chess','guitar',
+    'piano','violin','tower','castle','bridge','fountain','square','cathedral',
+    'lorry','flat','biscuit','jumper'],
+};

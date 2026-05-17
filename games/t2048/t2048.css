@@ -1,0 +1,67 @@
+.t2048-board {
+  position: relative;
+  aspect-ratio: 1 / 1;
+  background: rgba(0,0,0,0.3);
+  border-radius: 10px;
+  padding: 8px;
+  margin-bottom: 16px;
+  touch-action: none;
+}
+.t2048-bg {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  grid-template-rows: repeat(4, 1fr);
+  gap: 8px;
+  width: 100%;
+  height: 100%;
+}
+.t2048-bg-cell {
+  background: rgba(255,255,255,0.05);
+  border-radius: 8px;
+  min-width: 0;
+  min-height: 0;
+}
+.t2048-tiles {
+  position: absolute;
+  inset: 8px;
+  pointer-events: none;
+  container-type: inline-size;
+}
+.t2048-tile {
+  position: absolute;
+  --cell-size: calc((100cqw - 24px) / 4);
+  width: var(--cell-size);
+  height: var(--cell-size);
+  top: 0; left: 0;
+  border-radius: 8px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: clamp(20px, 6vw, 30px);
+  font-weight: 700;
+  color: #776e65;
+  background: #eee4da;
+  translate: calc(var(--c) * (var(--cell-size) + 8px)) calc(var(--r) * (var(--cell-size) + 8px));
+  transition: translate 0.15s ease;
+}
+.t2048-tile.spawning { animation: tile-spawn 0.2s ease; }
+.t2048-tile.merged { animation: tile-merge 0.22s ease; }
+@keyframes tile-spawn {
+  from { scale: 0; }
+  to { scale: 1; }
+}
+@keyframes tile-merge {
+  0%, 100% { scale: 1; }
+  50% { scale: 1.18; }
+}
+.t2048-tile[data-v="2"] { background: #eee4da; }
+.t2048-tile[data-v="4"] { background: #ede0c8; }
+.t2048-tile[data-v="8"] { background: #f2b179; color: #f9f6f2; }
+.t2048-tile[data-v="16"] { background: #f59563; color: #f9f6f2; }
+.t2048-tile[data-v="32"] { background: #f67c5f; color: #f9f6f2; }
+.t2048-tile[data-v="64"] { background: #f65e3b; color: #f9f6f2; }
+.t2048-tile[data-v="128"] { background: #edcf72; color: #f9f6f2; font-size: clamp(18px, 5vw, 26px); }
+.t2048-tile[data-v="256"] { background: #edcc61; color: #f9f6f2; font-size: clamp(18px, 5vw, 26px); }
+.t2048-tile[data-v="512"] { background: #edc850; color: #f9f6f2; font-size: clamp(18px, 5vw, 26px); }
+.t2048-tile[data-v="1024"] { background: #edc53f; color: #f9f6f2; font-size: clamp(16px, 4vw, 22px); }
+.t2048-tile[data-v="2048"] { background: #edc22e; color: #f9f6f2; font-size: clamp(16px, 4vw, 22px); }
