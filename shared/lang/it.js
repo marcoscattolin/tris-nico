@@ -1,5 +1,5 @@
 export default {
-  title: 'Casual Kids Games',
+  title: 'Casual Games',
   langLabel: 'Lingua',
   menu: {
     backToMenu: '← Menu',
@@ -11,7 +11,7 @@ export default {
     privacyPageTitle: 'Privacy Policy & Cookie Policy',
     cmpUnavailable: 'Il sistema di gestione consensi non è ancora caricato. Riprova tra qualche secondo o ricarica la pagina.'
   },
-  tabs: { tris: 'Tris', imp: 'Impiccato', anagram: 'Anagrammi', memory: 'Memory', t2048: '2048', p15: 'Gioco del 15', mastermind: 'Mastermind' },
+  tabs: { tris: 'Tris', imp: 'Impiccato', anagram: 'Anagrammi', memory: 'Memory', t2048: '2048', p15: 'Gioco del 15', mastermind: 'Mastermind', lightsout: 'Lights Out' },
   tris: {
     subtitle: "Strategia Newell & Simon — l'IA non perde mai",
     btnHumanFirst: 'Inizio io',
@@ -81,5 +81,13 @@ export default {
     pegNear: 'Bianco = colore giusto, posto sbagliato',
     statWins: 'Vittorie', statLosses: 'Sconfitte', statBest: 'Record',
     footer: '4 colori su 6 disponibili, 10 tentativi. I colori possono ripetersi.'
+  },
+  lightsout: {
+    subtitle: 'Spegni tutte le luci',
+    btnNew: 'Nuova partita',
+    play: 'Clicca per cambiare',
+    won: (m, t) => `Risolto in ${m} mosse (${t})!`,
+    statMoves: 'Mosse', statTime: 'Tempo', statBest: 'Record',
+    footer: 'Clicca una luce: cambia anche le 4 adiacenti.'
   }
 };
