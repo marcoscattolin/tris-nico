@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Impiccato</title>
+<link rel="stylesheet" href="../../styles/base.css" />
+<link rel="stylesheet" href="impiccato.css" />
+</head>
+<body>
+  <div id="app-header"></div>
+  <div id="game-impiccato" class="game-view">
+    <div class="subtitle" id="imp-subtitle"></div>
+    <div class="panel">
+      <div class="controls">
+        <button id="hm-new">Nuova parola</button>
+      </div>
+      <svg class="hangman-svg" viewBox="0 0 180 220">
+        <line x1="10" y1="210" x2="170" y2="210"/>
+        <line class="part" data-part="0" x1="40" y1="210" x2="40" y2="15"/>
+        <line class="part" data-part="1" x1="40" y1="15" x2="125" y2="15"/>
+        <line class="part" data-part="2" x1="125" y1="15" x2="125" y2="35"/>
+        <circle class="part" data-part="3" cx="125" cy="52" r="16"/>
+        <line class="part" data-part="4" x1="125" y1="68" x2="125" y2="130"/>
+        <line class="part" data-part="5" x1="125" y1="85" x2="100" y2="110"/>
+        <line class="part" data-part="6" x1="125" y1="85" x2="150" y2="110"/>
+        <line class="part" data-part="7" x1="125" y1="130" x2="100" y2="170"/>
+        <line class="part" data-part="8" x1="125" y1="130" x2="150" y2="170"/>
+      </svg>
+      <div class="status" id="hm-status"></div>
+      <div class="word-display" id="hm-word"></div>
+      <div class="keyboard" id="hm-keyboard"></div>
+      <div class="hangman-stats">
+        <div class="stat-item wins">
+          <div class="label" id="lbl-hm-wins">Vittorie</div>
+          <div class="value" id="hm-wins">0</div>
+        </div>
+        <div class="stat-item errors">
+          <div class="label" id="lbl-hm-errors">Errori</div>
+          <div class="value" id="hm-errors">0/9</div>
+        </div>
+        <div class="stat-item losses">
+          <div class="label" id="lbl-hm-losses">Sconfitte</div>
+          <div class="value" id="hm-losses">0</div>
+        </div>
+      </div>
+    </div>
+    <footer id="imp-footer"></footer>
+  </div>
+  <script type="module">
+    import { applyLanguage, currentLang } from '../../shared/i18n.js';
+    import { renderHeader } from '../../shared/header.js';
+    import game from './impiccato.js';
+    renderHeader({ backHref: '../../' });
+    game.init();
+    applyLanguage(currentLang);
+  </script>
+</body>
+</html>

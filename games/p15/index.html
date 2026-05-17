@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Gioco del 15</title>
+<link rel="stylesheet" href="../../styles/base.css" />
+<link rel="stylesheet" href="p15.css" />
+</head>
+<body>
+  <div id="app-header"></div>
+  <div id="game-p15" class="game-view">
+    <div class="subtitle" id="p15-subtitle"></div>
+    <div class="panel">
+      <div class="controls">
+        <button id="p15-new">Mescola</button>
+      </div>
+      <div class="status" id="p15-status"></div>
+      <div class="p15-board" id="p15-board"></div>
+      <div class="three-stats">
+        <div class="stat-item moves">
+          <div class="label" id="lbl-p15-moves">Mosse</div>
+          <div class="value" id="p15-moves">0</div>
+        </div>
+        <div class="stat-item time">
+          <div class="label" id="lbl-p15-time">Tempo</div>
+          <div class="value" id="p15-time">00:00</div>
+        </div>
+        <div class="stat-item best">
+          <div class="label" id="lbl-p15-best">Record</div>
+          <div class="value" id="p15-best">–</div>
+        </div>
+      </div>
+    </div>
+    <footer id="p15-footer"></footer>
+  </div>
+  <script type="module">
+    import { applyLanguage, currentLang } from '../../shared/i18n.js';
+    import { renderHeader } from '../../shared/header.js';
+    import game from './p15.js';
+    renderHeader({ backHref: '../../' });
+    game.init();
+    applyLanguage(currentLang);
+  </script>
+</body>
+</html>

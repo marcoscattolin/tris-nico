@@ -1,0 +1,254 @@
+:root {
+  --bg: #0f172a;
+  --panel: #1e293b;
+  --cell: #334155;
+  --cell-hover: #475569;
+  --x-color: #38bdf8;
+  --o-color: #fb7185;
+  --text: #e2e8f0;
+  --muted: #94a3b8;
+  --accent: #fbbf24;
+  --win: #22c55e;
+  --lose: #ef4444;
+}
+
+* { box-sizing: border-box; }
+
+html, body {
+  margin: 0;
+  padding: 0;
+  min-height: 100%;
+  color: var(--text);
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+}
+
+body {
+  background: linear-gradient(135deg, #0f172a, #1e293b);
+  transition: background 0.6s ease;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-start;
+  padding: 24px 16px;
+  min-height: 100vh;
+}
+
+h1 {
+  margin: 0 0 12px;
+  font-size: clamp(28px, 6vw, 40px);
+  letter-spacing: 1px;
+  text-align: center;
+}
+
+.subtitle {
+  color: var(--muted);
+  margin-bottom: 16px;
+  font-size: 14px;
+  text-align: center;
+}
+
+/* -------- Shared header (injected by shared/header.js) -------- */
+
+#app-header {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+}
+
+.header-row {
+  display: grid;
+  grid-template-columns: minmax(80px, 1fr) auto minmax(80px, 1fr);
+  align-items: center;
+  gap: 12px;
+  width: min(720px, 100%);
+  margin-bottom: 12px;
+}
+
+.header-row h1 {
+  margin: 0;
+  grid-column: 2;
+}
+
+.back-link {
+  justify-self: start;
+  color: var(--text);
+  text-decoration: none;
+  background: rgba(0,0,0,0.25);
+  padding: 8px 12px;
+  border-radius: 10px;
+  font-size: 14px;
+  font-weight: 500;
+  transition: background 0.15s;
+}
+.back-link:hover { background: rgba(255,255,255,0.08); }
+
+.lang-menu {
+  justify-self: end;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  background: rgba(0,0,0,0.25);
+  padding: 8px 14px;
+  border-radius: 12px;
+}
+
+.lang-menu label {
+  font-size: 13px;
+  color: var(--muted);
+}
+
+.lang-menu select {
+  background: var(--cell);
+  color: var(--text);
+  border: none;
+  border-radius: 8px;
+  padding: 6px 10px;
+  font-size: 14px;
+  font-family: inherit;
+  font-weight: 500;
+  cursor: pointer;
+}
+
+@media (max-width: 560px) {
+  .header-row {
+    grid-template-columns: 1fr 1fr;
+    grid-template-areas: "back lang" "title title";
+  }
+  .header-row h1 { grid-area: title; grid-column: auto; }
+  .back-link { grid-area: back; }
+  .lang-menu { grid-area: lang; }
+}
+
+/* -------- Game view wrapper (each game's main area) -------- */
+
+.game-view {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 100%;
+}
+
+.panel {
+  background: var(--panel);
+  border-radius: 16px;
+  padding: 20px;
+  box-shadow: 0 20px 60px rgba(0,0,0,0.4);
+  width: min(440px, 100%);
+}
+
+.controls {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-bottom: 16px;
+  justify-content: center;
+}
+
+.controls button {
+  background: var(--cell);
+  color: var(--text);
+  border: 2px solid transparent;
+  padding: 8px 14px;
+  border-radius: 10px;
+  cursor: pointer;
+  font-size: 14px;
+  font-weight: 500;
+  font-family: inherit;
+  transition: background 0.15s, border-color 0.15s;
+}
+
+.controls button:hover { background: var(--cell-hover); }
+.controls button.active {
+  border-color: var(--accent);
+  background: var(--cell-hover);
+}
+
+.status {
+  text-align: center;
+  font-size: 18px;
+  font-weight: 600;
+  min-height: 28px;
+  margin-bottom: 16px;
+}
+
+.status.win { color: var(--win); }
+.status.lose { color: var(--lose); }
+.status.draw { color: var(--accent); }
+
+/* -------- Shared stat tiles -------- */
+
+.hangman-stats, .three-stats {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 8px;
+  text-align: center;
+  font-size: 14px;
+}
+.stat-item {
+  background: var(--cell);
+  padding: 10px 6px;
+  border-radius: 10px;
+}
+.stat-item .label {
+  color: var(--muted);
+  font-size: 12px;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+.stat-item .value {
+  font-size: 22px;
+  font-weight: 700;
+  margin-top: 2px;
+}
+.stat-item.wins .value { color: var(--win); }
+.stat-item.losses .value { color: var(--lose); }
+.stat-item.errors .value, .stat-item.score .value, .stat-item.moves .value { color: var(--accent); }
+.stat-item.best .value { color: var(--x-color); }
+.stat-item.pairs .value { color: var(--win); }
+.stat-item.time .value { color: var(--text); }
+
+/* -------- Landing page: game grid -------- */
+
+.game-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));
+  gap: 14px;
+  width: min(720px, 100%);
+}
+
+.game-card {
+  background: var(--panel);
+  border-radius: 14px;
+  padding: 22px 16px;
+  text-align: center;
+  text-decoration: none;
+  color: var(--text);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 10px;
+  box-shadow: 0 12px 30px rgba(0,0,0,0.3);
+  transition: transform 0.15s, box-shadow 0.15s, background 0.15s;
+}
+.game-card:hover {
+  transform: translateY(-3px);
+  background: var(--cell);
+  box-shadow: 0 18px 40px rgba(0,0,0,0.4);
+}
+.game-card .emoji {
+  font-size: 40px;
+  line-height: 1;
+}
+.game-card .label {
+  font-weight: 600;
+  font-size: 16px;
+}
+
+/* -------- Footer -------- */
+
+footer {
+  margin-top: 20px;
+  color: var(--muted);
+  font-size: 12px;
+  text-align: center;
+}

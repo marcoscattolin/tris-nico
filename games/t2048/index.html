@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>2048</title>
+<link rel="stylesheet" href="../../styles/base.css" />
+<link rel="stylesheet" href="t2048.css" />
+</head>
+<body>
+  <div id="app-header"></div>
+  <div id="game-t2048" class="game-view">
+    <div class="subtitle" id="t2048-subtitle"></div>
+    <div class="panel">
+      <div class="controls">
+        <button id="t2048-new">Nuovo gioco</button>
+      </div>
+      <div class="status" id="t2048-status"></div>
+      <div class="t2048-board" id="t2048-board"></div>
+      <div class="three-stats">
+        <div class="stat-item score">
+          <div class="label" id="lbl-t2048-score">Punteggio</div>
+          <div class="value" id="t2048-score">0</div>
+        </div>
+        <div class="stat-item best">
+          <div class="label" id="lbl-t2048-best">Record</div>
+          <div class="value" id="t2048-best">0</div>
+        </div>
+        <div class="stat-item wins">
+          <div class="label" id="lbl-t2048-max">Max</div>
+          <div class="value" id="t2048-max">2</div>
+        </div>
+      </div>
+    </div>
+    <footer id="t2048-footer"></footer>
+  </div>
+  <script type="module">
+    import { applyLanguage, currentLang } from '../../shared/i18n.js';
+    import { renderHeader } from '../../shared/header.js';
+    import game from './t2048.js';
+    renderHeader({ backHref: '../../' });
+    game.init();
+    applyLanguage(currentLang);
+  </script>
+</body>
+</html>
