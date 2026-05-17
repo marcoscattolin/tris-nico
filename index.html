@@ -1,0 +1,461 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Tris — Sfida l'IA Imbattibile</title>
+<style>
+  :root {
+    --bg: #0f172a;
+    --panel: #1e293b;
+    --cell: #334155;
+    --cell-hover: #475569;
+    --x-color: #38bdf8;
+    --o-color: #fb7185;
+    --text: #e2e8f0;
+    --muted: #94a3b8;
+    --accent: #fbbf24;
+    --win: #22c55e;
+  }
+
+  * { box-sizing: border-box; }
+
+  html, body {
+    margin: 0;
+    padding: 0;
+    min-height: 100%;
+    background: linear-gradient(135deg, #0f172a, #1e293b);
+    color: var(--text);
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+  }
+
+  body {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 24px 16px;
+    min-height: 100vh;
+  }
+
+  h1 {
+    margin: 0 0 4px;
+    font-size: clamp(28px, 6vw, 40px);
+    letter-spacing: 1px;
+    text-align: center;
+  }
+
+  .subtitle {
+    color: var(--muted);
+    margin-bottom: 24px;
+    font-size: 14px;
+    text-align: center;
+  }
+
+  .panel {
+    background: var(--panel);
+    border-radius: 16px;
+    padding: 20px;
+    box-shadow: 0 20px 60px rgba(0,0,0,0.4);
+    width: min(420px, 100%);
+  }
+
+  .controls {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    margin-bottom: 16px;
+    justify-content: center;
+  }
+
+  .controls button {
+    background: var(--cell);
+    color: var(--text);
+    border: 2px solid transparent;
+    padding: 8px 14px;
+    border-radius: 10px;
+    cursor: pointer;
+    font-size: 14px;
+    font-weight: 500;
+    transition: background 0.15s, border-color 0.15s;
+  }
+
+  .controls button:hover { background: var(--cell-hover); }
+  .controls button.active {
+    border-color: var(--accent);
+    background: var(--cell-hover);
+  }
+
+  .status {
+    text-align: center;
+    font-size: 18px;
+    font-weight: 600;
+    min-height: 28px;
+    margin-bottom: 16px;
+  }
+
+  .status.win { color: var(--win); }
+  .status.lose { color: var(--o-color); }
+  .status.draw { color: var(--accent); }
+
+  .board {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 8px;
+    aspect-ratio: 1 / 1;
+    margin-bottom: 16px;
+  }
+
+  .cell {
+    background: var(--cell);
+    border: none;
+    border-radius: 12px;
+    cursor: pointer;
+    font-size: clamp(40px, 12vw, 64px);
+    font-weight: 700;
+    color: var(--text);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: background 0.15s, transform 0.15s;
+    font-family: inherit;
+  }
+
+  .cell:not(:disabled):hover {
+    background: var(--cell-hover);
+    transform: scale(1.03);
+  }
+
+  .cell:disabled { cursor: default; }
+  .cell.x { color: var(--x-color); }
+  .cell.o { color: var(--o-color); }
+
+  .cell.win-line {
+    background: rgba(34, 197, 94, 0.25);
+    animation: pulse 0.8s ease-in-out;
+  }
+
+  @keyframes pulse {
+    0%, 100% { transform: scale(1); }
+    50% { transform: scale(1.08); }
+  }
+
+  .scoreboard {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 8px;
+    text-align: center;
+    font-size: 14px;
+  }
+
+  .score-item {
+    background: var(--cell);
+    padding: 10px 6px;
+    border-radius: 10px;
+  }
+
+  .score-item .label {
+    color: var(--muted);
+    font-size: 12px;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+  }
+
+  .score-item .value {
+    font-size: 22px;
+    font-weight: 700;
+    margin-top: 2px;
+  }
+
+  .score-item.you .value { color: var(--x-color); }
+  .score-item.ai .value { color: var(--o-color); }
+  .score-item.draws .value { color: var(--accent); }
+
+  footer {
+    margin-top: 20px;
+    color: var(--muted);
+    font-size: 12px;
+    text-align: center;
+  }
+</style>
+</head>
+<body>
+  <h1>Tris vs IA</h1>
+  <div class="subtitle">Strategia Newell &amp; Simon — l'IA non perde mai</div>
+
+  <div class="panel">
+    <div class="controls">
+      <button id="btn-human-first" class="active">Inizio io</button>
+      <button id="btn-ai-first">Inizia l'IA</button>
+      <button id="btn-reset">Nuova partita</button>
+    </div>
+
+    <div class="status" id="status">Tocca a te (X)</div>
+
+    <div class="board" id="board">
+      <button class="cell" data-i="0"></button>
+      <button class="cell" data-i="1"></button>
+      <button class="cell" data-i="2"></button>
+      <button class="cell" data-i="3"></button>
+      <button class="cell" data-i="4"></button>
+      <button class="cell" data-i="5"></button>
+      <button class="cell" data-i="6"></button>
+      <button class="cell" data-i="7"></button>
+      <button class="cell" data-i="8"></button>
+    </div>
+
+    <div class="scoreboard">
+      <div class="score-item you">
+        <div class="label">Tu</div>
+        <div class="value" id="score-you">0</div>
+      </div>
+      <div class="score-item draws">
+        <div class="label">Patte</div>
+        <div class="value" id="score-draws">0</div>
+      </div>
+      <div class="score-item ai">
+        <div class="label">IA</div>
+        <div class="value" id="score-ai">0</div>
+      </div>
+    </div>
+  </div>
+
+  <footer>Il meglio che puoi fare è pareggiare. Provaci.</footer>
+
+<script>
+(() => {
+  const LINES = [
+    [0,1,2],[3,4,5],[6,7,8],
+    [0,3,6],[1,4,7],[2,5,8],
+    [0,4,8],[2,4,6]
+  ];
+  const CORNERS = [0,2,6,8];
+  const SIDES = [1,3,5,7];
+  const OPPOSITE_CORNER = { 0:8, 2:6, 6:2, 8:0 };
+
+  let board, currentPlayer, humanMark, aiMark, gameOver, humanStarts;
+  const score = { you: 0, ai: 0, draws: 0 };
+
+  const cells = [...document.querySelectorAll('.cell')];
+  const statusEl = document.getElementById('status');
+  const boardEl = document.getElementById('board');
+  const btnHumanFirst = document.getElementById('btn-human-first');
+  const btnAiFirst = document.getElementById('btn-ai-first');
+  const btnReset = document.getElementById('btn-reset');
+
+  function init(humanFirst) {
+    humanStarts = humanFirst;
+    board = Array(9).fill('');
+    gameOver = false;
+    if (humanFirst) {
+      humanMark = 'X';
+      aiMark = 'O';
+      currentPlayer = humanMark;
+      statusEl.textContent = 'Tocca a te (X)';
+    } else {
+      humanMark = 'O';
+      aiMark = 'X';
+      currentPlayer = aiMark;
+      statusEl.textContent = "L'IA pensa…";
+    }
+    statusEl.className = 'status';
+    cells.forEach(c => {
+      c.textContent = '';
+      c.disabled = false;
+      c.classList.remove('x','o','win-line');
+    });
+    if (!humanFirst) setTimeout(aiMove, 250);
+  }
+
+  function checkWinner(b) {
+    for (const line of LINES) {
+      const [a,c,d] = line;
+      if (b[a] && b[a] === b[c] && b[c] === b[d]) return { winner: b[a], line };
+    }
+    if (b.every(v => v !== '')) return { winner: 'draw' };
+    return null;
+  }
+
+  function placeMark(i, mark) {
+    board[i] = mark;
+    const cell = cells[i];
+    cell.textContent = mark;
+    cell.classList.add(mark.toLowerCase());
+    cell.disabled = true;
+  }
+
+  function endGame(result) {
+    gameOver = true;
+    cells.forEach(c => c.disabled = true);
+    if (result.winner === 'draw') {
+      statusEl.textContent = 'Patta.';
+      statusEl.className = 'status draw';
+      score.draws++;
+    } else if (result.winner === humanMark) {
+      statusEl.textContent = 'Hai vinto! Davvero?';
+      statusEl.className = 'status win';
+      score.you++;
+    } else {
+      statusEl.textContent = "Ha vinto l'IA.";
+      statusEl.className = 'status lose';
+      score.ai++;
+    }
+    if (result.line) {
+      result.line.forEach(i => cells[i].classList.add('win-line'));
+    }
+    document.getElementById('score-you').textContent = score.you;
+    document.getElementById('score-ai').textContent = score.ai;
+    document.getElementById('score-draws').textContent = score.draws;
+  }
+
+  function onCellClick(e) {
+    if (gameOver) return;
+    const i = Number(e.currentTarget.dataset.i);
+    if (board[i] !== '' || currentPlayer !== humanMark) return;
+    placeMark(i, humanMark);
+    const result = checkWinner(board);
+    if (result) return endGame(result);
+    currentPlayer = aiMark;
+    statusEl.textContent = "L'IA pensa…";
+    setTimeout(aiMove, 280);
+  }
+
+  function aiMove() {
+    if (gameOver) return;
+    const i = chooseAiMove();
+    placeMark(i, aiMark);
+    const result = checkWinner(board);
+    if (result) return endGame(result);
+    currentPlayer = humanMark;
+    statusEl.textContent = `Tocca a te (${humanMark})`;
+  }
+
+  // -------- Strategia Newell & Simon --------
+
+  function findWinningMove(b, player) {
+    for (const [a,c,d] of LINES) {
+      const cellsArr = [b[a], b[c], b[d]];
+      const p = cellsArr.filter(x => x === player).length;
+      const e = cellsArr.filter(x => x === '').length;
+      if (p === 2 && e === 1) {
+        return [a,c,d].find(idx => b[idx] === '');
+      }
+    }
+    return null;
+  }
+
+  function countOpenTwos(b, player) {
+    let n = 0;
+    for (const [a,c,d] of LINES) {
+      const cellsArr = [b[a], b[c], b[d]];
+      const p = cellsArr.filter(x => x === player).length;
+      const o = cellsArr.filter(x => x !== '' && x !== player).length;
+      if (p === 2 && o === 0) n++;
+    }
+    return n;
+  }
+
+  function findForkMoves(b, player) {
+    const moves = [];
+    for (let i = 0; i < 9; i++) {
+      if (b[i] !== '') continue;
+      const copy = b.slice();
+      copy[i] = player;
+      if (countOpenTwos(copy, player) >= 2) moves.push(i);
+    }
+    return moves;
+  }
+
+  function findThreatMoves(b, player) {
+    // returns array of { move, forcedBlock } where placing `move` creates exactly
+    // one new two-in-a-row threat that opponent must block at `forcedBlock`.
+    const out = [];
+    for (let i = 0; i < 9; i++) {
+      if (b[i] !== '') continue;
+      const copy = b.slice();
+      copy[i] = player;
+      const blocks = [];
+      for (const [a,c,d] of LINES) {
+        const cellsArr = [copy[a], copy[c], copy[d]];
+        const p = cellsArr.filter(x => x === player).length;
+        const e = cellsArr.filter(x => x === '').length;
+        if (p === 2 && e === 1) {
+          blocks.push([a,c,d].find(idx => copy[idx] === ''));
+        }
+      }
+      if (blocks.length === 1) out.push({ move: i, forcedBlock: blocks[0] });
+    }
+    return out;
+  }
+
+  function chooseAiMove() {
+    const me = aiMark;
+    const opp = humanMark;
+
+    // 1. Win
+    let m = findWinningMove(board, me);
+    if (m !== null) return m;
+
+    // 2. Block
+    m = findWinningMove(board, opp);
+    if (m !== null) return m;
+
+    // 3. Fork (create two threats)
+    const myForks = findForkMoves(board, me);
+    if (myForks.length > 0) return myForks[0];
+
+    // 4. Block opponent's fork
+    const oppForks = findForkMoves(board, opp);
+    if (oppForks.length === 1) {
+      return oppForks[0];
+    } else if (oppForks.length > 1) {
+      // Force opponent to defend a two-in-a-row, picking a threat whose forced
+      // block doesn't itself create an opponent fork.
+      const threats = findThreatMoves(board, me);
+      for (const { move, forcedBlock } of threats) {
+        if (!oppForks.includes(forcedBlock)) return move;
+      }
+      // Fallback: just block one of the forks.
+      return oppForks[0];
+    }
+
+    // 5. Center
+    if (board[4] === '') return 4;
+
+    // 6. Opposite corner (if opponent in corner and opposite empty)
+    for (const c of CORNERS) {
+      if (board[c] === opp && board[OPPOSITE_CORNER[c]] === '') {
+        return OPPOSITE_CORNER[c];
+      }
+    }
+
+    // 7. Empty corner
+    for (const c of CORNERS) if (board[c] === '') return c;
+
+    // 8. Empty side
+    for (const s of SIDES) if (board[s] === '') return s;
+
+    return -1; // unreachable
+  }
+
+  // -------- UI bindings --------
+
+  cells.forEach(c => c.addEventListener('click', onCellClick));
+
+  btnHumanFirst.addEventListener('click', () => {
+    btnHumanFirst.classList.add('active');
+    btnAiFirst.classList.remove('active');
+    init(true);
+  });
+  btnAiFirst.addEventListener('click', () => {
+    btnAiFirst.classList.add('active');
+    btnHumanFirst.classList.remove('active');
+    init(false);
+  });
+  btnReset.addEventListener('click', () => init(humanStarts));
+
+  init(true);
+})();
+</script>
+</body>
+</html>
