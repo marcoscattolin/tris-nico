@@ -589,13 +589,7 @@
     <label for="lang-select" id="lang-label">Lingua</label>
     <select id="lang-select">
       <option value="it">Italiano</option>
-      <option value="en-gb">English (British)</option>
-      <option value="en-us">English (American)</option>
-      <option value="de">Deutsch</option>
-      <option value="es">Español</option>
-      <option value="zh">中文 (pinyin)</option>
-      <option value="hi">हिन्दी (Roman)</option>
-      <option value="la">Latina</option>
+      <option value="en">English</option>
     </select>
   </div>
   <div class="game-menu">
@@ -863,7 +857,7 @@ const I18N = {
       footer: 'Clicca una tessera adiacente al vuoto.'
     }
   },
-  'en-gb': {
+  en: {
     title: 'Games',
     langLabel: 'Language',
     tabs: { tris: 'Noughts & Crosses', imp: 'Hangman', anagram: 'Anagrams', memory: 'Memory', t2048: '2048', p15: '15 Puzzle' },
@@ -911,304 +905,11 @@ const I18N = {
       footer: 'Click a tile next to the gap.'
     }
   },
-  'en-us': {
-    title: 'Games',
-    langLabel: 'Language',
-    tabs: { tris: 'Tic-Tac-Toe', imp: 'Hangman', anagram: 'Anagrams', memory: 'Memory', t2048: '2048', p15: '15 Puzzle' },
-    tris: {
-      subtitle: 'Newell & Simon strategy — the AI never loses',
-      btnHumanFirst: 'I start', btnAiFirst: 'AI starts', btnReset: 'New game',
-      yourTurn: m => `Your turn (${m})`, aiThinking: 'AI is thinking…',
-      draw: 'Draw.', youWon: 'You won! Really?', aiWon: 'The AI won.',
-      scoreYou: 'You', scoreDraws: 'Draws', scoreAi: 'AI',
-      footer: 'The best you can do is draw.'
-    },
-    imp: {
-      subtitle: 'Guess the word before getting hanged', btnNew: 'New word',
-      guess: 'Guess a letter',
-      won: w => `Nice! The word was ${w}.`,
-      lost: w => `Hanged. The word was ${w}.`,
-      statWins: 'Wins', statErrors: 'Errors', statLosses: 'Losses',
-      footer: a => `${a} letters. 9 errors and you're done.`
-    },
-    anagram: {
-      subtitle: 'Unscramble the letters', btnNew: 'New word', btnClear: 'Clear',
-      guess: 'Build the word',
-      correct: w => `Awesome! It was ${w}.`, wrong: "That's not it.",
-      statWins: 'Solved', statLosses: 'Skipped', statBest: 'Best',
-      footer: 'Click letters to place them.'
-    },
-    memory: {
-      subtitle: 'Find all the pairs', btnNew: 'New game', play: 'Find the pairs',
-      won: m => `Done in ${m} moves!`,
-      statMoves: 'Moves', statPairs: 'Pairs', statBest: 'Best',
-      footer: '8 pairs to find. Fewer moves is better.'
-    },
-    t2048: {
-      subtitle: 'Merge tiles to reach 2048', btnNew: 'New game',
-      play: 'Arrow keys or swipe', won: 'You reached 2048!', lost: 'No more moves.',
-      statScore: 'Score', statBest: 'Best', statMax: 'Max',
-      footer: 'Arrow keys ↑↓←→ or swipe.'
-    },
-    p15: {
-      subtitle: 'Arrange the tiles 1 to 15 in order',
-      btnNew: 'Shuffle',
-      play: 'Slide the tiles',
-      won: (m, t) => `Solved in ${m} moves (${t})!`,
-      statMoves: 'Moves', statTime: 'Time', statBest: 'Best',
-      footer: 'Click a tile next to the gap.'
-    }
-  },
-  de: {
-    title: 'Spiele',
-    langLabel: 'Sprache',
-    tabs: { tris: 'Tic-Tac-Toe', imp: 'Galgenmännchen', anagram: 'Anagramme', memory: 'Memory', t2048: '2048', p15: '15er-Spiel' },
-    tris: {
-      subtitle: 'Newell-Simon-Strategie — die KI verliert nie',
-      btnHumanFirst: 'Ich beginne', btnAiFirst: 'KI beginnt', btnReset: 'Neues Spiel',
-      yourTurn: m => `Du bist dran (${m})`, aiThinking: 'Die KI denkt nach…',
-      draw: 'Unentschieden.', youWon: 'Du hast gewonnen! Wirklich?', aiWon: 'Die KI hat gewonnen.',
-      scoreYou: 'Du', scoreDraws: 'Remis', scoreAi: 'KI',
-      footer: 'Mehr als ein Unentschieden ist nicht drin.'
-    },
-    imp: {
-      subtitle: 'Errate das Wort, bevor du gehängt wirst', btnNew: 'Neues Wort',
-      guess: 'Errate einen Buchstaben',
-      won: w => `Bravo! Das Wort war ${w}.`,
-      lost: w => `Gehängt. Das Wort war ${w}.`,
-      statWins: 'Siege', statErrors: 'Fehler', statLosses: 'Niederlagen',
-      footer: a => `${a} Buchstaben. 9 Fehler und Schluss.`
-    },
-    anagram: {
-      subtitle: 'Bring die Buchstaben in Ordnung', btnNew: 'Neues Wort', btnClear: 'Löschen',
-      guess: 'Bilde das Wort',
-      correct: w => `Bravo! Es war ${w}.`, wrong: 'Falsch.',
-      statWins: 'Gelöst', statLosses: 'Übersprungen', statBest: 'Rekord',
-      footer: 'Klick zum Platzieren.'
-    },
-    memory: {
-      subtitle: 'Finde alle Paare', btnNew: 'Neues Spiel', play: 'Finde die Paare',
-      won: m => `Geschafft in ${m} Zügen!`,
-      statMoves: 'Züge', statPairs: 'Paare', statBest: 'Rekord',
-      footer: '8 Paare zu finden. Weniger Züge sind besser.'
-    },
-    t2048: {
-      subtitle: 'Kacheln verschmelzen bis 2048', btnNew: 'Neues Spiel',
-      play: 'Pfeiltasten oder Wischen', won: '2048 erreicht!', lost: 'Keine Züge mehr.',
-      statScore: 'Punkte', statBest: 'Rekord', statMax: 'Max',
-      footer: 'Pfeiltasten ↑↓←→ oder Wischen.'
-    },
-    p15: {
-      subtitle: 'Ordne die Steine 1 bis 15',
-      btnNew: 'Mischen',
-      play: 'Schieb die Steine',
-      won: (m, t) => `Gelöst in ${m} Zügen (${t})!`,
-      statMoves: 'Züge', statTime: 'Zeit', statBest: 'Rekord',
-      footer: 'Klick auf einen Stein neben der Lücke.'
-    }
-  },
-  es: {
-    title: 'Juegos',
-    langLabel: 'Idioma',
-    tabs: { tris: 'Tres en raya', imp: 'Ahorcado', anagram: 'Anagramas', memory: 'Memoria', t2048: '2048', p15: 'Juego del 15' },
-    tris: {
-      subtitle: 'Estrategia de Newell y Simon — la IA nunca pierde',
-      btnHumanFirst: 'Empiezo yo', btnAiFirst: 'Empieza la IA', btnReset: 'Nueva partida',
-      yourTurn: m => `Te toca (${m})`, aiThinking: 'La IA está pensando…',
-      draw: 'Empate.', youWon: '¡Ganaste! ¿De verdad?', aiWon: 'Ganó la IA.',
-      scoreYou: 'Tú', scoreDraws: 'Empates', scoreAi: 'IA',
-      footer: 'Lo mejor que puedes hacer es empatar.'
-    },
-    imp: {
-      subtitle: 'Adivina la palabra antes de ser ahorcado', btnNew: 'Nueva palabra',
-      guess: 'Adivina una letra',
-      won: w => `¡Bien! La palabra era ${w}.`,
-      lost: w => `Ahorcado. La palabra era ${w}.`,
-      statWins: 'Victorias', statErrors: 'Errores', statLosses: 'Derrotas',
-      footer: a => `${a} letras. 9 errores y acabas colgado.`
-    },
-    anagram: {
-      subtitle: 'Ordena las letras', btnNew: 'Nueva palabra', btnClear: 'Borrar',
-      guess: 'Forma la palabra',
-      correct: w => `¡Bien! Era ${w}.`, wrong: 'No es así.',
-      statWins: 'Acertadas', statLosses: 'Saltadas', statBest: 'Récord',
-      footer: 'Haz clic para colocar letras.'
-    },
-    memory: {
-      subtitle: 'Encuentra todos los pares', btnNew: 'Nueva partida', play: 'Encuentra los pares',
-      won: m => `¡Listo en ${m} movimientos!`,
-      statMoves: 'Movimientos', statPairs: 'Pares', statBest: 'Récord',
-      footer: '8 pares por encontrar. Menos movimientos, mejor.'
-    },
-    t2048: {
-      subtitle: 'Combina fichas para llegar a 2048', btnNew: 'Nuevo juego',
-      play: 'Flechas o deslizar', won: '¡Llegaste a 2048!', lost: 'No hay más movimientos.',
-      statScore: 'Puntos', statBest: 'Récord', statMax: 'Máx',
-      footer: 'Flechas ↑↓←→ o deslizar.'
-    },
-    p15: {
-      subtitle: 'Ordena las fichas del 1 al 15',
-      btnNew: 'Mezclar',
-      play: 'Desliza las fichas',
-      won: (m, t) => `¡Resuelto en ${m} movimientos (${t})!`,
-      statMoves: 'Movimientos', statTime: 'Tiempo', statBest: 'Récord',
-      footer: 'Haz clic en una ficha junto al hueco.'
-    }
-  },
-  zh: {
-    title: '游戏',
-    langLabel: '语言',
-    tabs: { tris: '井字棋', imp: '猜词游戏', anagram: '字母重组', memory: '记忆游戏', t2048: '2048', p15: '15 之谜' },
-    tris: {
-      subtitle: 'Newell 和 Simon 策略 — AI 永不败北',
-      btnHumanFirst: '我先来', btnAiFirst: 'AI 先来', btnReset: '新游戏',
-      yourTurn: m => `轮到你了（${m}）`, aiThinking: 'AI 正在思考…',
-      draw: '平局。', youWon: '你赢了！真的吗？', aiWon: 'AI 赢了。',
-      scoreYou: '你', scoreDraws: '平局', scoreAi: 'AI',
-      footer: '最好的结果只是平局。'
-    },
-    imp: {
-      subtitle: '猜出拼音单词', btnNew: '新词', guess: '猜一个字母',
-      won: w => `好！这个词是 ${w}。`,
-      lost: w => `被绞死了。这个词是 ${w}。`,
-      statWins: '胜利', statErrors: '错误', statLosses: '失败',
-      footer: a => `${a} 个字母。9 次错误就完了。`
-    },
-    anagram: {
-      subtitle: '把字母重新排好', btnNew: '新词', btnClear: '清除',
-      guess: '拼出单词',
-      correct: w => `太好了！是 ${w}。`, wrong: '不对。',
-      statWins: '答对', statLosses: '跳过', statBest: '最佳',
-      footer: '点击字母放置。'
-    },
-    memory: {
-      subtitle: '找到所有的配对', btnNew: '新游戏', play: '找出配对',
-      won: m => `用了 ${m} 步！`,
-      statMoves: '步数', statPairs: '配对', statBest: '最佳',
-      footer: '共 8 对，步数越少越好。'
-    },
-    t2048: {
-      subtitle: '合并方块达到 2048', btnNew: '新游戏',
-      play: '方向键或滑动', won: '达到 2048！', lost: '无法再移动。',
-      statScore: '分数', statBest: '最高', statMax: '最大',
-      footer: '方向键 ↑↓←→ 或滑动。'
-    },
-    p15: {
-      subtitle: '把 1 到 15 排好序',
-      btnNew: '洗牌',
-      play: '滑动方块',
-      won: (m, t) => `用了 ${m} 步（${t}）！`,
-      statMoves: '步数', statTime: '时间', statBest: '最佳',
-      footer: '点击空格旁边的方块。'
-    }
-  },
-  hi: {
-    title: 'खेल',
-    langLabel: 'भाषा',
-    tabs: { tris: 'टिक टैक टो', imp: 'फांसी का खेल', anagram: 'अक्षर पहेली', memory: 'मेमोरी', t2048: '2048', p15: '15 पहेली' },
-    tris: {
-      subtitle: 'न्यूएल और साइमन की रणनीति — AI कभी नहीं हारता',
-      btnHumanFirst: 'मैं पहले', btnAiFirst: 'AI पहले', btnReset: 'नया खेल',
-      yourTurn: m => `आपकी बारी (${m})`, aiThinking: 'AI सोच रहा है…',
-      draw: 'बराबर।', youWon: 'आप जीते! सच में?', aiWon: 'AI जीता।',
-      scoreYou: 'आप', scoreDraws: 'बराबर', scoreAi: 'AI',
-      footer: 'सबसे अच्छा परिणाम बराबरी है।'
-    },
-    imp: {
-      subtitle: 'रोमन में हिन्दी शब्द का अनुमान लगाएँ', btnNew: 'नया शब्द',
-      guess: 'एक अक्षर चुनें',
-      won: w => `शाबाश! शब्द था ${w}।`,
-      lost: w => `फांसी पर। शब्द था ${w}।`,
-      statWins: 'जीत', statErrors: 'गलतियाँ', statLosses: 'हार',
-      footer: a => `${a} रोमन अक्षर। 9 गलतियाँ और खत्म।`
-    },
-    anagram: {
-      subtitle: 'अक्षरों को सही क्रम में लगाएँ', btnNew: 'नया शब्द', btnClear: 'साफ़',
-      guess: 'शब्द बनाएँ',
-      correct: w => `शाबाश! था ${w}।`, wrong: 'गलत।',
-      statWins: 'सही', statLosses: 'छोड़े', statBest: 'रिकॉर्ड',
-      footer: 'अक्षर लगाने के लिए क्लिक करें।'
-    },
-    memory: {
-      subtitle: 'सभी जोड़े ढूँढ़ें', btnNew: 'नया खेल', play: 'जोड़े ढूँढ़ें',
-      won: m => `${m} चालों में पूरा!`,
-      statMoves: 'चालें', statPairs: 'जोड़े', statBest: 'रिकॉर्ड',
-      footer: '8 जोड़े। कम चालें बेहतर हैं।'
-    },
-    t2048: {
-      subtitle: 'टाइलें मिलाकर 2048 तक पहुँचें', btnNew: 'नया खेल',
-      play: 'तीर बटन या स्वाइप', won: '2048 तक पहुँच गए!', lost: 'और चाल नहीं।',
-      statScore: 'स्कोर', statBest: 'रिकॉर्ड', statMax: 'मैक्स',
-      footer: 'तीर ↑↓←→ या स्वाइप।'
-    },
-    p15: {
-      subtitle: 'टाइलें 1 से 15 तक क्रम में लगाएँ',
-      btnNew: 'फेंटें',
-      play: 'टाइलें खिसकाएँ',
-      won: (m, t) => `${m} चालों में हल किया (${t})!`,
-      statMoves: 'चालें', statTime: 'समय', statBest: 'रिकॉर्ड',
-      footer: 'खाली जगह के पास टाइल पर क्लिक करें।'
-    }
-  },
-  la: {
-    title: 'Ludi',
-    langLabel: 'Lingua',
-    tabs: { tris: 'Triplices', imp: 'Suspensus', anagram: 'Anagrammata', memory: 'Memoria', t2048: '2048', p15: 'Ludus XV' },
-    tris: {
-      subtitle: 'Ratio Newell-Simon — machina numquam vincitur',
-      btnHumanFirst: 'Ego incipio', btnAiFirst: 'Machina incipit', btnReset: 'Novus ludus',
-      yourTurn: m => `Tua vicis (${m})`, aiThinking: 'Machina cogitat…',
-      draw: 'Aequalitas.', youWon: 'Vicisti! Verene?', aiWon: 'Machina vicit.',
-      scoreYou: 'Tu', scoreDraws: 'Aequa', scoreAi: 'Machina',
-      footer: 'Aequalitas optimum est.'
-    },
-    imp: {
-      subtitle: 'Verbum Latinum divina priusquam suspendaris', btnNew: 'Novum verbum',
-      guess: 'Litteram divina',
-      won: w => `Macte! Verbum erat ${w}.`,
-      lost: w => `Suspensus. Verbum erat ${w}.`,
-      statWins: 'Victoriae', statErrors: 'Errata', statLosses: 'Cladi',
-      footer: a => `${a} litterae. 9 errata et perditus es.`
-    },
-    anagram: {
-      subtitle: 'Litteras in ordinem reduc', btnNew: 'Novum verbum', btnClear: 'Dele',
-      guess: 'Verbum compone',
-      correct: w => `Macte! Erat ${w}.`, wrong: 'Non recte.',
-      statWins: 'Solutae', statLosses: 'Praeteritae', statBest: 'Optimum',
-      footer: 'Litteras tange.'
-    },
-    memory: {
-      subtitle: 'Omnia paria inveni', btnNew: 'Novus ludus', play: 'Paria inveni',
-      won: m => `${m} motibus perfectum!`,
-      statMoves: 'Motus', statPairs: 'Paria', statBest: 'Optimum',
-      footer: '8 paria. Motus pauci meliores.'
-    },
-    t2048: {
-      subtitle: 'Tesseras coniunge ut 2048 attingas', btnNew: 'Novus ludus',
-      play: 'Sagittae aut tactus', won: '2048 attigisti!', lost: 'Nulli motus.',
-      statScore: 'Puncta', statBest: 'Optimum', statMax: 'Max',
-      footer: 'Sagittae ↑↓←→ aut tactus.'
-    },
-    p15: {
-      subtitle: 'Tessellas a 1 ad 15 in ordinem dispone',
-      btnNew: 'Misce',
-      play: 'Tessellas move',
-      won: (m, t) => `${m} motibus solutum (${t})!`,
-      statMoves: 'Motus', statTime: 'Tempus', statBest: 'Optimum',
-      footer: 'Tessellam iuxta vacuum tange.'
-    }
-  }
 };
 
 const ALPHABETS = {
   it: 'ABCDEFGHILMNOPQRSTUVZ',
-  'en-gb': 'ABCDEFGHIJKLMNOPQRSTUVWXYZ',
-  'en-us': 'ABCDEFGHIJKLMNOPQRSTUVWXYZ',
-  de: 'ABCDEFGHIJKLMNOPQRSTUVWXYZ',
-  es: 'ABCDEFGHIJKLMNÑOPQRSTUVWXYZ',
-  zh: 'ABCDEFGHIJKLMNOPQRSTUVWXYZ',
-  hi: 'ABCDEFGHIJKLMNOPQRSTUVWXYZ',
-  la: 'ABCDEFGHIKLMNOPQRSTUVXYZ'
+  en: 'ABCDEFGHIJKLMNOPQRSTUVWXYZ',
 };
 
 const WORDS = {
@@ -1225,7 +926,7 @@ const WORDS = {
     'elefante','leone','tigre','lupo','volpe','aquila','farfalla','serpente',
     'calcio','tennis','nuoto','corsa','scacchi','chitarra','pianoforte',
     'violino','batteria','torre','castello','ponte','fontana','piazza','cattedrale'],
-  'en-gb': ['cat','dog','sun','moon','house','sea','mountain','river','road',
+  en: ['cat','dog','sun','moon','house','sea','mountain','river','road',
     'book','school','friend','family','heart','dream','journey','music','theatre',
     'telephone','window','door','table','chair','garden','flower','tree','leaf',
     'snow','rain','wind','fire','earth','water','bread','wine','cheese','pasta',
@@ -1237,66 +938,6 @@ const WORDS = {
     'fox','eagle','butterfly','snake','football','tennis','chess','guitar',
     'piano','violin','tower','castle','bridge','fountain','square','cathedral',
     'lorry','flat','biscuit','jumper'],
-  'en-us': ['cat','dog','sun','moon','house','sea','mountain','river','road',
-    'book','school','friend','family','heart','dream','journey','music','theater',
-    'telephone','window','door','table','chair','garden','flower','tree','leaf',
-    'snow','rain','wind','fire','earth','water','bread','wine','cheese','pasta',
-    'pizza','chocolate','apple','pear','banana','lemon','orange','tomato','salad',
-    'fish','meat','train','bus','bicycle','airplane','boat','library','hospital',
-    'cinema','museum','restaurant','market','beach','island','lake','forest',
-    'desert','spring','summer','fall','winter','morning','evening','night',
-    'star','planet','ocean','storm','penguin','elephant','lion','tiger','wolf',
-    'fox','eagle','butterfly','snake','soccer','tennis','chess','guitar',
-    'piano','violin','tower','castle','bridge','fountain','plaza','cathedral',
-    'truck','apartment','cookie','sweater'],
-  de: ['hund','mond','haus','meer','berg','buch','herz','traum','musik','wind',
-    'feuer','erde','wasser','brot','wein','pizza','apfel','birne','banane',
-    'orange','tomate','salat','fisch','zug','bus','auto','kino','museum','markt',
-    'strand','insel','wald','winter','morgen','abend','nacht','stern','planet',
-    'ozean','sturm','pinguin','elefant','tiger','wolf','schach','gitarre',
-    'klavier','turm','sommer','schlange','garten','fenster','tisch','stuhl',
-    'baum','blatt','schnee','regen','sonne','milch','blume','vogel','schiff',
-    'strasse','platz','dorf','stadt','land','reise','freund','familie'],
-  es: ['gato','perro','sol','luna','casa','mar','montaña','rio','playa','calle',
-    'libro','escuela','amigo','familia','musica','teatro','telefono','ventana',
-    'puerta','mesa','silla','jardin','flor','arbol','hoja','nieve','lluvia',
-    'viento','fuego','tierra','agua','pan','vino','queso','pizza','manzana',
-    'pera','platano','limon','naranja','tomate','ensalada','pescado','carne',
-    'dulce','tren','autobus','coche','avion','barco','biblioteca','hospital',
-    'cine','museo','mercado','isla','lago','bosque','primavera','verano',
-    'invierno','mañana','noche','estrella','planeta','oceano','tormenta',
-    'elefante','leon','tigre','lobo','zorro','mariposa','serpiente','futbol',
-    'tenis','guitarra','piano','violin','torre','castillo','puente','plaza',
-    'otoño','españa','niño','sueño'],
-  zh: ['mao','gou','taiyang','yueliang','haiyang','shan','shu','xuexiao',
-    'pengyou','jiating','xinzang','meng','lvxing','yinyue','xiju','dianhua',
-    'chuanghu','zhuozi','yizi','huayuan','huar','yezi','xue','feng','huo',
-    'dadi','shui','mianbao','putaojiu','nailao','pisa','qiaokeli','pingguo',
-    'xiangjiao','ningmeng','chengzi','xihongshi','shala','rou','huoche',
-    'gongche','zixingche','feiji','chuan','tushuguan','yiyuan','dianying',
-    'bowuguan','canting','shichang','haitan','daoyu','senlin','shamo',
-    'chuntian','xiatian','qiutian','dongtian','zaoshang','wanshang','yewan',
-    'xingxing','xingqiu','baofeng','daxiang','shizi','laohu','huli','laoying',
-    'hudie','zuqiu','wangqiu','xiangqi','jita','gangqin','xiaotiqin','gulou',
-    'chengbao','penquan','guangchang'],
-  hi: ['billi','kutta','suraj','chand','ghar','samundar','pahad','nadi','kitab',
-    'school','dost','parivar','dil','sapna','yatra','sangeet','darwaza','mez',
-    'kursi','bagicha','phool','ped','patta','barf','barish','hawa','aag',
-    'zameen','paani','roti','sharab','paneer','pizza','seb','kela','nimbu',
-    'santara','tamatar','salad','machhli','train','bus','gaadi','naav','garmi',
-    'sardi','subah','shyam','raat','taara','grah','aakash','tufaan','sher',
-    'bagh','bhediya','bandar','titli','saanp','gulaab','chai','pyaar','sansaar',
-    'desh','shahar','gaon','khana','samay','ankh','haath','kavi','geet',
-    'kahani','college','dawai','vidyalaya','adhyapak','vidyarthi'],
-  la: ['aqua','arbor','avis','bellum','caelum','canis','civitas','corpus','deus',
-    'domus','equus','feles','filius','flos','flumen','fortuna','frater','homo',
-    'hora','ignis','insula','lapis','liber','lingua','luna','lupus','manus',
-    'mare','mater','mons','mors','mundus','musa','natura','navis','nives',
-    'numerus','oceanus','oculus','pater','pax','piscis','porta','puer','rex',
-    'roma','sol','stella','tempestas','tempus','terra','turris','urbs','ventus',
-    'victoria','vinum','vir','vita','rosa','silva','populus','dominus',
-    'imperium','senatus','consul','legio','miles','templum','via','forum',
-    'amicus','servus','poeta','agricola','vicus','castra','gladius']
 };
 
 let currentLang = localStorage.getItem('lang') || 'it';
