@@ -8,7 +8,8 @@ export default {
   legal: {
     privacyLink: 'Privacy & Cookies',
     manageConsent: 'Manage cookie preferences',
-    privacyPageTitle: 'Privacy Policy & Cookie Policy'
+    privacyPageTitle: 'Privacy Policy & Cookie Policy',
+    cmpUnavailable: 'The consent management system is not loaded yet. Try again in a few seconds or reload the page.'
   },
   tabs: { tris: 'Noughts & Crosses', imp: 'Hangman', anagram: 'Anagrams', memory: 'Memory', t2048: '2048', p15: '15 Puzzle' },
   tris: {

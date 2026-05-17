@@ -8,7 +8,8 @@ export default {
   legal: {
     privacyLink: 'Privacy & Cookie',
     manageConsent: 'Gestisci preferenze cookie',
-    privacyPageTitle: 'Privacy Policy & Cookie Policy'
+    privacyPageTitle: 'Privacy Policy & Cookie Policy',
+    cmpUnavailable: 'Il sistema di gestione consensi non è ancora caricato. Riprova tra qualche secondo o ricarica la pagina.'
   },
   tabs: { tris: 'Tris', imp: 'Impiccato', anagram: 'Anagrammi', memory: 'Memory', t2048: '2048', p15: 'Gioco del 15' },
   tris: {
