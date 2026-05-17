@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Lights Out</title>
+<link rel="stylesheet" href="../../styles/base.css" />
+<link rel="stylesheet" href="lightsout.css" />
+<script async src="../../shared/cmp.js"></script>
+<script src="../../shared/analytics.js"></script>
+</head>
+<body>
+  <div id="app-header"></div>
+  <div id="game-lightsout" class="game-view">
+    <div class="subtitle" id="lo-subtitle"></div>
+    <div class="panel">
+      <div class="controls">
+        <button id="lo-new">Nuova partita</button>
+      </div>
+      <div class="status" id="lo-status"></div>
+      <div class="lo-board" id="lo-board"></div>
+      <div class="three-stats">
+        <div class="stat-item moves">
+          <div class="label" id="lbl-lo-moves">Mosse</div>
+          <div class="value" id="lo-moves">0</div>
+        </div>
+        <div class="stat-item time">
+          <div class="label" id="lbl-lo-time">Tempo</div>
+          <div class="value" id="lo-time">00:00</div>
+        </div>
+        <div class="stat-item best">
+          <div class="label" id="lbl-lo-best">Record</div>
+          <div class="value" id="lo-best">–</div>
+        </div>
+      </div>
+    </div>
+    <footer id="lo-footer"></footer>
+  </div>
+  <div id="app-footer"></div>
+  <script type="module">
+    import { applyLanguage, currentLang } from '../../shared/i18n.js';
+    import { renderHeader } from '../../shared/header.js';
+    import { renderFooter } from '../../shared/footer.js';
+    import game from './lightsout.js';
+    renderHeader({ backHref: '../../' });
+    renderFooter();
+    game.init();
+    applyLanguage(currentLang);
+  </script>
+</body>
+</html>

@@ -5,5 +5,6 @@ export const GAMES = [
   { id: 'memory',    slug: 'memory',    i18nTab: 'memory',  emoji: '🃏' },
   { id: 't2048',     slug: 't2048',     i18nTab: 't2048',   emoji: '🔢' },
   { id: 'p15',       slug: 'p15',       i18nTab: 'p15',     emoji: '🧩' },
-  { id: 'mastermind',slug: 'mastermind',i18nTab: 'mastermind', emoji: '🎯' }
+  { id: 'mastermind',slug: 'mastermind',i18nTab: 'mastermind', emoji: '🎯' },
+  { id: 'lightsout', slug: 'lightsout', i18nTab: 'lightsout', emoji: '💡' }
 ];

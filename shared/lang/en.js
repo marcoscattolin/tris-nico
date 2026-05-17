@@ -11,7 +11,7 @@ export default {
     privacyPageTitle: 'Privacy Policy & Cookie Policy',
     cmpUnavailable: 'The consent management system is not loaded yet. Try again in a few seconds or reload the page.'
   },
-  tabs: { tris: 'Noughts & Crosses', imp: 'Hangman', anagram: 'Anagrams', memory: 'Memory', t2048: '2048', p15: '15 Puzzle', mastermind: 'Mastermind' },
+  tabs: { tris: 'Noughts & Crosses', imp: 'Hangman', anagram: 'Anagrams', memory: 'Memory', t2048: '2048', p15: '15 Puzzle', mastermind: 'Mastermind', lightsout: 'Lights Out' },
   tris: {
     subtitle: 'Newell & Simon strategy — the AI never loses',
     btnHumanFirst: 'I start', btnAiFirst: 'AI starts', btnReset: 'New game',
@@ -67,5 +67,13 @@ export default {
     pegNear: 'White = right colour, wrong spot',
     statWins: 'Wins', statLosses: 'Losses', statBest: 'Best',
     footer: '4 colours from 6, 10 tries. Colours can repeat.'
+  },
+  lightsout: {
+    subtitle: 'Turn off all the lights',
+    btnNew: 'New game',
+    play: 'Click to toggle',
+    won: (m, t) => `Solved in ${m} moves (${t})!`,
+    statMoves: 'Moves', statTime: 'Time', statBest: 'Best',
+    footer: 'Click a light: it toggles the 4 adjacent ones too.'
   }
 };
