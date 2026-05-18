@@ -11,7 +11,7 @@ export default {
     privacyPageTitle: 'Privacy Policy & Cookie Policy',
     cmpUnavailable: 'Il sistema di gestione consensi non è ancora caricato. Riprova tra qualche secondo o ricarica la pagina.'
   },
-  tabs: { tris: 'Tris', imp: 'Impiccato', anagram: 'Anagrammi', memory: 'Memory', t2048: '2048', p15: 'Gioco del 15', mastermind: 'Mastermind', lightsout: 'Lights Out' },
+  tabs: { tris: 'Tris', imp: 'Impiccato', anagram: 'Anagrammi', memory: 'Memory', t2048: '2048', p15: 'Gioco del 15', mastermind: 'Mastermind', lightsout: 'Lights Out', t24: 'Gioco del 24' },
   tris: {
     subtitle: "Strategia Newell & Simon — l'IA non perde mai",
     btnHumanFirst: 'Inizio io',
@@ -89,5 +89,17 @@ export default {
     won: (m, t) => `Risolto in ${m} mosse (${t})!`,
     statMoves: 'Mosse', statTime: 'Tempo', statBest: 'Record',
     footer: 'Clicca una luce: cambia anche le 4 adiacenti.'
+  },
+  t24: {
+    subtitle: 'Combina i 4 numeri per ottenere 24',
+    btnNew: 'Nuova partita',
+    btnUndo: 'Annulla',
+    btnReset: 'Reset',
+    play: 'Tocca un numero, un operatore e un altro numero',
+    won: 'Esatto! Hai fatto 24!',
+    notYet: v => `Hai ottenuto ${v}, non 24.`,
+    divByZero: 'Non puoi dividere per zero.',
+    statWins: 'Vittorie', statLosses: 'Saltate', statBest: 'Record',
+    footer: 'Usa tutti e 4 i numeri con + − × ÷ per arrivare a 24.'
   }
 };

@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<script src="../../shared/gtm.js"></script>
+<title>Gioco del 24 online gratis — Casual Games</title>
+<meta name="description" content="Gioco del 24 online: combina 4 numeri con + − × ÷ per ottenere 24. Esercizio matematico nel browser." />
+<link rel="canonical" href="https://casualkidsgames.netlify.app/games/t24/" />
+<meta property="og:title" content="Gioco del 24 online gratis — Casual Games" />
+<meta property="og:description" content="Gioco del 24 online: combina 4 numeri con + − × ÷ per ottenere 24. Esercizio matematico nel browser." />
+<meta property="og:type" content="website" />
+<meta property="og:url" content="https://casualkidsgames.netlify.app/games/t24/" />
+<meta property="og:site_name" content="Casual Games" />
+<meta name="twitter:card" content="summary" />
+<link rel="stylesheet" href="../../styles/base.css" />
+<link rel="stylesheet" href="t24.css" />
+</head>
+<body>
+  <noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-KSS8BN6Q" height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+  <div id="app-header"></div>
+  <div id="game-t24" class="game-view">
+    <div class="subtitle" id="t24-subtitle"></div>
+    <div class="panel">
+      <div class="status" id="t24-status"></div>
+      <div class="t24-tiles" id="t24-tiles"></div>
+      <div class="t24-ops" id="t24-ops"></div>
+      <div class="controls">
+        <button id="t24-undo"></button>
+        <button id="t24-reset"></button>
+        <button id="t24-new"></button>
+      </div>
+      <div class="three-stats">
+        <div class="stat-item wins">
+          <div class="label" id="lbl-t24-wins">Vittorie</div>
+          <div class="value" id="t24-wins">0</div>
+        </div>
+        <div class="stat-item losses">
+          <div class="label" id="lbl-t24-losses">Saltate</div>
+          <div class="value" id="t24-losses">0</div>
+        </div>
+        <div class="stat-item best">
+          <div class="label" id="lbl-t24-best">Record</div>
+          <div class="value" id="t24-best">–</div>
+        </div>
+      </div>
+    </div>
+    <footer id="t24-footer"></footer>
+  </div>
+  <div id="app-footer"></div>
+  <script type="module">
+    import { applyLanguage, currentLang } from '../../shared/i18n.js';
+    import { renderHeader } from '../../shared/header.js';
+    import { renderFooter } from '../../shared/footer.js';
+    import game from './t24.js';
+    renderHeader({ backHref: '../../' });
+    renderFooter();
+    game.init();
+    applyLanguage(currentLang);
+  </script>
+</body>
+</html>
