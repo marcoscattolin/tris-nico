@@ -11,7 +11,7 @@ export default {
     privacyPageTitle: 'Privacy Policy & Cookie Policy',
     cmpUnavailable: 'Il sistema di gestione consensi non è ancora caricato. Riprova tra qualche secondo o ricarica la pagina.'
   },
-  tabs: { tris: 'Tris', imp: 'Impiccato', anagram: 'Anagrammi', memory: 'Memory', t2048: '2048', p15: 'Gioco del 15', mastermind: 'Mastermind', lightsout: 'Lights Out', t24: 'Gioco del 24', nonogram: 'Nonogram', snake: 'Snake', wordladder: 'Word Ladder', ops: 'Operatori mancanti' },
+  tabs: { tris: 'Tris', imp: 'Impiccato', anagram: 'Anagrammi', memory: 'Memory', t2048: '2048', p15: 'Gioco del 15', mastermind: 'Mastermind', lightsout: 'Lights Out', t24: 'Gioco del 24', nonogram: 'Nonogram', snake: 'Snake', wordladder: 'Word Ladder', ops: 'Operatori mancanti', tabelline: 'Tabelline 2048' },
   tris: {
     subtitle: "Strategia Newell & Simon — l'IA non perde mai",
     btnHumanFirst: 'Inizio io',
@@ -124,6 +124,15 @@ export default {
     lost: s => `Game over. Punteggio: ${s}.`,
     statScore: 'Punteggio', statTime: 'Tempo', statBest: 'Record',
     footer: 'Frecce o WASD per muovere, Spazio per la pausa.'
+  },
+  tabelline: {
+    subtitle: 'Il 2048 delle tabelline — unisci tessere uguali per moltiplicarle',
+    btnNew: 'Nuova partita',
+    play: n => `Tabellina del ${n}: frecce o swipe per unire le tessere`,
+    won: (n, k, v) => `Bravo! Hai raggiunto ${n}×${k} = ${v}.`,
+    lost: 'Niente più mosse.',
+    statScore: 'Punteggio', statBest: 'Record', statMax: 'Max',
+    footer: 'Scegli una tabellina dal 2 al 9. Goal: arrivare a N×256.'
   },
   ops: {
     subtitle: 'Inserisci gli operatori giusti per raggiungere il target',
