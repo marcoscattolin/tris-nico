@@ -60,7 +60,9 @@ body:has(#game-nonogram) .app-footer { padding: 6px 16px; gap: 2px; }
   color: var(--lose);
   transition: background 0.1s, transform 0.1s;
 }
-.ng-cell:hover:not(:disabled) { background: #374151; }
+@media (hover: hover) {
+  .ng-cell:hover:not(:disabled) { background: #374151; }
+}
 .ng-cell.filled {
   background: var(--accent);
   color: transparent;
