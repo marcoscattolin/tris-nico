@@ -9,5 +9,7 @@ export const GAMES = [
   { id: 'lightsout', slug: 'lightsout', i18nTab: 'lightsout', emoji: '💡' },
   { id: 't24',       slug: 't24',       i18nTab: 't24',       emoji: '🧮' },
   { id: 'nonogram',  slug: 'nonogram',  i18nTab: 'nonogram',  emoji: '🖼️' },
-  { id: 'snake',     slug: 'snake',     i18nTab: 'snake',     emoji: '🐍' }
+  { id: 'snake',     slug: 'snake',     i18nTab: 'snake',     emoji: '🐍' },
+  { id: 'wordladder',slug: 'wordladder',i18nTab: 'wordladder',emoji: '🪜' },
+  { id: 'ops',       slug: 'operatori', i18nTab: 'ops',       emoji: '➕' }
 ];
