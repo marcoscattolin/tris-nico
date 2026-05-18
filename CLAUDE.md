@@ -29,8 +29,7 @@ The user communicates in Italian; reply in Italian. UI defaults are in Italian b
 │   ├── backgrounds.js          # 12 gradient backgrounds + changeBackground()
 │   ├── header.js               # renderHeader({ backHref, showLangSelect }) — injects title/lang-select/back-link
 │   ├── footer.js               # renderFooter() — injects Privacy link + "Manage cookies" + ©
-│   ├── analytics.js            # GA4 loader with Consent Mode v2 default 'denied'
-│   ├── cmp.js                  # Google Funding Choices CMP loader (publisher pub-1324858277403968)
+│   ├── gtm.js                  # Google Tag Manager bootstrap (container GTM-KSS8BN6Q) + Consent Mode v2 default 'denied'
 │   └── registry.js             # GAMES = [{ id, slug, i18nTab, emoji }, …]
 ├── styles/
 │   └── base.css                # CSS vars, body, header, grid, panel/controls/status/stat-item, landing cards, footer
@@ -50,7 +49,7 @@ The user communicates in Italian; reply in Italian. UI defaults are in Italian b
   - Use `data-i18n="path.to.key"` on a static element to have its text written automatically when `applyLanguage` runs. Dynamic text (function-template strings) is set imperatively by the game's `refreshText()`.
 - **Game module contract**: each `games/<slug>/<game>.js` `export default`s `{ init, refreshText, resetStats }` (Tris also exports `resetScores`). The page's bootstrap (inline `<script type="module">` at end of the game's HTML) calls `renderHeader(...)`, `game.init()`, then `applyLanguage(currentLang)`. The game module subscribes to `onLanguageChange` internally to refresh its text (and re-pick words for Impiccato/Anagrammi).
 - **localStorage keys** (unchanged across the refactor): `lang`, `anagram-best-<lang>`, `memory-best`, `t2048-best`, `p15-best`.
-- **Consent & analytics**: every page loads `shared/cmp.js` (Google Funding Choices CMP) and `shared/analytics.js` (GA4 with Consent Mode v2). `analytics.js` defines `gtag` and sets all 4 consent flags (`ad_storage`, `ad_user_data`, `ad_personalization`, `analytics_storage`) to `'denied'` *before* `gtag/js` loads, so GA only fires after the user grants consent through the Funding Choices banner. The CMP integrates natively with Consent Mode — no manual `consent update` call is required.
+- **Consent & analytics**: every page loads `shared/gtm.js` (Google Tag Manager) as the only Google tag in the codebase. `gtm.js` defines `dataLayer` + `gtag` and sets all 4 consent flags (`ad_storage`, `ad_user_data`, `ad_personalization`, `analytics_storage`) to `'denied'` *before* loading the GTM container, so any tag fires only after the user grants consent. GTM container `GTM-KSS8BN6Q` hosts: (a) GA4 configuration tag (measurement ID `G-MLTDK8KDVW`), (b) the Google Funding Choices CMP loader for publisher `pub-1324858277403968` (custom HTML tag that mirrors what `shared/cmp.js` used to do — async-loads `fundingchoicesmessages.google.com/i/<PUB_ID>?ers=1` and injects the `googlefcPresent` iframe). Funding Choices integrates natively with Consent Mode and calls `gtag('consent','update',...)` on user action — no manual call is required. The footer "Manage cookie preferences" button still triggers `window.googlefc.showRevocationMessage()` (Funding Choices exposes `window.googlefc` globally regardless of how it was loaded).
 - **Footer**: every page renders `<div id="app-footer"></div>` populated by `renderFooter()` from `shared/footer.js`. It exposes a Privacy/Cookies link (to `/legal/privacy/`) and a "Manage cookie preferences" button that triggers `window.googlefc.showRevocationMessage()`.
 
 ## Game-specific notes
@@ -64,7 +63,7 @@ The user communicates in Italian; reply in Italian. UI defaults are in Italian b
 
 ## Adding a new game
 
-1. Create `games/<slug>/{index.html, <game>.js, <game>.css}`. Copy an existing game's bootstrap script as a template — it must include `<script async src="../../shared/cmp.js"></script>`, `<script src="../../shared/analytics.js"></script>` in `<head>`, `<div id="app-footer"></div>` before `</body>`, and the bootstrap `<script type="module">` calling `renderHeader({ backHref: '../../' })`, `renderFooter()`, `game.init()`, `applyLanguage(currentLang)`.
+1. Create `games/<slug>/{index.html, <game>.js, <game>.css}`. Copy an existing game's bootstrap script as a template — it must include `<script src="../../shared/gtm.js"></script>` as high as possible in `<head>` (right after the meta tags), the GTM `<noscript>` iframe right after `<body>`, `<div id="app-footer"></div>` before `</body>`, and the bootstrap `<script type="module">` calling `renderHeader({ backHref: '../../' })`, `renderFooter()`, `game.init()`, `applyLanguage(currentLang)`.
 2. The JS module must `export default { init, refreshText, resetStats }`.
 3. Add a translation bundle key per language under `shared/lang/it.js` and `shared/lang/en.js` (e.g. `newgame: { subtitle, btnNew, … }`). Add a label under `tabs.newgame` in both.
 4. Append `{ id: 'newgame', slug: 'newgame', i18nTab: 'newgame', emoji: '…' }` to `shared/registry.js`.
