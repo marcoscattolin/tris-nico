@@ -1,0 +1,86 @@
+.wl-ladder {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 6px;
+  margin-bottom: 14px;
+  min-height: 60px;
+}
+.wl-row {
+  display: flex;
+  gap: 6px;
+}
+.wl-row .wl-cell {
+  width: 42px;
+  height: 48px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 22px;
+  font-weight: 700;
+  color: var(--text);
+  background: var(--cell);
+  border-radius: 8px;
+  border-bottom: 3px solid var(--cell);
+}
+.wl-row.start .wl-cell { border-bottom-color: var(--win); }
+.wl-row.target .wl-cell { border-bottom-color: var(--accent); }
+.wl-row.user .wl-cell.changed { color: var(--accent); }
+.wl-row.win .wl-cell { animation: wl-pulse 0.6s; }
+
+@keyframes wl-pulse {
+  0%, 100% { transform: scale(1); }
+  50% { transform: scale(1.08); }
+}
+
+.wl-input-row {
+  display: flex;
+  justify-content: center;
+  gap: 8px;
+  margin-bottom: 10px;
+}
+.wl-input-row input {
+  width: 180px;
+  background: var(--cell);
+  color: var(--text);
+  border: 2px solid transparent;
+  border-radius: 10px;
+  padding: 10px 12px;
+  font-size: 20px;
+  font-weight: 700;
+  font-family: inherit;
+  text-align: center;
+  letter-spacing: 4px;
+  text-transform: uppercase;
+  outline: none;
+  transition: border-color 0.15s;
+}
+.wl-input-row input:focus { border-color: var(--accent); }
+.wl-input-row input.wrong { border-color: var(--lose); animation: wl-shake 0.4s; }
+.wl-input-row button {
+  background: var(--cell);
+  color: var(--text);
+  border: none;
+  border-radius: 10px;
+  padding: 0 18px;
+  font-size: 14px;
+  font-weight: 600;
+  cursor: pointer;
+  font-family: inherit;
+  transition: background 0.15s;
+}
+.wl-input-row button:hover { background: var(--cell-hover); }
+
+@keyframes wl-shake {
+  0%, 100% { transform: translateX(0); }
+  25% { transform: translateX(-6px); }
+  75% { transform: translateX(6px); }
+}
+
+.wl-hint {
+  text-align: center;
+  font-size: 12px;
+  color: var(--muted);
+  margin-bottom: 12px;
+  min-height: 16px;
+}

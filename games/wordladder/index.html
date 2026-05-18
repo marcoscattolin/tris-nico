@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<script src="../../shared/gtm.js"></script>
+<title>Word Ladder online gratis — Casual Games</title>
+<meta name="description" content="Word Ladder online: trasforma una parola in un'altra cambiando una lettera alla volta. Esercizio di vocabolario nel browser." />
+<link rel="canonical" href="https://casualkidsgames.netlify.app/games/wordladder/" />
+<meta property="og:title" content="Word Ladder online gratis — Casual Games" />
+<meta property="og:description" content="Word Ladder online: trasforma una parola in un'altra cambiando una lettera alla volta. Esercizio di vocabolario nel browser." />
+<meta property="og:type" content="website" />
+<meta property="og:url" content="https://casualkidsgames.netlify.app/games/wordladder/" />
+<meta property="og:site_name" content="Casual Games" />
+<meta name="twitter:card" content="summary" />
+<link rel="stylesheet" href="../../styles/base.css" />
+<link rel="stylesheet" href="wordladder.css" />
+</head>
+<body>
+  <noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-KSS8BN6Q" height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+  <div id="app-header"></div>
+  <div id="game-wordladder" class="game-view">
+    <div class="subtitle" id="wl-subtitle"></div>
+    <div class="panel">
+      <div class="status" id="wl-status"></div>
+      <div class="wl-ladder" id="wl-ladder"></div>
+      <div class="wl-input-row">
+        <input id="wl-input" type="text" maxlength="4" autocomplete="off" autocapitalize="characters" spellcheck="false" inputmode="text" />
+        <button id="wl-submit"></button>
+      </div>
+      <div class="wl-hint" id="wl-hint"></div>
+      <div class="controls">
+        <button id="wl-undo"></button>
+        <button id="wl-new"></button>
+      </div>
+      <div class="three-stats">
+        <div class="stat-item wins">
+          <div class="label" id="lbl-wl-wins">Indovinate</div>
+          <div class="value" id="wl-wins">0</div>
+        </div>
+        <div class="stat-item losses">
+          <div class="label" id="lbl-wl-losses">Saltate</div>
+          <div class="value" id="wl-losses">0</div>
+        </div>
+        <div class="stat-item best">
+          <div class="label" id="lbl-wl-best">Record</div>
+          <div class="value" id="wl-best">0</div>
+        </div>
+      </div>
+    </div>
+    <footer id="wl-footer"></footer>
+  </div>
+  <div id="app-footer"></div>
+  <script type="module">
+    import { applyLanguage, currentLang } from '../../shared/i18n.js';
+    import { renderHeader } from '../../shared/header.js';
+    import { renderFooter } from '../../shared/footer.js';
+    import game from './wordladder.js';
+    renderHeader({ backHref: '../../' });
+    renderFooter();
+    game.init();
+    applyLanguage(currentLang);
+  </script>
+</body>
+</html>

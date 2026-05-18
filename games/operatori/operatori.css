@@ -1,0 +1,94 @@
+.ops-expression {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-items: center;
+  gap: 6px;
+  margin-bottom: 18px;
+  min-height: 60px;
+}
+.ops-num, .ops-slot, .ops-eq, .ops-target {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 52px;
+  border-radius: 10px;
+  font-size: 24px;
+  font-weight: 700;
+  color: var(--text);
+}
+.ops-num {
+  min-width: 46px;
+  padding: 0 8px;
+  background: var(--cell);
+  border-bottom: 3px solid var(--x-color);
+}
+.ops-slot {
+  width: 46px;
+  background: rgba(0,0,0,0.25);
+  border: 2px dashed var(--cell-hover);
+  cursor: pointer;
+  color: var(--muted);
+  transition: background 0.15s, border-color 0.15s, transform 0.1s;
+  user-select: none;
+}
+.ops-slot.filled {
+  background: var(--cell);
+  border-style: solid;
+  border-color: var(--accent);
+  color: var(--accent);
+}
+.ops-slot.selected {
+  border-color: var(--accent);
+  background: var(--cell-hover);
+}
+.ops-slot:hover { transform: translateY(-1px); }
+.ops-eq { color: var(--muted); padding: 0 4px; }
+.ops-target {
+  min-width: 56px;
+  padding: 0 10px;
+  background: var(--cell);
+  border-bottom: 3px solid var(--accent);
+}
+
+.ops-expression.wrong .ops-slot { animation: ops-shake 0.4s; border-color: var(--lose); color: var(--lose); }
+.ops-expression.wrong .ops-target { border-bottom-color: var(--lose); }
+.ops-expression.correct .ops-slot { border-color: var(--win); color: var(--win); }
+.ops-expression.correct .ops-target { border-bottom-color: var(--win); animation: ops-pulse 0.6s; }
+.ops-expression.correct .ops-num { animation: ops-pulse 0.6s; }
+
+@keyframes ops-shake {
+  0%, 100% { transform: translateX(0); }
+  25% { transform: translateX(-6px); }
+  75% { transform: translateX(6px); }
+}
+@keyframes ops-pulse {
+  0%, 100% { transform: scale(1); }
+  50% { transform: scale(1.08); }
+}
+
+.ops-keys {
+  display: flex;
+  justify-content: center;
+  gap: 8px;
+  margin-bottom: 14px;
+  flex-wrap: wrap;
+}
+.ops-key {
+  width: 56px;
+  height: 56px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: var(--cell);
+  color: var(--text);
+  border: 2px solid transparent;
+  border-radius: 12px;
+  font-size: 24px;
+  font-weight: 700;
+  cursor: pointer;
+  font-family: inherit;
+  transition: background 0.15s, transform 0.1s, border-color 0.15s;
+}
+.ops-key:hover:not(:disabled) { background: var(--cell-hover); transform: translateY(-2px); }
+.ops-key:disabled { opacity: 0.4; cursor: default; }

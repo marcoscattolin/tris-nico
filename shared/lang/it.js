@@ -11,7 +11,7 @@ export default {
     privacyPageTitle: 'Privacy Policy & Cookie Policy',
     cmpUnavailable: 'Il sistema di gestione consensi non è ancora caricato. Riprova tra qualche secondo o ricarica la pagina.'
   },
-  tabs: { tris: 'Tris', imp: 'Impiccato', anagram: 'Anagrammi', memory: 'Memory', t2048: '2048', p15: 'Gioco del 15', mastermind: 'Mastermind', lightsout: 'Lights Out', t24: 'Gioco del 24', nonogram: 'Nonogram', snake: 'Snake' },
+  tabs: { tris: 'Tris', imp: 'Impiccato', anagram: 'Anagrammi', memory: 'Memory', t2048: '2048', p15: 'Gioco del 15', mastermind: 'Mastermind', lightsout: 'Lights Out', t24: 'Gioco del 24', nonogram: 'Nonogram', snake: 'Snake', wordladder: 'Word Ladder', ops: 'Operatori mancanti' },
   tris: {
     subtitle: "Strategia Newell & Simon — l'IA non perde mai",
     btnHumanFirst: 'Inizio io',
@@ -124,5 +124,35 @@ export default {
     lost: s => `Game over. Punteggio: ${s}.`,
     statScore: 'Punteggio', statTime: 'Tempo', statBest: 'Record',
     footer: 'Frecce o WASD per muovere, Spazio per la pausa.'
+  },
+  ops: {
+    subtitle: 'Inserisci gli operatori giusti per raggiungere il target',
+    btnClear: 'Cancella',
+    btnNew: 'Nuova partita',
+    play: 'Tocca uno slot ? e scegli un operatore',
+    won: seq => `Esatto! ${seq} funziona.`,
+    notYet: v => `Risultato ${v}, non è il target.`,
+    divByZero: 'La divisione non dà un intero. Riprova.',
+    statWins: 'Vittorie', statLosses: 'Saltate', statBest: 'Record streak',
+    footer: 'Precedenza standard: × e ÷ prima di + e −. Le divisioni devono dare numeri interi.'
+  },
+  wordladder: {
+    subtitle: "Trasforma una parola nell'altra cambiando una lettera alla volta",
+    btnSubmit: 'Invia',
+    btnUndo: 'Annulla',
+    btnNew: 'Nuova partita',
+    play: 'Scrivi la prossima parola e premi Invio',
+    inputPlaceholder: '4 lettere',
+    minSteps: n => `Soluzione minima: ${n} passi`,
+    usedSteps: n => `usati: ${n}`,
+    errLen: n => `Servono esattamente ${n} lettere`,
+    errAlphabet: 'Lettere non valide per questa lingua',
+    errSame: 'È la stessa parola',
+    errRepeat: 'Parola già usata in questa scalata',
+    errOneLetter: 'Devi cambiare esattamente UNA lettera',
+    errNotInDict: 'Parola non riconosciuta',
+    won: n => `Bravo! Ce l'hai fatta in ${n} passi.`,
+    statWins: 'Vittorie', statLosses: 'Saltate', statBest: 'Record streak',
+    footer: 'Ogni passo cambia una sola lettera e deve essere una parola valida.'
   }
 };

@@ -11,7 +11,7 @@ export default {
     privacyPageTitle: 'Privacy Policy & Cookie Policy',
     cmpUnavailable: 'The consent management system is not loaded yet. Try again in a few seconds or reload the page.'
   },
-  tabs: { tris: 'Noughts & Crosses', imp: 'Hangman', anagram: 'Anagrams', memory: 'Memory', t2048: '2048', p15: '15 Puzzle', mastermind: 'Mastermind', lightsout: 'Lights Out', t24: 'Make 24', nonogram: 'Nonogram', snake: 'Snake' },
+  tabs: { tris: 'Noughts & Crosses', imp: 'Hangman', anagram: 'Anagrams', memory: 'Memory', t2048: '2048', p15: '15 Puzzle', mastermind: 'Mastermind', lightsout: 'Lights Out', t24: 'Make 24', nonogram: 'Nonogram', snake: 'Snake', wordladder: 'Word Ladder', ops: 'Missing Operators' },
   tris: {
     subtitle: 'Newell & Simon strategy — the AI never loses',
     btnHumanFirst: 'I start', btnAiFirst: 'AI starts', btnReset: 'New game',
@@ -110,5 +110,35 @@ export default {
     lost: s => `Game over. Score: ${s}.`,
     statScore: 'Score', statTime: 'Time', statBest: 'Best',
     footer: 'Arrows or WASD to move, Space to pause.'
+  },
+  ops: {
+    subtitle: 'Insert the right operators to reach the target',
+    btnClear: 'Clear',
+    btnNew: 'New game',
+    play: 'Tap a ? slot and pick an operator',
+    won: seq => `Correct! ${seq} works.`,
+    notYet: v => `Result is ${v}, not the target.`,
+    divByZero: 'Division does not give an integer. Try again.',
+    statWins: 'Wins', statLosses: 'Skipped', statBest: 'Best streak',
+    footer: 'Standard precedence: × and ÷ before + and −. Divisions must produce whole numbers.'
+  },
+  wordladder: {
+    subtitle: 'Turn one word into another by changing one letter at a time',
+    btnSubmit: 'Submit',
+    btnUndo: 'Undo',
+    btnNew: 'New game',
+    play: 'Type the next word and press Enter',
+    inputPlaceholder: '4 letters',
+    minSteps: n => `Shortest path: ${n} steps`,
+    usedSteps: n => `used: ${n}`,
+    errLen: n => `Need exactly ${n} letters`,
+    errAlphabet: 'Letters not valid for this language',
+    errSame: "That's the same word",
+    errRepeat: 'Already used in this ladder',
+    errOneLetter: 'You must change exactly ONE letter',
+    errNotInDict: 'Word not recognised',
+    won: n => `Well done! Solved in ${n} steps.`,
+    statWins: 'Wins', statLosses: 'Skipped', statBest: 'Best streak',
+    footer: 'Each step changes exactly one letter and must be a real word.'
   }
 };
