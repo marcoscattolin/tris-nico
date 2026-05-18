@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<script src="../../shared/gtm.js"></script>
+<title>Snake online gratis — Casual Games</title>
+<meta name="description" content="Snake online: mangia il cibo, cresci e non colpire i muri o te stesso. Classico gioco arcade nel browser." />
+<link rel="canonical" href="https://casualkidsgames.netlify.app/games/snake/" />
+<meta property="og:title" content="Snake online gratis — Casual Games" />
+<meta property="og:description" content="Snake online: mangia il cibo, cresci e non colpire i muri o te stesso. Classico gioco arcade nel browser." />
+<meta property="og:type" content="website" />
+<meta property="og:url" content="https://casualkidsgames.netlify.app/games/snake/" />
+<meta property="og:site_name" content="Casual Games" />
+<meta name="twitter:card" content="summary" />
+<link rel="stylesheet" href="../../styles/base.css" />
+<link rel="stylesheet" href="snake.css" />
+</head>
+<body>
+  <noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-KSS8BN6Q" height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+  <div id="app-header"></div>
+  <div id="game-snake" class="game-view">
+    <div class="subtitle" id="snake-subtitle"></div>
+    <div class="panel">
+      <div class="status" id="snake-status"></div>
+      <div class="snake-board" id="snake-board"></div>
+      <div class="controls">
+        <button id="snake-pause"></button>
+        <button id="snake-new"></button>
+      </div>
+      <div class="three-stats">
+        <div class="stat-item score">
+          <div class="label" id="lbl-snake-score">Punteggio</div>
+          <div class="value" id="snake-score">0</div>
+        </div>
+        <div class="stat-item time">
+          <div class="label" id="lbl-snake-time">Tempo</div>
+          <div class="value" id="snake-time">00:00</div>
+        </div>
+        <div class="stat-item best">
+          <div class="label" id="lbl-snake-best">Record</div>
+          <div class="value" id="snake-best">–</div>
+        </div>
+      </div>
+    </div>
+    <footer id="snake-footer"></footer>
+  </div>
+  <div id="app-footer"></div>
+  <script type="module">
+    import { applyLanguage, currentLang } from '../../shared/i18n.js';
+    import { renderHeader } from '../../shared/header.js';
+    import { renderFooter } from '../../shared/footer.js';
+    import game from './snake.js';
+    renderHeader({ backHref: '../../' });
+    renderFooter();
+    game.init();
+    applyLanguage(currentLang);
+  </script>
+</body>
+</html>

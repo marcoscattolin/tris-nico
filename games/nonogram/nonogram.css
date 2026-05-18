@@ -1,0 +1,94 @@
+body:has(#game-nonogram) { padding: 10px 16px; }
+body:has(#game-nonogram) .header-row { margin-bottom: 6px; }
+body:has(#game-nonogram) #app-footer { padding-top: 8px; }
+body:has(#game-nonogram) .app-footer { padding: 6px 16px; gap: 2px; }
+
+#game-nonogram .panel { padding: 14px; }
+#game-nonogram .status { min-height: 24px; margin-bottom: 10px; }
+#game-nonogram footer { margin-top: 8px; font-size: 12px; }
+
+.ng-board {
+  display: grid;
+  grid-template-columns: 44px repeat(5, 1fr);
+  grid-template-rows: 44px repeat(5, 1fr);
+  gap: 3px;
+  padding: 6px;
+  background: rgba(0,0,0,0.3);
+  border-radius: 10px;
+  width: 100%;
+  max-width: min(340px, 45vh);
+  margin: 0 auto 12px;
+  aspect-ratio: 1 / 1;
+  user-select: none;
+}
+
+.ng-corner { background: transparent; }
+
+.ng-col-clue, .ng-row-clue {
+  background: transparent;
+  color: var(--text);
+  font-size: 13px;
+  font-weight: 600;
+  display: flex;
+  gap: 3px;
+  line-height: 1;
+}
+.ng-col-clue {
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-end;
+  padding-bottom: 3px;
+}
+.ng-row-clue {
+  flex-direction: row;
+  align-items: center;
+  justify-content: flex-end;
+  padding-right: 4px;
+}
+
+.ng-cell {
+  background: #1f2937;
+  border: 1px solid rgba(255,255,255,0.05);
+  border-radius: 4px;
+  cursor: pointer;
+  padding: 0;
+  min-width: 0;
+  min-height: 0;
+  font-size: 18px;
+  font-weight: 700;
+  font-family: inherit;
+  color: var(--lose);
+  transition: background 0.1s, transform 0.1s;
+}
+.ng-cell:hover:not(:disabled) { background: #374151; }
+.ng-cell.filled {
+  background: var(--accent);
+  color: transparent;
+}
+.ng-cell.marked { background: #1f2937; }
+.ng-cell.solved { animation: ng-pulse 0.5s ease; }
+.ng-cell:disabled { cursor: default; }
+
+@keyframes ng-pulse {
+  0%, 100% { transform: scale(1); }
+  50% { transform: scale(1.15); }
+}
+
+#game-nonogram .controls button.active {
+  border-color: var(--accent);
+  background: var(--cell-hover);
+}
+
+@media (max-height: 680px) {
+  body:has(#game-nonogram) { padding: 6px 16px; }
+  #game-nonogram .panel { padding: 10px; }
+  #game-nonogram .subtitle { margin-bottom: 4px; font-size: 13px; }
+  #game-nonogram footer { margin-top: 4px; font-size: 11px; }
+  #game-nonogram .controls { margin-bottom: 8px; }
+  #game-nonogram .status { font-size: 14px; min-height: 20px; margin-bottom: 6px; }
+  #game-nonogram .stat-item { padding: 4px; }
+  #game-nonogram .stat-item .value { font-size: 16px; }
+  .ng-board { max-width: min(280px, 38vh); grid-template-columns: 36px repeat(5, 1fr); grid-template-rows: 36px repeat(5, 1fr); gap: 2px; padding: 4px; margin-bottom: 8px; }
+  .ng-col-clue, .ng-row-clue { font-size: 11px; gap: 2px; }
+  .ng-cell { font-size: 14px; }
+}

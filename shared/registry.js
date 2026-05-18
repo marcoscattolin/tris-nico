@@ -7,5 +7,7 @@ export const GAMES = [
   { id: 'p15',       slug: 'p15',       i18nTab: 'p15',     emoji: '🧩' },
   { id: 'mastermind',slug: 'mastermind',i18nTab: 'mastermind', emoji: '🎯' },
   { id: 'lightsout', slug: 'lightsout', i18nTab: 'lightsout', emoji: '💡' },
-  { id: 't24',       slug: 't24',       i18nTab: 't24',       emoji: '🧮' }
+  { id: 't24',       slug: 't24',       i18nTab: 't24',       emoji: '🧮' },
+  { id: 'nonogram',  slug: 'nonogram',  i18nTab: 'nonogram',  emoji: '🖼️' },
+  { id: 'snake',     slug: 'snake',     i18nTab: 'snake',     emoji: '🐍' }
 ];

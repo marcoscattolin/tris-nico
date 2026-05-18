@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<script src="../../shared/gtm.js"></script>
+<title>Nonogram (Picross) online gratis — Casual Games</title>
+<meta name="description" content="Nonogram online: riempi le celle seguendo i numeri ai bordi per scoprire l'immagine nascosta. Puzzle di logica nel browser." />
+<link rel="canonical" href="https://casualkidsgames.netlify.app/games/nonogram/" />
+<meta property="og:title" content="Nonogram (Picross) online gratis — Casual Games" />
+<meta property="og:description" content="Nonogram online: riempi le celle seguendo i numeri ai bordi per scoprire l'immagine nascosta. Puzzle di logica nel browser." />
+<meta property="og:type" content="website" />
+<meta property="og:url" content="https://casualkidsgames.netlify.app/games/nonogram/" />
+<meta property="og:site_name" content="Casual Games" />
+<meta name="twitter:card" content="summary" />
+<link rel="stylesheet" href="../../styles/base.css" />
+<link rel="stylesheet" href="nonogram.css" />
+</head>
+<body>
+  <noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-KSS8BN6Q" height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+  <div id="app-header"></div>
+  <div id="game-nonogram" class="game-view">
+    <div class="subtitle" id="ng-subtitle"></div>
+    <div class="panel">
+      <div class="status" id="ng-status"></div>
+      <div class="ng-board" id="ng-board"></div>
+      <div class="controls">
+        <button id="ng-fill"></button>
+        <button id="ng-mark"></button>
+        <button id="ng-new"></button>
+      </div>
+      <div class="three-stats">
+        <div class="stat-item moves">
+          <div class="label" id="lbl-ng-moves">Mosse</div>
+          <div class="value" id="ng-moves">0</div>
+        </div>
+        <div class="stat-item time">
+          <div class="label" id="lbl-ng-time">Tempo</div>
+          <div class="value" id="ng-time">00:00</div>
+        </div>
+        <div class="stat-item best">
+          <div class="label" id="lbl-ng-best">Record</div>
+          <div class="value" id="ng-best">–</div>
+        </div>
+      </div>
+    </div>
+    <footer id="ng-footer"></footer>
+  </div>
+  <div id="app-footer"></div>
+  <script type="module">
+    import { applyLanguage, currentLang } from '../../shared/i18n.js';
+    import { renderHeader } from '../../shared/header.js';
+    import { renderFooter } from '../../shared/footer.js';
+    import game from './nonogram.js';
+    renderHeader({ backHref: '../../' });
+    renderFooter();
+    game.init();
+    applyLanguage(currentLang);
+  </script>
+</body>
+</html>

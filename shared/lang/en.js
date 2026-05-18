@@ -11,7 +11,7 @@ export default {
     privacyPageTitle: 'Privacy Policy & Cookie Policy',
     cmpUnavailable: 'The consent management system is not loaded yet. Try again in a few seconds or reload the page.'
   },
-  tabs: { tris: 'Noughts & Crosses', imp: 'Hangman', anagram: 'Anagrams', memory: 'Memory', t2048: '2048', p15: '15 Puzzle', mastermind: 'Mastermind', lightsout: 'Lights Out', t24: 'Make 24' },
+  tabs: { tris: 'Noughts & Crosses', imp: 'Hangman', anagram: 'Anagrams', memory: 'Memory', t2048: '2048', p15: '15 Puzzle', mastermind: 'Mastermind', lightsout: 'Lights Out', t24: 'Make 24', nonogram: 'Nonogram', snake: 'Snake' },
   tris: {
     subtitle: 'Newell & Simon strategy — the AI never loses',
     btnHumanFirst: 'I start', btnAiFirst: 'AI starts', btnReset: 'New game',
@@ -87,5 +87,28 @@ export default {
     divByZero: "You can't divide by zero.",
     statWins: 'Wins', statLosses: 'Skipped', statBest: 'Best',
     footer: 'Use all 4 numbers with + − × ÷ to reach 24.'
+  },
+  nonogram: {
+    subtitle: 'Fill the cells and reveal the picture',
+    btnNew: 'New game',
+    btnFill: '● Fill',
+    btnMark: '× Mark',
+    play: 'Edge numbers are the lengths of consecutive filled runs',
+    won: (m, t) => `Solved in ${m} moves (${t})!`,
+    statMoves: 'Moves', statTime: 'Time', statBest: 'Best',
+    footer: 'Left click uses the current tool; right click uses the other.'
+  },
+  snake: {
+    subtitle: 'Eat the food and grow without hitting walls or yourself',
+    btnNew: 'New game',
+    btnPause: 'Pause',
+    btnResume: 'Resume',
+    play: 'Arrows or WASD to move; swipe on touch',
+    ready: 'Press an arrow (or swipe) to start',
+    paused: 'Paused',
+    won: s => `You filled the grid! (${s} points)`,
+    lost: s => `Game over. Score: ${s}.`,
+    statScore: 'Score', statTime: 'Time', statBest: 'Best',
+    footer: 'Arrows or WASD to move, Space to pause.'
   }
 };
