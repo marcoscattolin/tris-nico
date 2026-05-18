@@ -112,13 +112,13 @@ export default {
     footer: 'Arrows or WASD to move, Space to pause.'
   },
   tabelline: {
-    subtitle: 'The 2048 of times tables — merge equal tiles to multiply',
+    subtitle: 'The 2048 of times tables — merge two equal tiles to step up by +1',
     btnNew: 'New game',
     play: n => `Table of ${n}: arrow keys or swipe to merge tiles`,
     won: (n, k, v) => `Well done! You reached ${n}×${k} = ${v}.`,
     lost: 'No more moves.',
     statScore: 'Score', statBest: 'Best', statMax: 'Max',
-    footer: 'Pick a table from 2 to 9. Goal: reach N×256.'
+    footer: 'Two equal tiles merge into the next multiple (N×k + N×k → N×(k+1)). Goal: reach N×10.'
   },
   ops: {
     subtitle: 'Insert the right operators to reach the target',

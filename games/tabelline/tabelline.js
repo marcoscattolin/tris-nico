@@ -3,8 +3,29 @@ import { changeBackground } from '../../shared/backgrounds.js';
 
 const SIZE = 4;
 const ANIM_MS = 160;
-const WIN_MULT = 256;        // N × 256 è l'obiettivo (analogo a 2048)
+const WIN_K = 10;             // arriva a N×10 = tabellina completa
 const N_CHOICES = [2, 3, 4, 5, 6, 7, 8, 9];
+// Spawn pesato: prevalentemente k bassi, qualche k medio-alto per evitare blocchi.
+// Pesi cumulativi (somma = 30).
+const SPAWN_WEIGHTS = [
+  { k: 1, w: 8 },
+  { k: 2, w: 7 },
+  { k: 3, w: 5 },
+  { k: 4, w: 4 },
+  { k: 5, w: 3 },
+  { k: 6, w: 2 },
+  { k: 7, w: 1 }
+];
+const SPAWN_TOTAL = SPAWN_WEIGHTS.reduce((s, x) => s + x.w, 0);
+
+function pickSpawnK() {
+  let r = Math.random() * SPAWN_TOTAL;
+  for (const { k, w } of SPAWN_WEIGHTS) {
+    r -= w;
+    if (r <= 0) return k;
+  }
+  return 1;
+}
 
 let N = 7;
 let grid, tiles;
@@ -57,6 +78,10 @@ function createTile(mult, r, c, animate = true) {
   const tile = { id: nextTileId++, mult, r, c, el };
   tiles.push(tile);
   grid[r][c] = tile;
+  if (mult > maxMult) {
+    maxMult = mult;
+    if (maxEl) maxEl.textContent = N * maxMult;
+  }
   return tile;
 }
 
@@ -67,7 +92,7 @@ function spawnTile() {
       if (!grid[r][c]) empties.push([r, c]);
   if (!empties.length) return null;
   const [r, c] = empties[Math.floor(Math.random() * empties.length)];
-  return createTile(Math.random() < 0.9 ? 1 : 2, r, c);
+  return createTile(pickSpawnK(), r, c);
 }
 
 function move(dir) {
@@ -103,7 +128,7 @@ function move(dir) {
       if (mergeWith) {
         grid[r][c] = null;
         mergeWith.mergedThisTurn = true;
-        const newMult = mergeWith.mult * 2;
+        const newMult = mergeWith.mult + 1;
         gained += N * newMult;
         tile.r = nr; tile.c = nc;
         tile.consumed = true;
@@ -147,9 +172,9 @@ function move(dir) {
 
     spawnTile();
 
-    if (!won && maxMult >= WIN_MULT) {
+    if (!won && maxMult >= WIN_K) {
       won = true;
-      statusEl.textContent = T().tabelline.won(N, WIN_MULT, N * WIN_MULT);
+      statusEl.textContent = T().tabelline.won(N, WIN_K, N * WIN_K);
       statusEl.className = 'status win';
     } else if (!canMove()) {
       gameOver = true;

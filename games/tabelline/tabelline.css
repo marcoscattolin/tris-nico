@@ -91,14 +91,13 @@
   0%, 100% { scale: 1; }
   50% { scale: 1.18; }
 }
-.tab-tile[data-m="1"]   { background: #eee4da; }
-.tab-tile[data-m="2"]   { background: #ede0c8; }
-.tab-tile[data-m="4"]   { background: #f2b179; color: #f9f6f2; }
-.tab-tile[data-m="8"]   { background: #f59563; color: #f9f6f2; }
-.tab-tile[data-m="16"]  { background: #f67c5f; color: #f9f6f2; }
-.tab-tile[data-m="32"]  { background: #f65e3b; color: #f9f6f2; }
-.tab-tile[data-m="64"]  { background: #edcf72; color: #f9f6f2; }
-.tab-tile[data-m="128"] { background: #edcc61; color: #f9f6f2; }
-.tab-tile[data-m="256"] { background: #edc850; color: #f9f6f2; }
-.tab-tile[data-m="512"] { background: #edc53f; color: #f9f6f2; }
-.tab-tile[data-m="1024"] { background: #edc22e; color: #f9f6f2; }
+.tab-tile[data-m="1"]  { background: #eee4da; }
+.tab-tile[data-m="2"]  { background: #ede0c8; }
+.tab-tile[data-m="3"]  { background: #f2b179; color: #f9f6f2; }
+.tab-tile[data-m="4"]  { background: #f59563; color: #f9f6f2; }
+.tab-tile[data-m="5"]  { background: #f67c5f; color: #f9f6f2; }
+.tab-tile[data-m="6"]  { background: #f65e3b; color: #f9f6f2; }
+.tab-tile[data-m="7"]  { background: #edcf72; color: #f9f6f2; }
+.tab-tile[data-m="8"]  { background: #edcc61; color: #f9f6f2; }
+.tab-tile[data-m="9"]  { background: #edc850; color: #f9f6f2; }
+.tab-tile[data-m="10"] { background: #edc22e; color: #f9f6f2; }
