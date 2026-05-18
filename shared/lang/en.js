@@ -11,7 +11,7 @@ export default {
     privacyPageTitle: 'Privacy Policy & Cookie Policy',
     cmpUnavailable: 'The consent management system is not loaded yet. Try again in a few seconds or reload the page.'
   },
-  tabs: { tris: 'Noughts & Crosses', imp: 'Hangman', anagram: 'Anagrams', memory: 'Memory', t2048: '2048', p15: '15 Puzzle', mastermind: 'Mastermind', lightsout: 'Lights Out' },
+  tabs: { tris: 'Noughts & Crosses', imp: 'Hangman', anagram: 'Anagrams', memory: 'Memory', t2048: '2048', p15: '15 Puzzle', mastermind: 'Mastermind', lightsout: 'Lights Out', t24: 'Make 24' },
   tris: {
     subtitle: 'Newell & Simon strategy — the AI never loses',
     btnHumanFirst: 'I start', btnAiFirst: 'AI starts', btnReset: 'New game',
@@ -75,5 +75,17 @@ export default {
     won: (m, t) => `Solved in ${m} moves (${t})!`,
     statMoves: 'Moves', statTime: 'Time', statBest: 'Best',
     footer: 'Click a light: it toggles the 4 adjacent ones too.'
+  },
+  t24: {
+    subtitle: 'Combine the 4 numbers to make 24',
+    btnNew: 'New game',
+    btnUndo: 'Undo',
+    btnReset: 'Reset',
+    play: 'Tap a number, an operator, then another number',
+    won: 'Correct! You made 24!',
+    notYet: v => `You got ${v}, not 24.`,
+    divByZero: "You can't divide by zero.",
+    statWins: 'Wins', statLosses: 'Skipped', statBest: 'Best',
+    footer: 'Use all 4 numbers with + − × ÷ to reach 24.'
   }
 };
