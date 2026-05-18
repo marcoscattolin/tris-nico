@@ -1,0 +1,58 @@
+body:has(#game-snake) { padding: 10px 16px; }
+body:has(#game-snake) .header-row { margin-bottom: 6px; }
+body:has(#game-snake) #app-footer { padding-top: 8px; }
+body:has(#game-snake) .app-footer { padding: 6px 16px; gap: 2px; }
+
+#game-snake .panel { padding: 14px; }
+#game-snake .status { min-height: 24px; margin-bottom: 10px; }
+#game-snake footer { margin-top: 8px; font-size: 12px; }
+
+.snake-board {
+  display: grid;
+  grid-template-columns: repeat(15, 1fr);
+  grid-template-rows: repeat(15, 1fr);
+  gap: 1px;
+  padding: 6px;
+  background: rgba(0,0,0,0.35);
+  border-radius: 10px;
+  width: 100%;
+  max-width: min(360px, 50vh);
+  aspect-ratio: 1 / 1;
+  margin: 0 auto 12px;
+  touch-action: none;
+}
+
+.snake-cell {
+  background: #1f2937;
+  border-radius: 2px;
+  transition: background 0.08s;
+}
+.snake-cell.snake {
+  background: var(--win);
+}
+.snake-cell.head {
+  background: #15803d;
+  box-shadow: inset 0 0 0 2px rgba(255,255,255,0.25);
+}
+.snake-cell.food {
+  background: var(--lose);
+  border-radius: 50%;
+  animation: snake-food 0.7s infinite ease-in-out;
+}
+
+@keyframes snake-food {
+  0%, 100% { transform: scale(1); }
+  50% { transform: scale(1.18); }
+}
+
+@media (max-height: 680px) {
+  body:has(#game-snake) { padding: 6px 16px; }
+  #game-snake .panel { padding: 10px; }
+  #game-snake .subtitle { margin-bottom: 4px; font-size: 13px; }
+  #game-snake footer { margin-top: 4px; font-size: 11px; }
+  #game-snake .controls { margin-bottom: 8px; }
+  #game-snake .status { font-size: 14px; min-height: 20px; margin-bottom: 6px; }
+  #game-snake .stat-item { padding: 4px; }
+  #game-snake .stat-item .value { font-size: 16px; }
+  .snake-board { max-width: min(280px, 42vh); padding: 4px; margin-bottom: 8px; }
+}
