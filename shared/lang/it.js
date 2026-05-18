@@ -126,13 +126,13 @@ export default {
     footer: 'Frecce o WASD per muovere, Spazio per la pausa.'
   },
   tabelline: {
-    subtitle: 'Il 2048 delle tabelline — unisci tessere uguali per moltiplicarle',
+    subtitle: 'Il 2048 delle tabelline — unisci due tessere uguali per salire di +1',
     btnNew: 'Nuova partita',
     play: n => `Tabellina del ${n}: frecce o swipe per unire le tessere`,
     won: (n, k, v) => `Bravo! Hai raggiunto ${n}×${k} = ${v}.`,
     lost: 'Niente più mosse.',
     statScore: 'Punteggio', statBest: 'Record', statMax: 'Max',
-    footer: 'Scegli una tabellina dal 2 al 9. Goal: arrivare a N×256.'
+    footer: 'Due tessere uguali si fondono nel multiplo successivo (N×k + N×k → N×(k+1)). Goal: arrivare a N×10.'
   },
   ops: {
     subtitle: 'Inserisci gli operatori giusti per raggiungere il target',
