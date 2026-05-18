@@ -11,7 +11,7 @@ export default {
     privacyPageTitle: 'Privacy Policy & Cookie Policy',
     cmpUnavailable: 'Il sistema di gestione consensi non è ancora caricato. Riprova tra qualche secondo o ricarica la pagina.'
   },
-  tabs: { tris: 'Tris', imp: 'Impiccato', anagram: 'Anagrammi', memory: 'Memory', t2048: '2048', p15: 'Gioco del 15', mastermind: 'Mastermind', lightsout: 'Lights Out', t24: 'Gioco del 24' },
+  tabs: { tris: 'Tris', imp: 'Impiccato', anagram: 'Anagrammi', memory: 'Memory', t2048: '2048', p15: 'Gioco del 15', mastermind: 'Mastermind', lightsout: 'Lights Out', t24: 'Gioco del 24', nonogram: 'Nonogram' },
   tris: {
     subtitle: "Strategia Newell & Simon — l'IA non perde mai",
     btnHumanFirst: 'Inizio io',
@@ -101,5 +101,15 @@ export default {
     divByZero: 'Non puoi dividere per zero.',
     statWins: 'Vittorie', statLosses: 'Saltate', statBest: 'Record',
     footer: 'Usa tutti e 4 i numeri con + − × ÷ per arrivare a 24.'
+  },
+  nonogram: {
+    subtitle: "Riempi le celle e scopri l'immagine",
+    btnNew: 'Nuova partita',
+    btnFill: '● Riempi',
+    btnMark: '× Marca',
+    play: 'I numeri ai bordi sono i blocchi consecutivi da riempire',
+    won: (m, t) => `Risolto in ${m} mosse (${t})!`,
+    statMoves: 'Mosse', statTime: 'Tempo', statBest: 'Record',
+    footer: 'Click sinistro applica lo strumento; click destro applica l\'altro.'
   }
 };
