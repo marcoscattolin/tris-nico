@@ -11,5 +11,6 @@ export const GAMES = [
   { id: 'nonogram',  slug: 'nonogram',  i18nTab: 'nonogram',  emoji: '🖼️' },
   { id: 'snake',     slug: 'snake',     i18nTab: 'snake',     emoji: '🐍' },
   { id: 'wordladder',slug: 'wordladder',i18nTab: 'wordladder',emoji: '🪜' },
-  { id: 'ops',       slug: 'operatori', i18nTab: 'ops',       emoji: '➕' }
+  { id: 'ops',       slug: 'operatori', i18nTab: 'ops',       emoji: '➕' },
+  { id: 'tabelline', slug: 'tabelline', i18nTab: 'tabelline', emoji: '✖️' }
 ];

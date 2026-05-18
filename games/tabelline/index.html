@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<script src="../../shared/gtm.js"></script>
+<title>Tabelline 2048 — impara le tabelline giocando — Casual Games</title>
+<meta name="description" content="2048 delle tabelline: scegli una tabellina dal 2 al 9 e unisci le tessere per arrivare a N×256. Esercizio di matematica nel browser." />
+<link rel="canonical" href="https://casualkidsgames.netlify.app/games/tabelline/" />
+<meta property="og:title" content="Tabelline 2048 — impara le tabelline giocando — Casual Games" />
+<meta property="og:description" content="2048 delle tabelline: scegli una tabellina dal 2 al 9 e unisci le tessere per arrivare a N×256." />
+<meta property="og:type" content="website" />
+<meta property="og:url" content="https://casualkidsgames.netlify.app/games/tabelline/" />
+<meta property="og:site_name" content="Casual Games" />
+<meta name="twitter:card" content="summary" />
+<link rel="stylesheet" href="../../styles/base.css" />
+<link rel="stylesheet" href="tabelline.css" />
+</head>
+<body>
+  <noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-KSS8BN6Q" height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+  <div id="app-header"></div>
+  <div id="game-tabelline" class="game-view">
+    <div class="subtitle" id="tab-subtitle"></div>
+    <div class="panel">
+      <div class="tab-chips" id="tab-chips"></div>
+      <div class="controls">
+        <button id="tab-new"></button>
+      </div>
+      <div class="status" id="tab-status"></div>
+      <div class="tab-board" id="tab-board"></div>
+      <div class="three-stats">
+        <div class="stat-item score">
+          <div class="label" id="lbl-tab-score">Punteggio</div>
+          <div class="value" id="tab-score">0</div>
+        </div>
+        <div class="stat-item best">
+          <div class="label" id="lbl-tab-best">Record</div>
+          <div class="value" id="tab-best">0</div>
+        </div>
+        <div class="stat-item wins">
+          <div class="label" id="lbl-tab-max">Max</div>
+          <div class="value" id="tab-max">0</div>
+        </div>
+      </div>
+    </div>
+    <footer id="tab-footer"></footer>
+  </div>
+  <div id="app-footer"></div>
+  <script type="module">
+    import { applyLanguage, currentLang } from '../../shared/i18n.js';
+    import { renderHeader } from '../../shared/header.js';
+    import { renderFooter } from '../../shared/footer.js';
+    import game from './tabelline.js';
+    renderHeader({ backHref: '../../' });
+    renderFooter();
+    game.init();
+    applyLanguage(currentLang);
+  </script>
+</body>
+</html>

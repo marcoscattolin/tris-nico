@@ -11,7 +11,7 @@ export default {
     privacyPageTitle: 'Privacy Policy & Cookie Policy',
     cmpUnavailable: 'The consent management system is not loaded yet. Try again in a few seconds or reload the page.'
   },
-  tabs: { tris: 'Noughts & Crosses', imp: 'Hangman', anagram: 'Anagrams', memory: 'Memory', t2048: '2048', p15: '15 Puzzle', mastermind: 'Mastermind', lightsout: 'Lights Out', t24: 'Make 24', nonogram: 'Nonogram', snake: 'Snake', wordladder: 'Word Ladder', ops: 'Missing Operators' },
+  tabs: { tris: 'Noughts & Crosses', imp: 'Hangman', anagram: 'Anagrams', memory: 'Memory', t2048: '2048', p15: '15 Puzzle', mastermind: 'Mastermind', lightsout: 'Lights Out', t24: 'Make 24', nonogram: 'Nonogram', snake: 'Snake', wordladder: 'Word Ladder', ops: 'Missing Operators', tabelline: 'Times Tables 2048' },
   tris: {
     subtitle: 'Newell & Simon strategy — the AI never loses',
     btnHumanFirst: 'I start', btnAiFirst: 'AI starts', btnReset: 'New game',
@@ -110,6 +110,15 @@ export default {
     lost: s => `Game over. Score: ${s}.`,
     statScore: 'Score', statTime: 'Time', statBest: 'Best',
     footer: 'Arrows or WASD to move, Space to pause.'
+  },
+  tabelline: {
+    subtitle: 'The 2048 of times tables — merge equal tiles to multiply',
+    btnNew: 'New game',
+    play: n => `Table of ${n}: arrow keys or swipe to merge tiles`,
+    won: (n, k, v) => `Well done! You reached ${n}×${k} = ${v}.`,
+    lost: 'No more moves.',
+    statScore: 'Score', statBest: 'Best', statMax: 'Max',
+    footer: 'Pick a table from 2 to 9. Goal: reach N×256.'
   },
   ops: {
     subtitle: 'Insert the right operators to reach the target',
